@@ -1,0 +1,11 @@
+{
+  "version": "0.7.0",
+  "notes": "Bella Napolia POS 0.7.0",
+  "pub_date": "2026-10-19T22:13:18.863Z",
+  "platforms": {
+    "windows-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTcmJtc1Y2TzFIZGQ0MWQwcjNhV2Q1VTk0SVZQeU1hNUxsTDVIcHBUOG5QeVZyT1dnOVVlZDAxbXRFaHdqR2poaVVvQk92NHRZTlVRWTJzeFdlUkxqWE1rdHp1MU02aGdnPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkyNDQ3ODU5CWZpbGU6QmVsbGEgTmFwb2xpYSBQT1NfMC43LjBfeDY0LXNldHVwLmV4ZQl2ZXJzaW9uOjAuNy4wCmZvVzVITUQydDVJaHQ4UDlIbG5Za3crbjJZNkxkM2IvVis4TEl1L0ZCSm8ybXNiMFNjc1FTRWZZSVVkaHR0MXVoTTZWUVljNjBkZnpNMHN0Rzd1WEF3PT0K",
+      "url": "https://yassir1778.github.io/napolia/pos/bella-napolia-pos_0.7.0_x64-setup.exe"
+    }
+  }
+}
