@@ -23,9 +23,9 @@ set "CHROME="
 if exist "%ProgramFiles%\Google\Chrome\Application\chrome.exe" set "CHROME=%ProgramFiles%\Google\Chrome\Application\chrome.exe"
 if not defined CHROME if exist "%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe" set "CHROME=%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe"
 if not defined CHROME if exist "%LocalAppData%\Google\Chrome\Application\chrome.exe" set "CHROME=%LocalAppData%\Google\Chrome\Application\chrome.exe"
+if not defined CHROME call :installchrome
 if not defined CHROME (
-  echo  [!] Google Chrome n'est pas installe sur cet ordinateur.
-  echo      Installez-le depuis google.com/chrome, puis relancez ce fichier.
+  echo  [!] Chrome n'a pas pu etre installe. Verifiez internet et relancez ce fichier.
   echo.
   pause
   exit /b 1
@@ -91,3 +91,26 @@ echo  - Fermez Chrome, puis ouvrez "Bella Napolia Caisse" sur le bureau.
 echo  - Pour quitter la caisse en plein ecran : Alt + F4.
 echo.
 pause
+exit /b 0
+
+rem Today's Chrome needs Windows 10: Windows 7 takes Chrome 109, its last
+rem version, from Google's own server; installed only if Google signed it.
+:installchrome
+set "CH_URL=https://dl.google.com/release2/chrome/czao2hrvpk5wgqrkz4kks5r734_109.0.5414.120/109.0.5414.120_chrome_installer.exe"
+if /i not "%PROCESSOR_ARCHITECTURE%"=="AMD64" if not defined PROCESSOR_ARCHITEW6432 set "CH_URL=https://dl.google.com/release2/chrome/acihtkcueyye3ymoj2afvv7ulzxa_109.0.5414.120/109.0.5414.120_chrome_installer.exe"
+set "CH_EXE=%TEMP%\chrome109_installer.exe"
+echo  [1/6] Chrome n'est pas installe : telechargement de Chrome 109 (environ 90 Mo)...
+bitsadmin /transfer BellaChrome /priority foreground "%CH_URL%" "%CH_EXE%" >nul
+if not exist "%CH_EXE%" exit /b 0
+powershell -NoProfile -Command "$s = Get-AuthenticodeSignature '%CH_EXE%'; if ($s.Status -eq 'Valid' -and $s.SignerCertificate.Subject -like '*Google*') { exit 0 } else { exit 1 }"
+if errorlevel 1 (
+  echo  [!] Le fichier telecharge n'est pas signe par Google : il n'est pas installe.
+  del "%CH_EXE%" >nul 2>&1
+  exit /b 0
+)
+echo        Installation de Chrome 109...
+"%CH_EXE%" --system-level --do-not-launch-chrome
+del "%CH_EXE%" >nul 2>&1
+if exist "%ProgramFiles%\Google\Chrome\Application\chrome.exe" set "CHROME=%ProgramFiles%\Google\Chrome\Application\chrome.exe"
+if not defined CHROME if exist "%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe" set "CHROME=%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe"
+exit /b 0
