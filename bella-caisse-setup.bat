@@ -99,8 +99,14 @@ rem version, from Google's own server; installed only if Google signed it.
 set "CH_URL=https://dl.google.com/release2/chrome/czao2hrvpk5wgqrkz4kks5r734_109.0.5414.120/109.0.5414.120_chrome_installer.exe"
 if /i not "%PROCESSOR_ARCHITECTURE%"=="AMD64" if not defined PROCESSOR_ARCHITEW6432 set "CH_URL=https://dl.google.com/release2/chrome/acihtkcueyye3ymoj2afvv7ulzxa_109.0.5414.120/109.0.5414.120_chrome_installer.exe"
 set "CH_EXE=%TEMP%\chrome109_installer.exe"
-echo  [1/6] Chrome n'est pas installe : telechargement de Chrome 109 (environ 90 Mo)...
-bitsadmin /transfer BellaChrome /priority foreground "%CH_URL%" "%CH_EXE%" >nul
+rem Brought on a USB stick next to this file: no download needed.
+if exist "%~dp0109.0.5414.120_chrome_installer.exe" (
+  echo  [1/6] Chrome n'est pas installe : installateur trouve a cote de ce fichier.
+  copy /y "%~dp0109.0.5414.120_chrome_installer.exe" "%CH_EXE%" >nul
+) else (
+  echo  [1/6] Chrome n'est pas installe : telechargement de Chrome 109 - environ 90 Mo...
+  bitsadmin /transfer BellaChrome /priority foreground "%CH_URL%" "%CH_EXE%" >nul
+)
 if not exist "%CH_EXE%" exit /b 0
 powershell -NoProfile -Command "$s = Get-AuthenticodeSignature '%CH_EXE%'; if ($s.Status -eq 'Valid' -and $s.SignerCertificate.Subject -like '*Google*') { exit 0 } else { exit 1 }"
 if errorlevel 1 (
