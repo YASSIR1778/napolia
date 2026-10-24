@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yassir1778.github.io/napolia/sitemap.xml
