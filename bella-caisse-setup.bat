@@ -1,9 +1,11 @@
 @echo off
-rem Bella Napolia: prepares a Windows 7 computer to run the till in Chrome.
+rem Bella Napolia: prepares the cafe's till computer (Windows 7, 10 or 11) to
+rem run the till in Chrome, its tickets printing by themselves after each sale.
 rem Run once, with a right click > "Run as administrator".
 setlocal EnableExtensions
 title Bella Napolia - Installation de la caisse
-set "URL=https://yassir1778.github.io/napolia/caisse/"
+rem ?print=browser: the till sends its tickets to this computer's default printer.
+set "URL=https://yassir1778.github.io/napolia/caisse/?print=browser"
 
 net session >nul 2>&1
 if errorlevel 1 (
@@ -14,18 +16,23 @@ if errorlevel 1 (
   exit /b 1
 )
 
+rem 6 = Windows 7, 10 = Windows 10 or 11.
+set "WINVER=10"
+for /f %%V in ('powershell -NoProfile -Command "[Environment]::OSVersion.Version.Major"') do set "WINVER=%%V"
+
 echo.
 echo  ===== Bella Napolia : preparation de la caisse =====
 echo.
 
 rem --- 1. Chrome (109 is the last version for Windows 7)
 set "CHROME="
-if exist "%ProgramFiles%\Google\Chrome\Application\chrome.exe" set "CHROME=%ProgramFiles%\Google\Chrome\Application\chrome.exe"
-if not defined CHROME if exist "%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe" set "CHROME=%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe"
-if not defined CHROME if exist "%LocalAppData%\Google\Chrome\Application\chrome.exe" set "CHROME=%LocalAppData%\Google\Chrome\Application\chrome.exe"
-if not defined CHROME call :installchrome
+call :findchrome
+if not defined CHROME if "%WINVER%"=="6" call :installchrome7
+if not defined CHROME if not "%WINVER%"=="6" call :installchrome
+if not defined CHROME call :findchrome
 if not defined CHROME (
-  echo  [!] Chrome n'a pas pu etre installe. Verifiez internet et relancez ce fichier.
+  echo  [!] Chrome n'a pas pu etre installe. Installez-le depuis www.google.com/chrome
+  echo      puis relancez ce fichier.
   echo.
   pause
   exit /b 1
@@ -67,11 +74,12 @@ powercfg -change -monitor-timeout-ac 0 >nul
 powercfg -change -hibernate-timeout-ac 0 >nul
 echo  [4/6] Mise en veille desactivee
 
-rem --- 5. Moroccan time (UTC+1), set from the internet
-rem Windows' Casablanca zone is right only when its rules reach this year (the
-rem Ramadan hour included); an older Windows 7 gets West Central Africa (UTC+1).
-set "ZONE=W. Central Africa Standard Time"
-for /f "tokens=3" %%Y in ('reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones\Morocco Standard Time\Dynamic DST" /v LastEntry 2^>nul ^| find "LastEntry"') do if %%Y GEQ 2026 set "ZONE=Morocco Standard Time"
+rem --- 5. Moroccan time (UTC+0 all year since the 2026 time-zone data), set from the internet
+rem Windows' Morocco zone is right once its rules have that change; a Windows
+rem without it (Windows 7 gets no more updates) is set to Greenwich: UTC+0 too.
+set "ZONE=Greenwich Standard Time"
+powershell -NoProfile -Command "if ([TimeZoneInfo]::FindSystemTimeZoneById('Morocco Standard Time').GetUtcOffset([datetime]'2027-07-15').TotalMinutes -eq 0) { exit 0 } else { exit 1 }" >nul 2>&1
+if not errorlevel 1 set "ZONE=Morocco Standard Time"
 tzutil /s "%ZONE%"
 sc config w32time start= auto >nul
 net start w32time >nul 2>&1
@@ -80,22 +88,51 @@ w32tm /resync /rediscover >nul 2>&1
 echo  [5/6] Fuseau horaire : %ZONE% ; heure reglee par internet
 echo        Heure de l'ordinateur maintenant : %TIME:~0,5%  (comparez avec votre telephone)
 
-rem --- 6. Printers: the receipt printer must be the default one
-echo  [6/6] Imprimantes installees (Default=TRUE : imprimante par defaut) :
-wmic printer get Name,Default 2>nul
+rem --- 6. The receipt printer becomes the default one: the till prints there.
+rem Windows 10 and 11 must not move the default to the last printer used.
+reg add "HKCU\Software\Microsoft\Windows NT\CurrentVersion\Windows" /v LegacyDefaultPrinterMode /t REG_DWORD /d 1 /f >nul 2>&1
+echo  [6/6] Imprimantes de cet ordinateur :
+powershell -NoProfile -Command "$i = 0; foreach ($p in @(Get-WmiObject Win32_Printer)) { $i++; $d = ''; if ($p.Default) { $d = '   (par defaut)' }; Write-Host ('        ' + $i + '. ' + $p.Name + $d) }"
+echo.
+set "PNUM="
+set /p "PNUM=        Numero de l'imprimante de tickets (Entree = ne rien changer) : "
+if not defined PNUM goto :printerdone
+echo %PNUM%| findstr /r /x "[0-9][0-9]*" >nul
+if errorlevel 1 goto :printerdone
+powershell -NoProfile -Command "$p = @(Get-WmiObject Win32_Printer)[%PNUM% - 1]; if ($p) { $null = $p.SetDefaultPrinter(); Write-Host ('        Imprimante par defaut : ' + $p.Name) } else { Write-Host '        Numero inconnu : rien n''a change.' }"
+:printerdone
+
 echo.
 echo  ===== Termine =====
-echo  - Si l'imprimante de tickets n'est pas "TRUE" ci-dessus : Demarrer ^> Peripheriques
-echo    et imprimantes ^> clic droit sur elle ^> "Definir comme imprimante par defaut".
+echo  - Si l'imprimante de tickets n'est pas dans la liste : installez-la (CD ou site
+echo    du fabricant), puis relancez ce fichier.
 echo  - Fermez Chrome, puis ouvrez "Bella Napolia Caisse" sur le bureau.
+echo  - La premiere fois : liez la caisse avec un code du tableau de bord
+echo    (Appareils ^> Associer une caisse), bouton "Connexion a la base".
+echo  - Ensuite chaque ticket sort seul apres le paiement.
 echo  - Pour quitter la caisse en plein ecran : Alt + F4.
 echo.
 pause
 exit /b 0
 
+rem Chrome where its installer puts it, for this computer or this user.
+:findchrome
+if exist "%ProgramFiles%\Google\Chrome\Application\chrome.exe" set "CHROME=%ProgramFiles%\Google\Chrome\Application\chrome.exe"
+if not defined CHROME if exist "%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe" set "CHROME=%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe"
+if not defined CHROME if exist "%LocalAppData%\Google\Chrome\Application\chrome.exe" set "CHROME=%LocalAppData%\Google\Chrome\Application\chrome.exe"
+exit /b 0
+
+rem Windows 10 and 11: today's Chrome, through Windows' own installer (winget).
+:installchrome
+where winget >nul 2>&1
+if errorlevel 1 exit /b 0
+echo  [1/6] Chrome n'est pas installe : installation...
+winget install --id Google.Chrome -e --silent --accept-package-agreements --accept-source-agreements >nul 2>&1
+exit /b 0
+
 rem Today's Chrome needs Windows 10: Windows 7 takes Chrome 109, its last
 rem version, from Google's own server; installed only if Google signed it.
-:installchrome
+:installchrome7
 set "CH_URL=https://dl.google.com/release2/chrome/czao2hrvpk5wgqrkz4kks5r734_109.0.5414.120/109.0.5414.120_chrome_installer.exe"
 if /i not "%PROCESSOR_ARCHITECTURE%"=="AMD64" if not defined PROCESSOR_ARCHITEW6432 set "CH_URL=https://dl.google.com/release2/chrome/acihtkcueyye3ymoj2afvv7ulzxa_109.0.5414.120/109.0.5414.120_chrome_installer.exe"
 set "CH_EXE=%TEMP%\chrome109_installer.exe"
@@ -117,6 +154,4 @@ if errorlevel 1 (
 echo        Installation de Chrome 109...
 "%CH_EXE%" --system-level --do-not-launch-chrome
 del "%CH_EXE%" >nul 2>&1
-if exist "%ProgramFiles%\Google\Chrome\Application\chrome.exe" set "CHROME=%ProgramFiles%\Google\Chrome\Application\chrome.exe"
-if not defined CHROME if exist "%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe" set "CHROME=%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe"
 exit /b 0
