@@ -1,1 +1,0 @@
-export{r as dropOnWebsite}from"./App-0WlNA1-r.js";

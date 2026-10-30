@@ -1,0 +1,1 @@
+export{r as dropOnWebsite}from"./App-Bjqffd1f.js";
