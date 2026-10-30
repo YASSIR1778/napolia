@@ -1,1 +1,0 @@
-export{r as dropOnWebsite}from"./App-HeC_x5eX.js";
