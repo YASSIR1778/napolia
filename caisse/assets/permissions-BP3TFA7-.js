@@ -1,0 +1,1 @@
+export{c as PERMISSION_LABEL,l as approvalOpen,u as authorize,d as authorizeBy,f as can,p as useApproval}from"./App-BzaFmmdt.js";
