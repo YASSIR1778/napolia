@@ -1,0 +1,1 @@
+export{b as PERMISSION_LABEL,x as approvalOpen,S as authorize,C as authorizeBy,w as can,T as useApproval}from"./App-0WlNA1-r.js";
