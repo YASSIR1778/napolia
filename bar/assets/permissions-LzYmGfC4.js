@@ -1,1 +1,0 @@
-export{b as PERMISSION_LABEL,x as approvalOpen,S as authorize,C as authorizeBy,w as can,T as useApproval}from"./App-GCWU1-AP.js";

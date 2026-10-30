@@ -1,0 +1,1 @@
+export{r as dropOnWebsite}from"./App-DxtwvhKj.js";
