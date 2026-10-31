@@ -1,1 +1,0 @@
-export{r as dropOnWebsite}from"./App-DcCXeLIQ.js";
