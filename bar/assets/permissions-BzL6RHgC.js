@@ -1,1 +1,0 @@
-export{F as PERMISSION_LABEL,I as approvalOpen,L as authorize,R as authorizeBy,z as can,B as useApproval}from"./App-DgylGL3S.js";
