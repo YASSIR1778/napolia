@@ -1,1 +1,0 @@
-export{y as PERMISSION_LABEL,b as approvalOpen,x as authorize,S as authorizeBy,C as can,w as useApproval}from"./App-Brdj3W7S.js";
