@@ -1,0 +1,1 @@
+export{h as dropOnWebsite}from"./App-BJFa-der.js";
