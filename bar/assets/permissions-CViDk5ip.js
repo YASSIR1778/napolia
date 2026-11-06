@@ -1,1 +1,0 @@
-export{c as PERMISSION_LABEL,l as approvalOpen,u as authorize,d as authorizeBy,f as can,p as useApproval}from"./App-7-j9l1_z.js";
