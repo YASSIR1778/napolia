@@ -1,0 +1,1 @@
+var e=`https://ovllldhucvfaewzwmqwx.supabase.co`,t=`sb_publishable_VSLTthVdQghF9tgvVeP-TQ_eK_yzNJ5`;export{e as n,t};

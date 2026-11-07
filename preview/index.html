@@ -32,9 +32,13 @@
     <meta property="og:locale:alternate" content="es_ES" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://cafenapolia.com/og.jpg" />
-    <link rel="icon" type="image/png" href="./favicon.png" />
-    <link rel="apple-touch-icon" href="./favicon.png" />
+    <link rel="icon" type="image/png" href="/napolia/preview/favicon.png" />
+    <link rel="apple-touch-icon" href="/napolia/preview/favicon.png" />
     <title>Bella Napolia · مقهى في تطوان · Coffee shop Tétouan</title>
+    <link rel="preconnect" href="https://ovllldhucvfaewzwmqwx.supabase.co" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/napolia/preview/assets/aref-ruqaa-arabic-700-normal-D30apH1C.woff2">
+    <link rel="preload" as="image" href="/napolia/preview/assets/logo-on-dark-eEu7QgYG.webp">
+    <script>try{var u="https://ovllldhucvfaewzwmqwx.supabase.co/rest/v1/rpc/",h={apikey:"sb_publishable_VSLTthVdQghF9tgvVeP-TQ_eK_yzNJ5",'Content-Type':'application/json'};window.__napoliaEarly={menu:fetch(u+'public_menu',{method:'POST',headers:h,body:'{}'}),offers:fetch(u+'public_offers',{method:'POST',headers:h,body:'{}'})};window.__napoliaEarly.menu.catch(function(){});window.__napoliaEarly.offers.catch(function(){})}catch(e){}</script>
     <script type="application/ld+json" id="ld-cafe">
       {
         "@context": "https://schema.org",
@@ -72,17 +76,17 @@
         "sameAs": ["https://www.facebook.com/CafesNapolia", "https://www.instagram.com/cafe_napolia/"]
       }
     </script>
-    <script type="module" crossorigin src="/napolia/preview/assets/index-CjfbfQfR.js"></script>
-    <link rel="modulepreload" crossorigin href="/napolia/preview/assets/pages-vintage-Dj2pM4Ih.js">
-    <link rel="modulepreload" crossorigin href="/napolia/preview/assets/ui-C_jhz2u9.js">
-    <link rel="stylesheet" crossorigin href="/napolia/preview/assets/pages-vintage-Ck8xeAii.css">
-    <link rel="stylesheet" crossorigin href="/napolia/preview/assets/index-6SsmlR_u.css">
+    <script type="module" crossorigin src="/napolia/preview/assets/index-C5Rrotvs.js"></script>
+    <link rel="modulepreload" crossorigin href="/napolia/preview/assets/i18n-CFJKOrpp.js">
+    <link rel="modulepreload" crossorigin href="/napolia/preview/assets/ui-BFPL8ujl.js">
+    <link rel="modulepreload" crossorigin href="/napolia/preview/assets/supabaseConfig-3txsLbbu.js">
+    <link rel="preload" as="style" crossorigin href="/napolia/preview/assets/index-wnX_CVL1.css" data-css onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" crossorigin href="/napolia/preview/assets/index-wnX_CVL1.css"></noscript>
   </head>
   <body>
     <div id="root">
       <div id="boot" dir="rtl">
         <div class="b-sign" dir="ltr"><span class="b-bella">Bella</span><span class="b-name">NAPOLIA</span></div>
-        <div class="b-line">مقهى في تطوان · Coffee shop à Tétouan</div>
+        <div class="b-line" id="boot-what">مقهى في تطوان · Café à Tétouan</div>
         <div class="b-line" id="boot-hours">كل يوم · 7:00 – 22:00</div>
         <div class="b-line" dir="ltr">110 Av. Mohamed Daoud, Tétouan</div>
         <div class="b-btns">
@@ -93,14 +97,35 @@
       </div>
     </div>
     <script>
-      // و7: the hours set in the dashboard, from the copy of the menu this phone keeps (none on a first visit).
+      // و7: the hours set in the dashboard, from the copy of the menu this phone keeps (none on a first
+      // visit). The screen in English or Spanish for a visitor in one of them (QA, 7 November 2026).
       try {
+        var o = 7, c = 22;
         var kept = JSON.parse(localStorage.getItem('napolia-menu') || 'null');
         var cafe = kept && kept.cafe;
         if (cafe) {
-          var o = cafe.openHour == null ? 7 : cafe.openHour;
-          var c = cafe.closeHour == null ? 22 : cafe.closeHour;
-          document.getElementById('boot-hours').textContent = c - o >= 24 ? 'مفتوح كل يوم 24 ساعة' : 'كل يوم · ' + o + ':00 – ' + c + ':00';
+          o = cafe.openHour == null ? 7 : cafe.openHour;
+          c = cafe.closeHour == null ? 22 : cafe.closeHour;
+        }
+        var allDay = c - o >= 24;
+        var hours = o + ':00 – ' + c + ':00';
+        var saved = JSON.parse(localStorage.getItem('napolia-lang') || 'null');
+        var lang = (saved && saved.state && saved.state.lang) || ((navigator.languages && navigator.languages[0]) || navigator.language || '').slice(0, 2).toLowerCase();
+        var say = {
+          en: ['Café in Tétouan', allDay ? 'Open every day, 24 hours' : 'Every day · ' + hours, 'Call', 'The menu is on its way…'],
+          es: ['Cafetería en Tetuán', allDay ? 'Abierto todos los días, 24 horas' : 'Todos los días · ' + hours, 'Llamar', 'La carta está llegando…'],
+        }[lang];
+        var boot = document.getElementById('boot');
+        if (say) {
+          boot.dir = 'ltr';
+          boot.lang = lang;
+          document.getElementById('boot-what').textContent = say[0];
+          document.getElementById('boot-hours').textContent = say[1];
+          boot.querySelector('.b-call').textContent = say[2];
+          boot.querySelector('.b-wa').textContent = 'WhatsApp';
+          boot.querySelector('.b-wait').textContent = say[3];
+        } else if (cafe) {
+          document.getElementById('boot-hours').textContent = allDay ? 'مفتوح كل يوم 24 ساعة' : 'كل يوم · ' + hours;
         }
       } catch (e) {}
     </script>
