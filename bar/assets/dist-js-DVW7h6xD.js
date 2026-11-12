@@ -1,0 +1,1 @@
+import{invoke as e}from"./core-CnP0-wGC.js";async function t(){await e(`plugin:process|restart`)}export{t as relaunch};
