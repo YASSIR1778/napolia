@@ -1,11 +1,11 @@
 {
-  "version": "0.9.134",
-  "notes": "Bella Napolia POS 0.9.134",
-  "pub_date": "2026-11-11T22:37:56.669Z",
+  "version": "0.9.135",
+  "notes": "Bella Napolia POS 0.9.135",
+  "pub_date": "2026-11-12T08:54:57.644Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTcmJtc1Y2TzFIZFFybjlLQzE3cS80K3NPdFBJa2IxNm1vcjB6alFmcUxyenlSK1N3ZGc2am8vV3VSamp0TXUzcTg4a0xxZzJvUlRweEdrdW5paHo0V0d1ZVU5TlhLbUFjPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0NDM2NjIwCWZpbGU6QmVsbGEgTmFwb2xpYSBQT1NfMC45LjEzNF94NjQtc2V0dXAuZXhlCXZlcnNpb246MC45LjEzNApLVGhSNlo2MFM2N0E3VTkxbjA2byt4Vzg1T0RHYTZEb1NtY0RiYm9jdW1zQTd4SnVaMjFWM3NQTDVMZDlUampRblV1RkkxNG5rU3BMWklnL1V2L3VEUT09Cg==",
-      "url": "https://yassir1778.github.io/napolia/pos/bella-napolia-pos_0.9.134_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTcmJtc1Y2TzFIZFcyQTZpdjFUb21sQitGZ1RFUFByMzNZQzF4OTlKQWNieGlseUlWcnpPMlpXSUZhM3BxeEpSbFAvR3RDWVl4RDdtLzJLMXgrVVVXbVFQMEE1VGJXd1EwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0NDczNjQ4CWZpbGU6QmVsbGEgTmFwb2xpYSBQT1NfMC45LjEzNV94NjQtc2V0dXAuZXhlCXZlcnNpb246MC45LjEzNQpiWXNoQUFPVU50a0FqQ3I1UUZGSVBKdDF3QmRWU3NXSER1T24vRUZraXNYSU9HYmMrVDBlc3FSMDlSVGVtT0EzQjYvcWlmVlRYZDB5U2pkZm1Xd3ZDZz09Cg==",
+      "url": "https://yassir1778.github.io/napolia/pos/bella-napolia-pos_0.9.135_x64-setup.exe"
     }
   }
 }
