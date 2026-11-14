@@ -1,0 +1,2075 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="../favicon.png">
+<title>دليل الكاشير · Bella Napolia</title>
+<!--
+  «دليل الكاشير»: the staff guide of the café's till, in one page.
+  - Opened inside the till (TopBar staff menu and the PIN screen, components/StaffGuide.tsx) with ?embed=1&bar=on|off&theme=…
+  - Opened on a phone from the till's QR (https://yassir1778.github.io/napolia/caisse/guide/?bar=…).
+  - Printed to docs/print/dalil-al-kashir.pdf by scripts/guide-pdf.py (?print=1&pages=…).
+  Bar ON/OFF blocks: class="bar-on" / class="bar-off". Button names as on the screen: <b class="k">…</b>.
+  Latin words and numbers are kept left to right by the script below (no <bdi> needed in the text).
+-->
+<script>
+  (function () {
+    var q = new URLSearchParams(location.search), t = q.get('theme');
+    if (q.get('print') === '1') t = 'light';
+    else if (t !== 'dark' && t !== 'light') t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', t);
+    if (q.get('embed') === '1') document.documentElement.classList.add('embed');
+    if (q.get('print') === '1') document.documentElement.classList.add('printing');
+  })();
+</script>
+<style>
+@font-face { font-family: 'Taj'; font-weight: 400; font-display: swap; src: url('fonts/tajawal-arabic-400-normal.woff2') format('woff2'); unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC; }
+@font-face { font-family: 'Taj'; font-weight: 500; font-display: swap; src: url('fonts/tajawal-arabic-500-normal.woff2') format('woff2'); unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC; }
+@font-face { font-family: 'Taj'; font-weight: 700; font-display: swap; src: url('fonts/tajawal-arabic-700-normal.woff2') format('woff2'); unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC; }
+@font-face { font-family: 'Taj'; font-weight: 800; font-display: swap; src: url('fonts/tajawal-arabic-800-normal.woff2') format('woff2'); unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC; }
+@font-face { font-family: 'Taj'; font-weight: 400; font-display: swap; src: url('fonts/tajawal-latin-400-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Taj'; font-weight: 500; font-display: swap; src: url('fonts/tajawal-latin-500-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Taj'; font-weight: 700; font-display: swap; src: url('fonts/tajawal-latin-700-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Taj'; font-weight: 800; font-display: swap; src: url('fonts/tajawal-latin-800-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+/* Colours: cream paper and the logo's red (no neon pink), the till's green/amber/red for states. */
+:root {
+  --page: #f7f2ea; --surface: #fffdf9; --raised: #f3ebdf; --sunken: #ece2d4;
+  --ink: #1b1410; --ink-2: #4b3e34; --muted: #7d6e62; --line: #e4d8c6; --line-strong: #cbbba5;
+  --brand: #e00010; --brand-deep: #9e000b; --brand-soft: #fbe5e3;
+  --good: #1d7f50; --good-soft: #e1f1e8; --warn: #9a5c00; --warn-soft: #f9ecd3; --bad: #b5121b; --bad-soft: #fbe3e2;
+  --info: #2a5ea8; --info-soft: #e4ecf8; --gold: #9a6f2c; --gold-soft: #f6ead2;
+  --shadow: 0 1px 2px rgba(40, 25, 10, 0.06), 0 6px 18px rgba(40, 25, 10, 0.07);
+  --head: 64px;
+}
+html[data-theme="dark"] {
+  --page: #0e0a08; --surface: #17110d; --raised: #211913; --sunken: #120d0a;
+  --ink: #f4ece2; --ink-2: #d2c5b6; --muted: #9c8d80; --line: #33281f; --line-strong: #4a3c30;
+  --brand: #ff4040; --brand-deep: #ff6a5f; --brand-soft: #3a1513;
+  --good: #4cc48a; --good-soft: #10291d; --warn: #f0b04a; --warn-soft: #2e2210; --bad: #ff6b6b; --bad-soft: #351416;
+  --info: #7fb0f5; --info-soft: #132238; --gold: #e0b56c; --gold-soft: #2c2213;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--head) + 14px); }
+body {
+  margin: 0; background: var(--page); color: var(--ink);
+  font-family: 'Taj', system-ui, sans-serif; font-size: 18px; line-height: 1.85;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact; text-rendering: optimizeLegibility;
+}
+bdi { unicode-bidi: isolate; }
+.ltr { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+a { color: var(--info); }
+button { font: inherit; color: inherit; }
+img { max-width: 100%; }
+
+/* ---------- Top bar ---------- */
+header.top {
+  position: sticky; top: 0; z-index: 30; height: var(--head);
+  display: flex; align-items: center; gap: 12px; padding: 0 16px;
+  background: var(--surface); border-bottom: 1px solid var(--line); box-shadow: var(--shadow);
+}
+.brand { display: flex; align-items: center; gap: 10px; min-width: 0; font-weight: 800; font-size: 20px; white-space: nowrap; }
+.brand img { height: 30px; width: auto; }
+html[data-theme="dark"] .logo-light, html:not([data-theme="dark"]) .logo-dark { display: none; }
+.brand small { font-weight: 500; font-size: 13px; color: var(--muted); }
+html.embed .brand { display: none; }
+.icon-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 44px; min-width: 44px; padding: 0 12px;
+  border: 1px solid var(--line); border-radius: 12px; background: var(--surface); cursor: pointer; font-weight: 700; font-size: 15px; text-decoration: none; color: var(--ink);
+}
+.icon-btn:hover { border-color: var(--line-strong); }
+.icon-btn svg { width: 20px; height: 20px; flex: none; }
+.toc-btn { display: none; }
+.search { position: relative; flex: 1; max-width: 520px; }
+.search input {
+  width: 100%; height: 44px; padding: 0 44px 0 14px; border: 1px solid var(--line-strong); border-radius: 12px;
+  background: var(--page); color: var(--ink); font: inherit; font-size: 16px; outline: none;
+}
+.search input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); }
+.search .glass { position: absolute; inset-inline-start: 12px; top: 12px; width: 20px; height: 20px; color: var(--muted); pointer-events: none; }
+.search input { padding-inline-start: 42px; padding-inline-end: 12px; }
+.results {
+  position: absolute; top: 50px; inset-inline: 0; max-height: min(70vh, 640px); overflow-y: auto; z-index: 40;
+  background: var(--surface); border: 1px solid var(--line-strong); border-radius: 14px; box-shadow: var(--shadow); display: none;
+}
+.results.open { display: block; }
+.results .count { padding: 10px 14px; font-size: 14px; color: var(--muted); border-bottom: 1px solid var(--line); }
+.results button { display: block; width: 100%; text-align: start; padding: 10px 14px; border: 0; border-bottom: 1px solid var(--line); background: none; cursor: pointer; line-height: 1.6; }
+.results button:hover, .results button:focus { background: var(--raised); outline: none; }
+.results .where { display: block; font-size: 13px; font-weight: 700; color: var(--brand-deep); }
+.results .snip { display: block; font-size: 15px; color: var(--ink-2); }
+.results mark { background: var(--gold-soft); color: var(--ink); border-radius: 4px; padding: 0 2px; }
+.results .tag { display: inline-block; margin-inline-start: 6px; font-size: 12px; font-weight: 700; padding: 0 6px; border-radius: 999px; background: var(--sunken); color: var(--muted); }
+
+.seg { display: inline-flex; padding: 3px; gap: 3px; border-radius: 13px; background: var(--sunken); border: 1px solid var(--line); flex: none; }
+.seg button { height: 38px; padding: 0 12px; border: 0; border-radius: 10px; background: none; cursor: pointer; font-weight: 700; font-size: 15px; color: var(--muted); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.seg .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.dot.on { background: var(--good); } .dot.off { background: var(--muted); }
+.pdf-link { flex: none; }
+html.embed .pdf-link { display: none; }
+
+/* ---------- Layout ---------- */
+.layout { display: grid; grid-template-columns: 300px minmax(0, 1fr); max-width: 1320px; margin: 0 auto; }
+nav.toc {
+  position: sticky; top: var(--head); align-self: start; height: calc(100vh - var(--head)); overflow-y: auto;
+  padding: 18px 14px 40px; border-inline-end: 1px solid var(--line); font-size: 15px; line-height: 1.5;
+}
+nav.toc .toc-title { font-size: 13px; font-weight: 800; color: var(--muted); letter-spacing: 0.02em; margin: 0 8px 8px; }
+nav.toc ol { list-style: none; margin: 0; padding: 0; }
+nav.toc > ol > li { margin: 1px 0; }
+nav.toc a { display: flex; gap: 8px; padding: 7px 10px; border-radius: 10px; color: var(--ink-2); text-decoration: none; }
+nav.toc a:hover { background: var(--raised); color: var(--ink); }
+nav.toc a .n { flex: none; min-width: 26px; height: 26px; border-radius: 8px; background: var(--sunken); color: var(--muted); font-weight: 800; font-size: 13px; display: inline-flex; align-items: center; justify-content: center; }
+nav.toc a.active { background: var(--brand-soft); color: var(--ink); font-weight: 700; }
+nav.toc a.active .n { background: var(--brand); color: #fff; }
+nav.toc ol ol { display: none; padding-inline-start: 34px; margin: 2px 0 6px; }
+nav.toc li.open > ol { display: block; }
+nav.toc ol ol a { padding: 5px 10px; font-size: 14px; color: var(--muted); }
+nav.toc ol ol a.active { background: none; color: var(--brand-deep); font-weight: 700; }
+nav.toc .seg { display: none; margin: 0 4px 14px; }
+.scrim { display: none; }
+
+main { padding: 26px 34px 80px; max-width: 900px; width: 100%; }
+
+/* ---------- Narrow screens (phones, small windows) ---------- */
+@media (max-width: 1000px) {
+  :root { --head: 116px; }
+  body { font-size: 17px; }
+  .layout { display: block; }
+  .toc-btn { display: inline-flex; }
+  /* Two rows: the index, the title and the PDF; then the search across the whole width. */
+  header.top { height: auto; flex-wrap: wrap; row-gap: 8px; gap: 8px; padding: 8px 10px; }
+  header.top > .seg { display: none; }
+  .brand { flex: 1; }
+  .brand small { display: none; }
+  .search { order: 10; flex: 1 1 100%; max-width: none; }
+  html.embed .brand { display: flex; visibility: hidden; }
+  nav.toc {
+    position: fixed; top: 0; bottom: 0; inset-inline-start: 0; z-index: 60; width: min(86vw, 360px); height: auto;
+    background: var(--surface); box-shadow: var(--shadow); transform: translateX(105%); transition: transform 0.2s ease; border: 0;
+  }
+  html[dir="rtl"] nav.toc { transform: translateX(105%); }
+  body.toc-open nav.toc { transform: none; }
+  body.toc-open .scrim { display: block; position: fixed; inset: 0; z-index: 50; background: rgba(0, 0, 0, 0.45); }
+  nav.toc .seg { display: inline-flex; }
+  main { padding: 18px 16px 70px; }
+}
+@media (max-width: 640px) {
+  .brand { font-size: 17px; }
+  .brand img { height: 24px; }
+  .search input { font-size: 16px; }
+  .pdf-link span { display: none; }
+}
+
+/* ---------- Content ---------- */
+.cover { padding: 26px 0 8px; }
+.cover .kicker { display: inline-block; font-size: 14px; font-weight: 800; color: var(--brand-deep); background: var(--brand-soft); border-radius: 999px; padding: 2px 12px; }
+.cover h1 { font-size: 44px; line-height: 1.25; margin: 10px 0 6px; font-weight: 800; }
+.cover .lead { font-size: 20px; color: var(--ink-2); margin: 0 0 6px; }
+.cover .meta { font-size: 14px; color: var(--muted); }
+.cover .logo { display: none; }
+.print-only { display: none; }
+
+h2 { font-size: 30px; line-height: 1.35; font-weight: 800; margin: 0 0 6px; }
+h2 .num { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 44px; margin-inline-end: 12px; border-radius: 13px; background: var(--brand); color: #fff; font-size: 22px; vertical-align: 3px; }
+h3 { font-size: 22px; line-height: 1.45; font-weight: 800; margin: 34px 0 6px; padding-top: 4px; }
+h4 { font-size: 18px; font-weight: 800; margin: 20px 0 2px; }
+p { margin: 8px 0; }
+.chapter { padding: 34px 0 10px; border-top: 1px solid var(--line); margin-top: 34px; }
+.chapter > .intro { font-size: 19px; color: var(--ink-2); margin-top: 2px; }
+ul, ol { padding-inline-start: 26px; margin: 8px 0; }
+li { margin: 4px 0; }
+li::marker { color: var(--brand-deep); }
+strong { font-weight: 800; }
+
+/* Button names, as they appear on the till. */
+.k {
+  display: inline-block; font-weight: 700; font-size: 0.93em; line-height: 1.5; padding: 0 9px; margin: 0 1px;
+  border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 8px; background: var(--surface); color: var(--ink); white-space: nowrap;
+}
+.k.red { background: var(--brand); border-color: var(--brand-deep); color: #fff; }
+.k.green { background: var(--good); border-color: var(--good); color: #fff; }
+.k.warn { background: var(--warn-soft); border-color: var(--warn); color: var(--warn); }
+/* A word or message shown on the screen (not a button). */
+.say { font-weight: 700; color: var(--ink); background: var(--sunken); border-radius: 6px; padding: 0 6px; }
+
+/* Numbered steps. */
+ol.steps { list-style: none; padding: 0; margin: 12px 0; counter-reset: st; }
+ol.steps > li { position: relative; counter-increment: st; padding: 8px 0 8px 0; padding-inline-start: 50px; margin: 0; min-height: 44px; }
+ol.steps > li::before {
+  content: counter(st); position: absolute; inset-inline-start: 0; top: 8px; width: 34px; height: 34px; border-radius: 50%;
+  background: var(--ink); color: var(--page); font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center;
+}
+ol.steps > li + li { border-top: 1px dashed var(--line); }
+
+/* Boxes. */
+.box { border: 1px solid var(--line); border-radius: 16px; padding: 12px 16px; margin: 14px 0; background: var(--surface); }
+.box > :first-child { margin-top: 0; }
+.box > :last-child { margin-bottom: 0; }
+.box .title { display: block; font-weight: 800; margin-bottom: 2px; }
+.tip { border-color: var(--good); background: var(--good-soft); }
+.tip .title { color: var(--good); }
+.warn { border-color: var(--warn); background: var(--warn-soft); }
+.warn .title { color: var(--warn); }
+.stop { border-color: var(--bad); background: var(--bad-soft); }
+.stop .title { color: var(--bad); }
+.info { border-color: var(--info); background: var(--info-soft); }
+.info .title { color: var(--info); }
+
+/* Bar ON / bar OFF. */
+.bar-on, .bar-off { position: relative; border-radius: 16px; padding: 14px 16px 12px; margin: 16px 0; border: 2px solid; }
+.bar-on { border-color: var(--good); background: linear-gradient(var(--good-soft), var(--good-soft)); }
+.bar-off { border-color: var(--line-strong); background: var(--raised); }
+.bar-tag { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 800; border-radius: 999px; padding: 1px 12px; margin-bottom: 6px; }
+.bar-on > .bar-tag { background: var(--good); color: #fff; }
+.bar-off > .bar-tag { background: var(--ink-2); color: var(--page); }
+.bar-tag::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: currentColor; opacity: 0.9; }
+.bar-on > :last-child, .bar-off > :last-child { margin-bottom: 0; }
+body[data-bar="on"] .bar-off, body[data-bar="off"] .bar-on { display: none; }
+/* A whole part for one mode (no frame), and a note shown only to the other mode's reader. */
+body[data-bar="off"] .only-on, body[data-bar="on"] .only-off { display: none; }
+.when-on, .when-off { display: none; }
+body[data-bar="on"] .when-on, body[data-bar="off"] .when-off { display: block; }
+.twin { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+.twin > .bar-on, .twin > .bar-off { margin: 0; }
+body[data-bar="on"] .twin, body[data-bar="off"] .twin { display: block; }
+@media (max-width: 760px) { .twin { display: block; } .twin > * + * { margin-top: 14px !important; } }
+
+/* Tables. */
+.table-wrap { overflow-x: auto; margin: 14px 0; border: 1px solid var(--line); border-radius: 14px; }
+table { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.6; background: var(--surface); }
+th, td { text-align: start; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+th { background: var(--raised); font-weight: 800; font-size: 14px; color: var(--ink-2); }
+tr:last-child td { border-bottom: 0; }
+td.nw { white-space: nowrap; }
+
+/* State chips, in the till's colours. */
+.st { display: inline-block; font-weight: 800; font-size: 0.86em; line-height: 1.5; padding: 0 9px; border-radius: 999px; white-space: nowrap; border: 1px solid transparent; }
+.st.grey { background: var(--sunken); color: var(--ink-2); border-color: var(--line-strong); }
+.st.green { background: var(--good-soft); color: var(--good); border-color: var(--good); }
+.st.amber { background: var(--warn-soft); color: var(--warn); border-color: var(--warn); }
+.st.red { background: var(--bad-soft); color: var(--bad); border-color: var(--bad); }
+.st.blue { background: var(--info-soft); color: var(--info); border-color: var(--info); }
+.st.gold { background: var(--gold-soft); color: var(--gold); border-color: var(--gold); }
+
+/* Screenshots. */
+figure.shot { margin: 16px 0; }
+figure.shot img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--line-strong); box-shadow: var(--shadow); background: var(--sunken); }
+figure.shot.half { max-width: 460px; }
+figure.shot.phone { max-width: 300px; }
+figure.shot figcaption { font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.6; }
+.shots-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start; }
+.shots-row > figure.shot { flex: 1 1 260px; margin: 0; }
+
+/* Questions and answers. */
+.qa { border: 1px solid var(--line); border-radius: 14px; padding: 10px 16px; margin: 10px 0; background: var(--surface); }
+.qa .q { font-weight: 800; margin: 0 0 2px; }
+.qa .q::before { content: '؟ '; color: var(--brand); }
+.qa .a { margin: 0; color: var(--ink-2); }
+
+/* Golden rules and the quick card. */
+.rules { counter-reset: r; list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.rules li { counter-increment: r; margin: 0; padding: 12px 14px; padding-inline-start: 54px; position: relative; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); line-height: 1.65; }
+.rules li::before { content: counter(r); position: absolute; inset-inline-start: 12px; top: 12px; width: 30px; height: 30px; border-radius: 9px; background: var(--brand); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+@media (max-width: 760px) { .rules { grid-template-columns: 1fr; } }
+.chapters { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0; }
+.chapters a { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); text-decoration: none; line-height: 1.5; }
+.chapters a:hover { border-color: var(--brand); }
+.chapters .n { flex: none; width: 30px; height: 30px; border-radius: 9px; background: var(--sunken); font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.chapters .t { font-weight: 800; display: block; }
+.chapters .d { font-size: 14px; color: var(--muted); display: block; }
+.chapters .pg { display: none; }
+@media (max-width: 760px) { .chapters { grid-template-columns: 1fr; } }
+.quick { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.quick .box { margin: 0; }
+.quick h4 { margin: 0 0 4px; color: var(--brand-deep); }
+.quick ul { margin: 0; padding-inline-start: 18px; font-size: 16px; line-height: 1.7; }
+@media (max-width: 760px) { .quick { grid-template-columns: 1fr; } }
+
+.flash { animation: flash 2.2s ease-out; }
+@keyframes flash { 0%, 30% { background: var(--gold-soft); box-shadow: 0 0 0 6px var(--gold-soft); } 100% { background: transparent; box-shadow: 0 0 0 6px transparent; } }
+.end { text-align: center; color: var(--muted); font-size: 14px; margin-top: 50px; }
+
+/* ---------- Print (the PDF): A4, both bar modes, each chapter on a new page ---------- */
+@media print {
+  @page { size: A4; margin: 15mm 14mm 17mm; @bottom-center { content: 'دليل الكاشير · صفحة ' counter(page) ' من ' counter(pages); font-family: 'Taj', sans-serif; font-size: 8.5pt; color: #7d6e62; } }
+  @page :first { @bottom-center { content: none; } }
+  html { scroll-padding-top: 0; }
+  body { font-size: 10.6pt; line-height: 1.75; background: #fff; }
+  header.top, nav.toc, .scrim, .screen-only { display: none !important; }
+  .print-only { display: block; }
+  .layout { display: block; max-width: none; }
+  main { padding: 0; max-width: none; }
+  .cover { height: 262mm; display: flex; flex-direction: column; justify-content: center; padding: 0 6mm; break-after: page; }
+  .cover .logo { display: block; width: 78mm; margin-bottom: 16mm; }
+  .cover .kicker { align-self: flex-start; }
+  .cover h1 { font-size: 34pt; }
+  .cover .lead { font-size: 15pt; }
+  .cover .meta { font-size: 10pt; margin-top: 8mm; }
+  .cover .ribbon { display: block; height: 3mm; width: 40mm; background: #e00010; border-radius: 2mm; margin: 6mm 0; }
+  .contents { break-after: page; }
+  .contents h2 { margin-bottom: 4mm; }
+  .chapters { grid-template-columns: 1fr; gap: 0; margin: 0; }
+  .chapters a { align-items: center; border: 0; border-bottom: 1px dotted #cbbba5; border-radius: 0; padding: 1.25mm 0; background: none; }
+  .chapters .n { width: 7mm; height: 7mm; font-size: 9pt; }
+  .chapters .t { display: inline; font-size: 11pt; }
+  .chapters .d { display: inline; font-size: 8.6pt; margin-inline-start: 2.5mm; }
+  .chapters .pg { display: block; margin-inline-start: auto; font-weight: 800; font-size: 11pt; }
+  .chapter { break-before: page; border: 0; margin: 0; padding: 0; }
+  h2 { font-size: 20pt; } h2 .num { min-width: 30pt; height: 30pt; font-size: 15pt; }
+  h3 { font-size: 13.5pt; margin-top: 7mm; }
+  h2, h3, h4 { break-after: avoid; page-break-after: avoid; }
+  figure, .box, .qa, ol.steps > li, tr, .rules li { break-inside: avoid; page-break-inside: avoid; }
+  figure.shot img { max-height: 96mm; width: auto; max-width: 100%; margin: 0 auto; box-shadow: none; }
+  figure.shot.phone img { max-height: 110mm; }
+  figure.shot figcaption { text-align: center; }
+  .bar-on, .bar-off, .only-on, .only-off { display: block !important; }
+  .when-on, .when-off { display: none !important; }
+  .twin { display: block !important; }
+  .twin > * + * { margin-top: 4mm !important; }
+  table { font-size: 9.4pt; }
+  .table-wrap { overflow: visible; }
+  a { color: inherit; text-decoration: none; }
+  .quick-card { break-before: page; }
+  .quick { grid-template-columns: 1fr 1fr; gap: 3mm; }
+  .quick ul { font-size: 9.2pt; line-height: 1.55; }
+  .end { display: none; }
+}
+</style>
+</head>
+<body data-bar="both">
+
+<header class="top">
+  <button class="icon-btn toc-btn" type="button" aria-label="الفهرس" data-toc-toggle>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>الفهرس</span>
+  </button>
+  <div class="brand"><img class="logo-light" src="logo-on-light.webp" alt="Bella Napolia"><img class="logo-dark" src="logo-on-dark.webp" alt="Bella Napolia"><span>دليل الكاشير</span><small>Bella Napolia</small></div>
+  <div class="search">
+    <svg class="glass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input type="search" id="q" placeholder="ابحث: دَين، تبديل، مصروف، جاهز…" autocomplete="off" aria-label="ابحث في الدليل">
+    <div class="results" id="results" role="listbox"></div>
+  </div>
+  <div class="seg" role="group" aria-label="البار">
+    <button type="button" data-bar-set="off"><span class="dot off"></span>البار مطفأ</button>
+    <button type="button" data-bar-set="on"><span class="dot on"></span>البار مشغّل</button>
+    <button type="button" data-bar-set="both">الاثنان</button>
+  </div>
+  <a class="icon-btn pdf-link" href="dalil-al-kashir.pdf" target="_blank" rel="noopener" download>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><span>تحميل PDF</span>
+  </a>
+</header>
+<div class="scrim" data-toc-toggle></div>
+
+<div class="layout">
+<nav class="toc" id="toc" aria-label="الفهرس">
+  <div class="seg" role="group" aria-label="البار">
+    <button type="button" data-bar-set="off"><span class="dot off"></span>البار مطفأ</button>
+    <button type="button" data-bar-set="on"><span class="dot on"></span>البار مشغّل</button>
+    <button type="button" data-bar-set="both">الاثنان</button>
+  </div>
+  <div class="toc-title">الفهرس</div>
+</nav>
+
+<main id="guide">
+
+<div class="cover">
+  <img class="logo" src="logo-on-light.webp" alt="Bella Napolia">
+  <span class="kicker">مرجع العمل على الكاشير</span>
+  <h1>دليل الكاشير</h1>
+  <span class="ribbon print-only"></span>
+  <p class="lead">كل ما في الكاشير، خطوة بخطوة: البيع، والطاولات، والبار مشغّلًا أو مطفأ، والدفع، وبطاقة الوفاء، والصندوق والمصاريف، وإغلاق الوردية.</p>
+  <p class="meta">لنسخة الكاشير 0.9.144 · نوفمبر 2026 · Bella Napolia، تطوان</p>
+</div>
+
+<!-- ===== START: how to read + contents ===== -->
+<div class="contents" id="contents">
+  <div class="box info screen-only">
+    <span class="title">كيف تقرأ هذا الدليل؟</span>
+    <p>اختر في الأعلى <b class="k">البار مطفأ</b> أو <b class="k">البار مشغّل</b>، فيعرض الدليل طريقة العمل التي تنطبق عليك اليوم. ابحث بكلمة واحدة، مثل «دَين» أو «تبديل»، لتصل إلى الجواب مباشرة. أسماء الأزرار مكتوبة <b class="k">هكذا</b>، كما تظهر على الشاشة تمامًا.</p>
+  </div>
+  <h2 class="print-only" style="margin-top:0">المحتويات</h2>
+  <ol class="chapters" id="chapters"></ol>
+</div>
+<!-- ===== END: how to read + contents ===== -->
+
+<!-- ===== c1 ===== -->
+<section class="chapter" id="c1" data-desc="ما يجب ألّا تنساه أبدًا، ودور كل جهاز في المقهى">
+<h2>القواعد الذهبية، ومَن يفعل ماذا</h2>
+
+<h3>القواعد الذهبية</h3>
+<ol class="rules">
+  <li><strong>رمزك لك وحدك.</strong> كل بيع وخصم واسترداد يُسجَّل باسم صاحب الرمز. لا تعطه لأحد، واضغط <b class="k">قفل</b> حين تبتعد.</li>
+  <li><strong>كل شيء يمرّ من الكاشير.</strong> لا مشروب يخرج دون تسجيل: المجاني من البطاقة فقط، والضيافة بموافقة المالك، ومشروبك «للعامل».</li>
+  <li><strong>اسأل كل زبون عن رقمه.</strong> هكذا يجمع أختامه، ويعرفه الفريق في زيارته القادمة.</li>
+  <li><strong>لا تحضير دون طلب مسجّل.</strong> البار يحضّر ما وصله على الورقة أو على الشاشة فقط.</li>
+  <li><strong>لا مال يدخل الصندوق أو يخرج منه دون تسجيل.</strong> وعند الإغلاق عُدّ بنفسك قبل أن ترى المبلغ المتوقع.</li>
+  <li><strong>ما وصل إلى البار لا يُحذف بصمت.</strong> أجب عن «هل حُضّر؟» بصدق.</li>
+  <li><strong>رسالة حمراء؟ اقرأها.</strong> تقول لك ما لم يُطبع أو لم يُرسل، وماذا تفعل.</li>
+  <li><strong>أبقِ الكاشير الرئيسي شغّالًا، وأجب طلبات الموقع فورًا.</strong> منه تمرّ طلبات الموقع وجولات النادل.</li>
+  <li><strong>اقرأ ملاحظة الزبون</strong> (حساسية مثلًا) قبل أن يُحضَّر طلبه.</li>
+  <li><strong>المهام لا تُنسى.</strong> قبل أن تنصرف: أنجزها، أو مرّرها لزميل.</li>
+</ol>
+
+<h3>الأجهزة: مَن يفعل ماذا</h3>
+<div class="table-wrap"><table>
+  <tr><th>الجهاز</th><th>ما يفعله</th></tr>
+  <tr><td class="nw"><strong>الكاشير</strong><br>الحاسوب في الكونتوار</td><td>يبيع ويقبض ويطبع. يفتح الوردية ويغلقها. يستقبل جولات النادل وطلبات الموقع. يسجّل حركات الصندوق والديون. والبار مطفأ، يتابع مراحل الطاولات. كاشير رئيسي واحد يعمل في كل وردية.</td></tr>
+  <tr><td class="nw"><strong>هاتف النادل</strong></td><td>هاتف رئيسي واحد. يأخذ به النادل طلب الطاولة ويرسله، ويرنّ حين يجهز الطلب، فيحمله ويضغط «استلمت». ويرسل منه «طلب الحساب».</td></tr>
+  <tr><td class="nw"><strong>شاشة البار</strong></td><td>حين يشغّلها المالك فقط (غالبًا في الصيف). يرى فيها البارمان ما يحضّره بالترتيب، ويضغط «أبدأها» ثم «جاهز ✓» ثم «سُلِّم».</td></tr>
+  <tr><td class="nw"><strong>الموقع</strong><br>cafenapolia.com</td><td>يطلب منه الزبون من طاولته، أو قبل أن يصل. وفيه بطاقته وأختامه.</td></tr>
+  <tr><td class="nw"><strong>لوحة التحكم</strong></td><td>للمالك: القائمة، والأسعار، والصلاحيات، والإعدادات، والتقارير، وسجل المراقبة.</td></tr>
+</table></div>
+
+<h3>رحلة الطلب</h3>
+<div class="twin">
+  <div class="bar-off"><span class="bar-tag">البار مطفأ</span>
+    <h4>طلب الكونتوار</h4>
+    <ol>
+      <li>الزبون يطلب ويعطي رقمه.</li>
+      <li>تسجّل وتقبض: هنا أم سفري، ثم الدفع.</li>
+      <li>تخرج ورقة البار.</li>
+      <li>البار يحضّر من الورقة، وينادي الزبون برقمه أو باسمه.</li>
+    </ol>
+    <h4>طلب الطاولة</h4>
+    <ol>
+      <li>النادل يرسل الجولة من هاتفه.</li>
+      <li>الكاشير يأخذها ويطبع ورقتها وحده: «يحضّره».</li>
+      <li>تُحضَّر، ثم تضغط «الطلب جاهز للنادل».</li>
+      <li>يرنّ هاتف النادل، فيحمل الطلب ويضغط «استلمت»: «سُلِّم».</li>
+      <li>تقبض الحساب في آخر الجلسة.</li>
+    </ol>
+    <h4>طلب الموقع</h4>
+    <ol>
+      <li>يرنّ الكاشير: «قبول وإرسال للبار».</li>
+      <li>تخرج الورقة، ويُحضَّر الطلب.</li>
+      <li>«جاهز»: يُخبَر الزبون على هاتفه.</li>
+      <li>تقبض حين يستلم.</li>
+    </ol>
+  </div>
+  <div class="bar-on"><span class="bar-tag">البار مشغّل</span>
+    <h4>طلب الكونتوار</h4>
+    <ol>
+      <li>الزبون يطلب ويعطي رقمه.</li>
+      <li>تسجّل وتقبض، فيصل الطلب إلى شاشة البار مع الدفع.</li>
+      <li>البار يحضّر ويضغط «جاهز ✓»، فترى «جاهز من البار».</li>
+      <li>البار ينادي الزبون، ثم «سُلِّم».</li>
+    </ol>
+    <h4>طلب الطاولة</h4>
+    <ol>
+      <li>النادل يرسل الجولة من هاتفه.</li>
+      <li>تصل إلى شاشة البار وحدها.</li>
+      <li>البار يحضّر ويضغط «جاهز ✓».</li>
+      <li>يرنّ هاتف النادل، فيحمل الطلب ويضغط «استلمت».</li>
+      <li>تقبض الحساب في آخر الجلسة.</li>
+    </ol>
+    <h4>طلب الموقع</h4>
+    <ol>
+      <li>يرنّ الكاشير: «قبول وإرسال للبار».</li>
+      <li>يصل إلى شاشة البار، فيحضّره البار ويضغط «جاهز ✓».</li>
+      <li>يُخبَر الزبون على هاتفه.</li>
+      <li>تقبض حين يستلم.</li>
+    </ol>
+  </div>
+</div>
+
+<h3>يوم العمل في سطر</h3>
+<p><b class="k">بداية العمل</b> ← فتح الوردية وعدّ الصندوق ← قوائم الافتتاح ← البيع والطاولات وطلبات الموقع ← المهام ← قوائم الإغلاق ← <b class="k red">إغلاق الوردية</b> ← <b class="k">نهاية العمل</b>.</p>
+</section>
+
+<!-- ===== c2 ===== -->
+<section class="chapter" id="c2" data-desc="الرمز السري، بداية العمل ونهايته، القفل">
+<h2>الدخول والحضور</h2>
+<p class="intro">كل عمل في الكاشير يُسجَّل باسم صاحب الرمز السري. رمزك لك وحدك: لا تعطه لأحد، ولا تعمل برمز غيرك.</p>
+
+<figure class="shot"><img src="shots/c2-pin.webp" alt="" loading="lazy"><figcaption>شاشة الرمز السري: لوحة الأرقام، و«الحضور والانصراف»، و«دليل الكاشير»، وفي الأسفل اسم الجهاز ونسخته.</figcaption></figure>
+
+<h3>الدخول بالرمز السري</h3>
+<ol class="steps">
+  <li>في شاشة <span class="say">أدخل رمزك السري</span> اكتب رمزك المكوّن من 4 أرقام. يدخل وحده بعد الرقم الرابع.</li>
+  <li>خطأ؟ تظهر <span class="say">رمز غير صحيح</span>. أعد المحاولة.</li>
+  <li>بعد 5 أخطاء متتالية تنتظر دقيقة: <span class="say">رموز خاطئة كثيرة. انتظر 0:58</span>. وبعد 10 أخطاء دقيقتين، وبعد 15 ثلاث دقائق.</li>
+  <li>10 أخطاء في 10 دقائق على الجهاز نفسه تقفل الرموز 10 دقائق، ويصل تنبيه إلى المالك: <span class="say">رموز خاطئة كثيرة على هذا الجهاز: انتظر 10 دقائق ثم أعد المحاولة. أُخبر المالك.</span></li>
+</ol>
+<ul>
+  <li>إن كانت طلبات من الموقع تنتظر، تظهر فوق الأرقام: <span class="say">طلبات من الموقع بانتظار القبول</span>. ادخل برمزك واقبلها.</li>
+  <li>في الأسفل اسم الجهاز ونسخة الكاشير، ونقطة خضراء حين يكون مربوطًا.</li>
+  <li><span class="say">ليست لديك صلاحية البيع على الكاشير</span>: رمزك صحيح، لكن دورك لا يبيع (مثل المطبخ). يمكنك تسجيل حضورك فقط.</li>
+</ul>
+<div class="box warn"><span class="title">بدون إنترنت</span><p>يدخل فقط من دخل من قبل على هذا الجهاز نفسه خلال آخر 30 يومًا. المالك والمدير لا يدخلان بلا إنترنت. وتظهر لغيرهم: <span class="say">لا إنترنت: يدخل الآن من سبق له الدخول على هذا الجهاز فقط.</span></p></div>
+
+<h3>«الحضور والانصراف»: بداية العمل ونهايته</h3>
+<p>سجّل بداية عملك حين تصل، ونهايته حين تنصرف. هذا هو حضورك وساعات عملك.</p>
+<ol class="steps">
+  <li>في شاشة الرمز اضغط <b class="k">الحضور والانصراف</b>، ثم اكتب رمزك. (أو من قائمتك وأنت داخل: <b class="k">بداية العمل</b> أو <b class="k">نهاية العمل · منذ 08:02</b>.)</li>
+  <li>يظهر اسمك، و<span class="say">آخر تسجيل على هذا الجهاز</span>، وزرّان: <b class="k green">بداية العمل</b> و<b class="k red">نهاية العمل</b>. الزر المقترح أولًا ومملوء.</li>
+  <li>اضغط الزر المناسب. تظهر <span class="say">مرحبًا …، سُجّلت بداية عملك 08:02</span>، أو <span class="say">شكرًا …، سُجّلت نهاية عملك 16:05</span>.</li>
+</ol>
+<ul>
+  <li>البطاقة تُغلق وحدها بعد 30 ثانية إن لم تضغط شيئًا.</li>
+  <li>من يفتح الوردية تُسجَّل بداية عمله وحدها.</li>
+  <li>بعد بداية العمل، إن كانت لك مهام: <span class="say">📋 عندك مهمة واحدة</span>. افتح <b class="k">المهام</b>.</li>
+  <li>«آخر تسجيل» يعرض فقط ما سُجّل على هذا الجهاز في آخر 18 ساعة.</li>
+</ul>
+
+<h3>قبل أن تنصرف</h3>
+<p>حين تضغط <b class="k red">نهاية العمل</b>:</p>
+<ol class="steps">
+  <li><strong>مهامك غير المنجزة</strong> (مع الإنترنت): تُفتح <span class="say">قبل أن تنصرف</span>. لكل مهمة: <b class="k">مرّرها إلى</b> زميل، أو <b class="k">لم أُنجزها</b> واكتب <span class="say">لماذا لم تُنجز؟</span> ثم <b class="k">أرسل</b>. حين تجيب عن كلها يعمل زر <b class="k">انصرف</b>.</li>
+  <li><strong>الصندوق</strong>: إن كنت أنت من فتح الوردية المفتوحة، يسألك الكاشير أن تغلقها أو تنصرف دون إغلاق برمز المالك أو المدير (فصل <a href="#c15">إغلاق الوردية</a>).</li>
+  <li>ثم تُسجَّل نهاية عملك، ويُقفل الكاشير.</li>
+</ol>
+
+<h3>«قفل»: حين تبتعد عن الكاشير</h3>
+<ul>
+  <li>من قائمتك (اسمك في أعلى الشاشة) ← <b class="k">قفل</b>. يعود الكاشير إلى شاشة الرمز، ويبقى الطلب الذي على الشاشة كما هو.</li>
+  <li>يُقفل وحده بعد دقائق دون لمس (حددها المالك)، إلا والدفع أو الإغلاق أو نافذة الموافقة مفتوحة.</li>
+  <li>والكاشير مقفل يبقى يعمل: يستقبل طلبات الموقع ويرنّ لها، ويأخذ جولات النادل ويطبعها، ويرسل المبيعات.</li>
+  <li>إعادة تشغيل الحاسوب لا تُخرجك: من كان داخلًا يبقى داخلًا. اضغط <b class="k">قفل</b> دائمًا حين تبتعد.</li>
+</ul>
+
+<h3>قائمتك</h3>
+<p>المس اسمك في أعلى الشاشة. فيها بالترتيب:</p>
+<ul>
+  <li><b class="k">محفظتي</b>، <b class="k">بداية العمل</b> أو <b class="k">نهاية العمل</b>، <b class="k">دليل الكاشير</b>، <b class="k">إعادة طباعة آخر إيصال</b>، <b class="k">أرقام مهمة</b>، <b class="k">بلّغ عن عطل</b>، <b class="k">أصناف نفدت</b>، <b class="k">جرّب الأصوات</b>.</li>
+  <li><b class="k">فاتح</b> أو <b class="k">داكن</b> للون الشاشة، و<b class="k">Français</b> أو <b class="k">العربية</b> للغة. يبقيان على هذا الجهاز لكل من يستعمله.</li>
+  <li><b class="k">قفل</b>، وتحته رقم النسخة.</li>
+  <li>من له صلاحية الإعدادات (المالك) يرى أيضًا: <b class="k">إعدادات الطابعة</b>، و<b class="k">الربط بقاعدة البيانات</b>، و<b class="k">الخروج من ملء الشاشة</b>.</li>
+</ul>
+
+<h3>الصلاحيات ونافذة الموافقة</h3>
+<p>بعض الأعمال تحتاج صلاحية يحددها المالك لكل دور. إن لم تكن لك، لا يُمنع العمل: تفتح نافذة <span class="say">موافقة المدير</span>.</p>
+<ul>
+  <li>في أعلاها بالأصفر: <span class="say">هذا الإجراء يحتاج صلاحية: …</span>، ثم ما تطلبه، والمبلغ، و<span class="say">يطلبها: اسمك</span>.</li>
+  <li><strong>بالرمز</strong>: زميل له هذه الصلاحية (مدير أو مالك، أو موظف أعطاه المالك الصلاحية) يكتب رمزه. رمزه لا يُدخله إلى الكاشير.</li>
+  <li><strong>بالهاتف</strong>: <b class="k">اطلب موافقة المالك</b> يرسل الطلب إلى المالك على تيليغرام، ومعه زرّا موافق ورفض. تظهر <span class="say">ينتظر موافقة المالك…</span>: لا تُغلق النافذة. أمام المالك 10 دقائق.</li>
+  <li>النتائج: يمضي العمل حين يوافق؛ أو <span class="say">رفض المالك.</span>؛ أو <span class="say">لم يُجب المالك خلال 10 دقائق.</span></li>
+  <li>لمسة خارج النافذة تلغي الطلب، وتسحب طلب تيليغرام معه.</li>
+</ul>
+<div class="table-wrap"><table>
+  <tr><th>العمل</th><th>الصلاحية التي يحتاجها</th></tr>
+  <tr><td>الخصم</td><td>الخصم (وفوق النسبة التي حددها المالك: رمز المالك أو المدير)</td></tr>
+  <tr><td>حذف أو إنقاص صنف وصل إلى البار، مسح طلب أُرسل، تبديل بمشروب أرخص</td><td>حذف صنف أُرسل للبار أو المطبخ</td></tr>
+  <tr><td>الاسترداد</td><td>الاسترداد</td></tr>
+  <tr><td>كل مال يخرج من الصندوق: مصروف، مشتريات، تسبيق، سحب، إرجاع فرق نقدًا</td><td>المصاريف وإخراج المال من الصندوق</td></tr>
+  <tr><td>«افتح الصندوق» دون بيع</td><td>فتح الصندوق يدويًا</td></tr>
+  <tr><td>«ملخص الصندوق»</td><td>ملخص الصندوق قبل الإغلاق</td></tr>
+  <tr><td>«إغلاق الوردية»</td><td>إغلاق الوردية</td></tr>
+  <tr><td>«نفد» أو «متوفر»</td><td>تعديل القائمة</td></tr>
+  <tr><td>«ضيافة»</td><td>المالك وحده</td></tr>
+  <tr><td>«للعامل»</td><td>رمز الموظف الذي يشتري</td></tr>
+  <tr><td>الحضور، القفل، فتح الوردية، محفظتي، المهام، بلّغ عن عطل، أرقام مهمة، إعادة الطباعة</td><td>لا شيء</td></tr>
+</table></div>
+<div class="box warn"><span class="title">الموافقة بلا إنترنت</span><p>رمز المالك أو المدير لا يعمل بلا إنترنت: <span class="say">موافقة المالك أو المدير بالرمز تحتاج الإنترنت.</span> وطلب الهاتف أيضًا: <span class="say">لا إنترنت: يلزم الرمز.</span> يعمل فقط رمز زميل له الصلاحية ودخل من قبل على هذا الجهاز.</p></div>
+</section>
+
+<!-- ===== c3 ===== -->
+<section class="chapter" id="c3" data-desc="مبلغ البداية، ووردية قديمة ما زالت مفتوحة">
+<h2>فتح الوردية</h2>
+<p class="intro">الوردية هي صندوقك من الفتح إلى الإغلاق. كل بيع وكل حركة نقود تُسجَّل فيها. لا يُفتح إلا في الكاشير الرئيسي، وكاشير واحد فقط يعمل في الوقت نفسه.</p>
+
+<figure class="shot"><img src="shots/c3-open.webp" alt="" loading="lazy"><figcaption>شاشة «فتح الوردية»: مبلغ بداية الصندوق، ثم «ابدأ البيع».</figcaption></figure>
+
+<h3>الفتح، خطوة بخطوة</h3>
+<ol class="steps">
+  <li>ادخل برمزك. إن لم تكن وردية مفتوحة، تظهر شاشة <span class="say">فتح الوردية</span>.</li>
+  <li>ترى <span class="say">مبلغ بداية الصندوق</span>: ما تركته الوردية السابقة في الصندوق، أو المبلغ الذي حدده المالك.</li>
+  <li><strong>عُدّ النقود في الصندوق.</strong></li>
+  <li>المبلغ صحيح؟ اضغط <b class="k red">ابدأ البيع</b>.</li>
+  <li>مختلف؟ اضغط <b class="k">المبلغ مختلف؟ عُدّه واكتبه</b>، واكتب <span class="say">ما وجدته في الصندوق</span>. يظهر الفرق بالأحمر و<span class="say">يُسجَّل الفرق ويصل تنبيه للمالك.</span> ثم <b class="k red">ابدأ البيع</b>.</li>
+</ol>
+<ul>
+  <li>تُسجَّل بداية عملك وحدها حين تفتح الوردية.</li>
+  <li><b class="k">خروج</b> في هذه الشاشة يقفل الكاشير فقط.</li>
+</ul>
+
+<h3>رسائل الكاشير الرئيسي</h3>
+<ul>
+  <li><span class="say">هذا الجهاز ليس الكاشير الرئيسي</span>: الوردية تُفتح على الكاشير الرئيسي فقط. لا زر للبدء هنا. اعمل على الكاشير الرئيسي، أو اطلب من المالك تغييره.</li>
+  <li><span class="say">لم يُحدَّد الكاشير الرئيسي بعد…</span>: يمكنك الفتح هنا، لكن تأكد ألا وردية مفتوحة على جهاز آخر.</li>
+  <li><span class="say">كاشير واحد فقط يعمل في نفس الوقت. أغلق الوردية على «…» أولًا</span>: وردية مفتوحة على جهاز آخر. أغلقها هناك أولًا.</li>
+  <li><span class="say">استُرجعت طلبات مفتوحة من كاشير آخر</span>: طلبات بقيت مفتوحة على الكاشير السابق جاءت إلى هنا. راجعها في «المعلّقة» و«الطاولات».</li>
+</ul>
+
+<h3>وردية من يوم سابق ما زالت مفتوحة</h3>
+<p>نسي أحد إغلاق وردية الأمس؟ يظهر <span class="say">وردية من يوم سابق ما زالت مفتوحة</span>: <span class="say">أغلقها وعُدّ الصندوق قبل بدء يوم جديد، حتى لا تختلط مبيعات يومين في وردية واحدة.</span></p>
+<ol class="steps">
+  <li>ترى متى بدأت، ومبلغ بدايتها، ومن فتحها، و<span class="say">طلبات ما زالت مفتوحة</span>.</li>
+  <li>اقبض ما يُدفع الآن بزر <b class="k">دفع</b> بجانب كل طلب.</li>
+  <li>اضغط <b class="k red">أغلق الوردية وانقل الطلبات المفتوحة</b> (أو <b class="k red">أغلق الوردية الآن</b> إن لم يبقَ شيء). يحتاج صلاحية الإغلاق. عُدّ الصندوق كما في فصل <a href="#c15">إغلاق الوردية</a>. ما بقي مفتوحًا ينتقل إلى الوردية الجديدة، ويُكتب في تقرير الإغلاق.</li>
+  <li>بعد الإغلاق تعود إلى شاشة الرمز: ادخل وافتح وردية اليوم.</li>
+</ol>
+</section>
+
+<!-- ===== c4 ===== -->
+<section class="chapter" id="c4" data-desc="الأقسام، البحث، خيارات الصنف، الملاحظة، البن بالوزن">
+<h2>شاشة البيع</h2>
+<p class="intro">هنا تسجّل طلب الكونتوار. الأصناف في اليسار، والطلب في اليمين. تفتحها بزر <b class="k">البيع</b> في أعلى الشاشة. هذه الشاشة واحدة سواء كان البار مشغّلًا أو مطفأ.</p>
+
+<figure class="shot"><img src="shots/c4-sale.webp" alt="" loading="lazy"><figcaption>شاشة البيع: البحث والأقسام و«الأكثر طلبًا الآن» والأصناف في اليسار، والطلب وأزراره في اليمين.</figcaption></figure>
+
+<h3>أجزاء الشاشة</h3>
+<ul>
+  <li><strong>البحث</strong> <span class="say">ابحث عن صنف…</span>: اكتب جزءًا من الاسم بالعربية أو بالفرنسية.</li>
+  <li><strong>الأقسام</strong>: <b class="k">الكل</b>، ثم أقسام المقهى، وبجانب كل قسم عدد أصنافه.</li>
+  <li><strong>«الأكثر طلبًا الآن»</strong>: أزرار سريعة لما يُطلب كثيرًا في هذه الساعة. تظهر في «الكل» فقط، والبحث فارغ.</li>
+  <li><strong>بطاقات الأصناف</strong>: الصورة والاسم والسعر. وفوقها أحيانًا علامة: <span class="st red">نفد</span>، أو عرض بنسبة مثل <span class="st green">🏷️ -10%</span>، أو <span class="st blue">سفري</span> لصنف يُباع للسفري فقط، أو <span class="st gold">جديد</span>، أو <span class="st gold">مميز</span>.</li>
+  <li><strong>الطلب</strong> في اليمين: رقمه <span class="say">#012</span>، ثم نوعه <b class="k">هنا</b> <b class="k">سفري</b> <b class="k">طاولة</b> <b class="k">Glovo</b>، ثم <b class="k">زبون / بطاقة الوفاء</b>، ثم الأصناف والمجموع والأزرار.</li>
+</ul>
+<div class="box info"><span class="title">رقم الطلب</span><p>يبدأ الترقيم من <span class="say">#001</span> كل يوم على الساعة 05:00 صباحًا، وهي بداية يوم المقهى.</p></div>
+
+<h3>البحث</h3>
+<ul>
+  <li>يبحث في أسماء الأصناف فقط، بالعربية أو بالفرنسية، ولو بجزء من الاسم. لا يبحث في الرموز ولا في الوصف.</li>
+  <li>يتسامح مع الكتابة: الحركات، والهمزات (أ إ آ ← ا)، والتاء المربوطة والهاء، والياء والألف المقصورة، والحروف الفرنسية بلا نبرة. وإن لم يجد شيئًا يقارن الحروف دون حركات، فـ«كابوتشينو» تجد «كابتشينو».</li>
+  <li>أثناء البحث تظهر النتائج من كل الأقسام.</li>
+  <li>لمسة على صنف وجدته تضيفه وتُفرغ البحث. وزر <b class="k">Enter</b> في لوحة المفاتيح يضيف أول صنف متوفر.</li>
+  <li>إن لم يجد شيئًا تظهر <span class="say">لا توجد بيانات</span>.</li>
+</ul>
+
+<h3>إضافة صنف بلمسة</h3>
+<ol class="steps">
+  <li>المس بطاقة الصنف. يُضاف إلى الطلب بالاختيار المعتاد لكل خيار إجباري، كالحجم والسكر.</li>
+  <li>إن كان الصنف نفسه بالاختيارات نفسها في الطلب، يزيد عدده بواحد بدل سطر جديد.</li>
+  <li>إن كان خيار إجباري بلا اختيار معتاد، تُفتح نافذة الخيارات لتختار بنفسك.</li>
+  <li>البن بالكيلو يفتح نافذة الوزن (انظر «البن بالوزن» أسفله).</li>
+</ol>
+<ul>
+  <li><strong>السعر على البطاقة هو ما تضيفه اللمسة.</strong> الطلب يبدأ «هنا» بسعر المقهى. بعد <b class="k">سفري</b> تصير الأسعار أسعار السفري، وبعد <b class="k">Glovo</b> أسعار Glovo. وإن كان هناك عرض جارٍ يُطرح من السعر وحده.</li>
+  <li>الصنف الذي يُباع <span class="st blue">سفري</span> فقط، مثل القهوة بالحليب الكبيرة، يُحسب دائمًا بسعر السفري، ولو كان الطلب «هنا».</li>
+  <li><strong>«ذوق الزبون»</strong>: إن كانت على الطلب بطاقة زبون من النادي يأخذ عادة سكرًا معيّنًا، يختار الكاشير سكره وحده بدل المعتاد (انظر فصل <a href="#c11">بطاقة الوفاء</a>).</li>
+  <li>لا يُطبع شيء ولا يُرسل شيء عند الإضافة. والطلب يبقى محفوظًا في الكاشير ولو أُعيد تشغيله.</li>
+</ul>
+
+<h3>الخيارات والملاحظة على الصنف</h3>
+<p>تحت آخر صنف أضفته تظهر أزرار سريعة: <strong>الحجم</strong>، و<strong>السكر</strong> (<b class="k">بدون</b> <b class="k">قليل</b> <b class="k">عادي</b> <b class="k">زيادة</b>)، وزر <b class="k">✎ خيارات</b>. المس اسم أي صنف آخر لتظهر أزراره.</p>
+<p>المس اسم الصنف في الطلب، أو <b class="k">✎ خيارات</b>، فتُفتح نافذة الخيارات:</p>
+<ul>
+  <li>كل مجموعة مكتوب بجانبها <span class="st amber">إجباري</span> أو <span class="st grey">اختياري</span>. الإجباري يصير أحمر إن لم تختر فيه شيئًا، ولا يُقبل الحفظ حتى تختار.</li>
+  <li>بجانب الاختيار المدفوع سعره، مثل <span class="say">+5</span>. و<span class="say">≤ 2</span> تعني أقصى عدد. و<span class="st green">1 مجانًا</span> يعني أن الأول مجاني.</li>
+  <li><b class="k">سفري (هذا الصنف فقط)</b>: في طلب «هنا» أو «طاولة»، لصنف واحد يأخذه الزبون معه. يُحسب بسعر السفري ويُطبع «سفري» بجانبه للبار.</li>
+  <li><strong>ملاحظة على الصنف</strong>: <b class="k">ساخن جدًا</b> <b class="k">بارد قليلًا</b> <b class="k">بدون رغوة</b> <b class="k">منفصل</b>، أو اكتب ما تريد. تُطبع للبار تحت الصنف.</li>
+  <li>العدد بـ <b class="k">−</b> و<b class="k">+</b>، ثم <b class="k green">أضف إلى الطلب</b> لصنف جديد، أو <b class="k green">حفظ</b> لصنف موجود.</li>
+  <li>في صنف عدده أكثر من واحد يظهر <b class="k">غيّر الكل (3)</b> و<b class="k">غيّر واحدًا فقط</b>: الثاني يغيّر كوبًا واحدًا ويترك الباقي.</li>
+  <li><b class="k">كيف أحضّره؟</b> يفتح وصفة المشروب بالاختيارات التي في الطلب.</li>
+</ul>
+<figure class="shot"><img src="shots/c4-options.webp" alt="" loading="lazy"><figcaption>نافذة الخيارات: مجموعات إجبارية واختيارية، والملاحظة، والعدد، ثم «حفظ».</figcaption></figure>
+<div class="box tip"><span class="title">لمسة خارج النافذة</span><p>لمسة خارج النافذة، أو زر Escape، تغلقها دون حفظ.</p></div>
+
+<h3>البن بالوزن</h3>
+<p>لا يوجد ميزان مربوط بالكاشير: زِن على ميزان المقهى، ثم اكتب الغرامات.</p>
+<ol class="steps">
+  <li>المس صنف البن بالكيلو. تُفتح نافذة الوزن وفيها سعر الكيلو.</li>
+  <li>في بن CARRION يأتي سؤال أولًا: <span class="say">كيف سيحضّر الزبون قهوته؟</span> اختر: <b class="k">تركي (35)</b> <b class="k">إسبريسو منزلي (39)</b> <b class="k">موكا بوت (45)</b> <b class="k">تقطير V60 (59)</b> <b class="k">فرنش برس (74)</b>. يظهر رقم الطاحونة كبيرًا مع شرحه، فاضبط الطاحونة عليه. ويُطبع الاختيار في الوصل.</li>
+  <li>اختر <b class="k">بالوزن</b> (125 غ، 250 غ، 500 غ، 750 غ، 1 كغ أو اكتب الغرامات) أو <b class="k">بالمبلغ</b> (20، 30، 50، 100، 200 درهم أو اكتب المبلغ). بالمبلغ يحسب الكاشير الوزن الذي يساويه.</li>
+  <li>اضغط <b class="k green">أضف إلى الطلب · 250 غ</b>.</li>
+</ol>
+<p>لتغيير الوزن بعدها المس زر الوزن على السطر. سطر البن بالوزن لا يُجمع مع غيره، ولا يُبدَّل.</p>
+
+<h3>تعديل سطر أو حذفه</h3>
+<ul>
+  <li><b class="k">+</b> و<b class="k">−</b> يغيّران العدد. وحين يكون العدد واحدًا يصير <b class="k">−</b> سلة حذف.</li>
+  <li><strong>قبل أن يصل الصنف إلى البار</strong>: عدّل واحذف بحرية، بلا صلاحية ولا تسجيل.</li>
+  <li><strong>بعد أن يصل</strong>: تظهر بجانبه علامة <span class="st green">✓✓</span>. أي إنقاص أو حذف يسأل أولًا <span class="say">هل حضّر البار…؟</span> ويحتاج صلاحية الحذف. والتغيير يصير «تبديلًا». التفاصيل في فصل <a href="#c13">تغيير طلب وإرجاعه</a>.</li>
+</ul>
+
+<h3>ملاحظة على الطلب كله</h3>
+<p>زر <b class="k">ملاحظة</b> يفتح <span class="say">ملاحظة على الطلب</span>: <b class="k">زبون دائم</b> <b class="k">مستعجل</b> <b class="k">تقديم معًا</b> <b class="k">حساسية</b>، أو اكتب ما تريد، ثم <b class="k">حفظ</b>. تصل إلى البار مرة واحدة، مع أول إرسال. ولا تُطبع في وصل الزبون.</p>
+
+<h3>تعليق طلب: «المعلّقة»</h3>
+<p>زبون سيدفع لاحقًا، أو تريد أن تبدأ طلبًا آخر؟ اضغط <b class="k">تعليق</b>. يذهب الطلب إلى <b class="k">المعلّقة</b> في أعلى الشاشة، ويأخذ الطلب التالي رقمًا جديدًا.</p>
+<ul>
+  <li>زر <b class="k">المعلّقة</b> يعرض عددها: رمادي حين لا شيء، و<span class="st amber">برتقالي</span> حين يوجد طلب معلّق، و<span class="st red">أحمر</span> حين يطلب زبون الحساب.</li>
+  <li>في النافذة كل طلب برقمه ونوعه ومنذ متى، و<span class="say">الزبون يطلب الحساب</span> إن طلبه. والطلب الأحمر بخط عريض <span class="say">من يوم سابق</span> نُسي من يوم آخر: عالجه أولًا.</li>
+  <li>المس الطلب ليعود إلى الشاشة. وما كان على الشاشة يذهب هو إلى المعلّقة.</li>
+  <li>لا حذف من القائمة: افتح الطلب ثم اضغط <b class="k">مسح</b>.</li>
+  <li>طلبات الطاولات ليست هنا: هي في <b class="k">الطاولات</b>.</li>
+</ul>
+
+<h3>«مسح» الطلب</h3>
+<p>اضغط <b class="k">مسح</b>، فيصير <b class="k warn">متأكد؟</b> لمدة 3 ثوانٍ: اضغطه مرة ثانية.</p>
+<ul>
+  <li>لم يصل منه شيء إلى البار: يُمسح بلا صلاحية.</li>
+  <li>وصل منه شيء: يسأل <span class="say">هل حُضّر؟</span> عن الطلب كله، ثم يحتاج صلاحية الحذف، ويُسجَّل في سجل المراقبة.</li>
+  <li>طلب من الموقع يُمسح: يرى الزبون على هاتفه أن الطلب أُلغي في المقهى.</li>
+</ul>
+<div class="box warn"><span class="title">بعد «مسح»</span><p>انظر إلى نوع الطلب التالي (<b class="k">هنا</b> أو <b class="k">سفري</b> أو <b class="k">Glovo</b>) قبل أن تضيف أصنافًا، حتى لا تُحسب الأسعار على النوع السابق.</p></div>
+
+<h3>«تكرار آخر طلب»</h3>
+<p>حين يكون الطلب فارغًا يظهر <b class="k">تكرار آخر طلب</b>: يضيف أصناف آخر طلب دُفع في هذا الكاشير. راجع الأصناف بعده، فهو يضيفها حتى لو نفد بعضها.</p>
+
+<h3>الصنف الذي نفد</h3>
+<p>ثلاث طرق لتجعل صنفًا <span class="st red">نفد</span> أو لتعيده <span class="st green">متوفر</span>:</p>
+<ol class="steps">
+  <li>اضغط على بطاقته ضغطة طويلة (أكثر من نصف ثانية). الضغطة نفسها تعيده متوفرًا.</li>
+  <li>زر <b class="k red">نفد</b> في أعلى نافذة الخيارات.</li>
+  <li>قائمتك (اسمك في أعلى الشاشة) ← <b class="k">أصناف نفدت</b>: المس صنفًا ليصير «نفد»، والمسه من جديد ليعود «متوفر».</li>
+</ol>
+<ul>
+  <li>يحتاج صلاحية تعديل القائمة. إن لم تكن لك، تظهر نافذة الموافقة.</li>
+  <li>يصل إلى كل الأجهزة: الكاشير الآخر، وهاتف النادل، والموقع. والصنف الذي نفد يبقى ظاهرًا رماديًا، ولمسه لا يفعل شيئًا.</li>
+</ul>
+<div class="box warn"><span class="title">بدون إنترنت</span><p>«نفد» بلا إنترنت لا يثبت: يعود الصنف متوفرًا بعد إعادة التشغيل. أعد وضعه حين يعود الاتصال.</p></div>
+
+<h3>صنف لا تجده؟</h3>
+<p>قد يخفي المالك صنفًا أو قسمًا عن الكاشير من لوحة التحكم («أين يظهر؟»). لا يظهر في البطاقات ولا في البحث. اسأل المسؤول.</p>
+
+<h3>«اقترح على الزبون»</h3>
+<p>بعد أن تضيف صنفًا بيدك، قد يظهر تحت الطلب شريط فيه صنف يناسبه، باسمه وسعره، مع <b class="k">أضف</b> و<b class="k">✕</b>. اقترحه على الزبون بكلمة: إن قبل اضغط <b class="k">أضف</b>، وإلا اضغط <b class="k">✕</b> أو تابع. لا يُضاف شيء وحده، ولا يظهر في طلب Glovo. والمالك هو من يختار الاقتراحات.</p>
+
+<h3>لوحة المفاتيح (إن وُجدت)</h3>
+<p>الكاشير يعمل باللمس. وإن وُصلت لوحة مفاتيح، فهذه اختصاراتها:</p>
+<div class="table-wrap"><table>
+  <tr><th>الزر</th><th>ما يفعله</th></tr>
+  <tr><td class="nw"><b class="k">F4</b></td><td>تعليق الطلب</td></tr>
+  <tr><td class="nw"><b class="k">F9</b> أو <b class="k">Enter</b></td><td>الدفع، حين في الطلب أصناف</td></tr>
+  <tr><td class="nw"><b class="k">/</b></td><td>المؤشر في البحث</td></tr>
+  <tr><td class="nw"><b class="k">1</b> و<b class="k">2</b></td><td>في نافذة «هنا أم سفري؟»: 1 هنا، 2 سفري</td></tr>
+</table></div>
+
+<h3>«الدليل»: دليل المشروبات</h3>
+<p>زر <b class="k">الدليل</b> في أعلى الشاشة يفتح <span class="say">دليل المشروبات</span>: لكل مشروب المقادير والخطوات المعتمدة والكأس والزينة والحساسية. ومن سطر في الطلب، <b class="k">كيف أحضّره؟</b> يفتح المشروب نفسه بما اختاره الزبون. يعمل بدون إنترنت.</p>
+</section>
+
+<!-- ===== c5 ===== -->
+<section class="chapter" id="c5" data-desc="هنا، سفري، طاولة، هاتف النادل، الموقع، Glovo">
+<h2>أنواع الطلب</h2>
+<p class="intro">في أعلى الطلب أربعة أزرار: <b class="k">هنا</b> <b class="k">سفري</b> <b class="k">طاولة</b> <b class="k">Glovo</b>. وتصل طلبات أخرى وحدها: من هاتف النادل، ومن الموقع.</p>
+
+<h3>«هنا» و«سفري»</h3>
+<ul>
+  <li><b class="k">هنا</b>: يشربه الزبون داخل المقهى أو في الترّاس، بسعر المقهى.</li>
+  <li><b class="k">سفري</b>: يأخذه معه. تصير الأسعار أسعار السفري، وتظهر <span class="say">أسعار السفري مطبّقة</span>. تُطبع للبار <span class="say">A EMPORTER</span> و«سفري»، فيُحضَّر في كوب سفري.</li>
+  <li>الطلب الجديد لا يضيء فيه زر، والبطاقات بسعر «هنا» حتى تختار.</li>
+</ul>
+<h4>نافذة «هنا أم سفري؟»</h4>
+<p>إن ضغطت <b class="k red">دفع</b> أو <b class="k">إلى البار</b> في طلب كونتوار لم تختر نوعه، تسألك: <span class="say">اسأل الزبون: سيجلس داخل المقهى أو في الترّاس، أم سيأخذ طلبه معه؟</span></p>
+<ul>
+  <li>زرّان كبيران: <b class="k">هنا</b> (داخل المقهى أو الترّاس) و<b class="k">سفري</b> (يأخذه معه)، وعلى كل واحد المجموع الذي يصير إليه.</li>
+  <li>الجواب يغيّر الأسعار، وما يُطبع للبار، والكأس، ولا تُسأل مرة ثانية لهذا الطلب.</li>
+  <li>إغلاق النافذة يلغي الدفع أو الإرسال.</li>
+  <li>تُسأل أيضًا لطلب الموقع الذي يُستلم من الكونتوار، وفيها ما اختاره الزبون: <span class="say">اختار الزبون في الموقع: …</span></li>
+</ul>
+
+<h3>«طاولة»</h3>
+<p>يفتح <span class="say">اختر طاولة</span> (<span class="say">الداخل</span> و<span class="say">الترّاس</span>). الطاولة المشغولة مكتوب عليها <span class="say">مشغولة</span>، واختيارها يعرض ضمّ الحسابين. كل شيء عن الطاولات في فصل <a href="#c9">الطاولات</a>.</p>
+
+<h3>«Glovo»</h3>
+<ol class="steps">
+  <li>اضغط <b class="k">Glovo</b>. يظهر الحقل الأصفر <span class="say">رقم طلب Glovo</span>: اكتب الرقم الظاهر في تطبيق Glovo. وتظهر <span class="say">أسعار Glovo مطبقة</span>.</li>
+  <li>أضف الأصناف. لا زبون ولا بطاقة وفاء في طلب Glovo.</li>
+  <li>عند الدفع اختر: <b class="k">Glovo نقدًا</b> إن كان الموزّع سيسلّم المبلغ نقدًا (يدخل الصندوق، ويُفتح الدرج)، أو <b class="k">Glovo أونلاين</b> إن دفع الزبون في التطبيق (لا يدخل الصندوق).</li>
+</ol>
+<ul>
+  <li><span class="say">تنبيه: طلب Glovo بهذا الرقم مسجّل مسبقًا.</span>: تحقق من الرقم، لئلا تسجّل الطلب مرتين.</li>
+  <li>ورقة البار عليها <span class="say">GLOVO</span> والرقم بخط كبير، ليُغلَّف للموزّع.</li>
+  <li>لا دَين، ولا للعامل، ولا ضيافة، ولا تبديل في طلب Glovo. والاسترداد كامل فقط.</li>
+</ul>
+
+<h3>طلبات هاتف النادل</h3>
+<p>تصل جولات النادل إلى الكاشير الرئيسي وحدها، وتنضم إلى طلب الطاولة (فصل <a href="#c9">الطاولات</a>). وزبون النادل الذي لا طاولة له يُفتح طلبه <span class="say">لـ الاسم</span> في «المعلّقة».</p>
+
+<h3>طلبات الموقع: تبويب «الموقع»</h3>
+<p>الزبون يطلب من الموقع، من طاولته أو قبل أن يصل. الطلب الجديد يرنّ كل 30 ثانية حتى تجيبه، ولو كان الكاشير مقفلًا، والرقم الأحمر على <b class="k">الموقع</b> عدد ما ينتظر جوابك. والموقع لا يقبل طلبات إلا والكاشير شغّال.</p>
+<p>في بطاقة كل طلب: <span class="say">W12</span>، ونوعه (<span class="say">طاولة S3</span>، أو <span class="say">هنا (استلام من الكونتوار)</span>، أو <span class="say">سفري (استلام من الكونتوار)</span>)، والمجموع، ومنذ متى، والاسم والهاتف، وبطاقة الوفاء إن كان للرقم بطاقة، والأصناف والملاحظات. و<span class="say">الزبون في الطريق</span> بالأخضر إن قال إنه قادم.</p>
+<h4>جواب طلب جديد</h4>
+<ol class="steps">
+  <li>راجع الأصناف: هل كلها متوفرة؟</li>
+  <li><b class="k green">قبول وإرسال للبار</b>: يذهب إلى «المعلّقة» (أو إلى حساب طاولته)، ويصل إلى البار. لطلب لساعة لاحقة: <span class="say">قُبل الطلب. تُطبع تذكرة البار وحدها على الساعة …</span></li>
+  <li>أو <b class="k">رفض</b> مع السبب: <b class="k">نفد صنف</b>، <b class="k">المقهى مزدحم جدًا</b>، <b class="k">طلب غير صحيح</b>، أو اكتب سببًا. يراه الزبون.</li>
+</ol>
+<p><span class="say">هذا الطلب قُبل من قبل</span>: قبله كاشير آخر، أو قبلته أنت. <span class="say">تعذّر قبول الطلب: تحقق من الاتصال وأعد المحاولة</span>: لا إنترنت.</p>
+<h4>بعد القبول</h4>
+<ul>
+  <li><b class="k green">جاهز</b>: يُخبَر الزبون على هاتفه أن طلبه جاهز. والبار مشغّل قد ينتظر البار أولًا.</li>
+  <li><b class="k red">ادفع W12</b>: يفتح الطلب ونافذة الدفع. والطلب نفسه في «المعلّقة» أيضًا.</li>
+  <li>طلب لساعة لاحقة يذهب إلى البار وحده قبل وقته بقليل، أو فورًا حين يضغط الزبون «أنا في الطريق»: <span class="say">W12 · الزبون في الطريق: حضّروه الآن</span>. وزر <b class="k">ابدأ التحضير الآن</b> يرسله قبل ذلك.</li>
+  <li><b class="k">إلغاء الطلب</b>: <b class="k">اتصل الزبون وألغاه</b> أو <b class="k">لم يأتِ الزبون</b>. إن كان البار قد أخذه: «هل حُضّر؟» وصلاحية الحذف. يُخبَر الزبون على صفحة طلبه.</li>
+  <li>بعد وقته بنصف ساعة يظهر <b class="k">لم يأتِ</b>: <span class="say">سُجّل غياب الزبون وأُزيل الطلب</span>.</li>
+  <li>ألغاه الزبون قبل التحضير: <span class="say">ألغى الزبون طلبه W12…</span> مع صوت هابط.</li>
+  <li>جلس الزبون ومسح رمز طاولته: <span class="say">جلس الزبون على طاولة S3: نُقل طلبه إليها</span>.</li>
+</ul>
+<h4>«ينتظرون الوصول»</h4>
+<p>زبون جديد بلا بطاقة وفاء طلب «في المقهى» أو «آخذه معي» دون وقت: طلبه لا يرنّ ولا يُحضَّر حتى يصل. يظهر في القسم الهادئ <span class="say">ينتظرون الوصول</span>، و<span class="say">ينتظر وصول الزبون · ينتهي 10:40</span>.</p>
+<ol class="steps">
+  <li>حين يصل الزبون ويقول رقم طلبه: <b class="k green">وصل، حضّره</b>.</li>
+  <li>إن لم يصل، يختفي الطلب وحده بعد ساعة.</li>
+</ol>
+<div class="box warn"><span class="title">البطاقة على طلب الموقع</span><p>بطاقة الوفاء الظاهرة تأتي من الرقم الذي كتبه الزبون. ليست دليلًا على أن صاحبها أمامك.</p></div>
+<h4>«أوقف طلبات الموقع»</h4>
+<p>زحمة شديدة؟ اضغط <b class="k">أوقف طلبات الموقع</b> واختر 15 أو 30 أو 60 دقيقة. تتوقف «في المقهى» و«آخذه معي» ثم تعود وحدها، وتستمر طلبات الطاولات، ويعلم المالك. و<b class="k">أعد تشغيلها</b> يعيدها قبل الوقت.</p>
+<h4>ما يراه الزبون على هاتفه</h4>
+<ul>
+  <li><span class="say">تم استلام طلبك، بانتظار تأكيد المقهى</span> ← <span class="say">تم التأكيد، نحضّر طلبك الآن</span> ← <span class="say">طلبك جاهز!</span> ← <span class="say">تم التسليم. بالهناء!</span></li>
+  <li>أو: <span class="say">نعتذر، لم نتمكن من قبول الطلب</span> مع سببك.</li>
+  <li>وبعد 8 دقائق بلا جواب: <span class="say">لم يؤكّد المقهى طلبك بعد…</span>، ويصل تنبيه إلى المالك بعد 10 دقائق. أجب كل طلب بسرعة.</li>
+</ul>
+</section>
+
+<!-- ===== c6 ===== -->
+<section class="chapter" id="c6" data-desc="كل حالة يظهر بها الطلب أو الطاولة، وما تفعله بعدها">
+<h2>حالات الطلب</h2>
+<p class="intro">كل كلمة أو لون يظهر على طلب أو طاولة، ومعناه، وما تفعله بعده. ارجع إلى هذا الفصل كلما رأيت حالة لا تعرفها.</p>
+
+<h3>الأصناف في الطلب</h3>
+<div class="table-wrap"><table>
+  <tr><th>ما تراه</th><th>معناه</th><th>ماذا تفعل</th></tr>
+  <tr><td>صنف بلا علامة</td><td>لم يُرسل إلى البار بعد. يُعدّ في الرقم الأحمر على «إلى البار»</td><td><b class="k">إلى البار</b> أو الدفع. يُحذف بحرية</td></tr>
+  <tr><td><span class="st green">✓✓</span> بجانب الاسم</td><td>وصل كله إلى البار أو المطبخ</td><td>أي إنقاص أو تغيير يسأل «هل حُضّر؟»</td></tr>
+  <tr><td><span class="say">بدل لاتيه</span> بالأزرق</td><td>تبديل: مشروب مكان آخر، لم يُرسل بعد</td><td><b class="k">إلى البار</b> أو الدفع</td></tr>
+  <tr><td><span class="st blue">سفري</span> على صنف</td><td>هذا الصنف وحده يأخذه الزبون معه</td><td>—</td></tr>
+  <tr><td>نص برتقالي مائل</td><td>ملاحظة على الصنف</td><td>—</td></tr>
+  <tr><td>صنف أُرسل فقد ✓✓</td><td>تغيّرت ملاحظته أو «سفري»: يُرسل من جديد بعلامة «تغيّر»</td><td><b class="k">إلى البار</b></td></tr>
+</table></div>
+
+<h3>الطاولة</h3>
+<div class="table-wrap"><table>
+  <tr><th>الحالة</th><th>معناها</th><th>ماذا تفعل</th></tr>
+  <tr><td class="nw"><span class="st green">فارغة</span></td><td>لا حساب مفتوح</td><td>المسها لطلب جديد</td></tr>
+  <tr><td class="nw"><span class="st red">مشغولة</span></td><td>حساب مفتوح فيه أصناف</td><td>المسها لنافذتها</td></tr>
+  <tr><td class="nw"><span class="st red">تنتظر الحساب</span> 🧾</td><td>طلب الزبون الحساب (من هاتف النادل أو من الكاشير)</td><td><b class="k">اطبع الحساب</b> ثم <b class="k red">الدفع الآن</b></td></tr>
+  <tr><td class="nw"><span class="st blue">محجوزة</span></td><td>ضُغط «حجز»</td><td>افتح الطاولة حين يصل أصحابها</td></tr>
+  <tr><td class="nw"><span class="st amber">مدفوعة</span> ⏳</td><td>دفع الزبون وما زال ينتظر طلبه</td><td>والبار مطفأ: <b class="k green">جاهز ✓</b> حين يجهز. ثم <b class="k">غادر</b> حين يغادر</td></tr>
+  <tr><td class="nw"><span class="st green">مدفوعة · سُلِّم</span></td><td>دفع وقُدّم له طلبه</td><td><b class="k">غادر</b> حين يغادر. وتعود فارغة وحدها بعد مدة يحددها المالك</td></tr>
+</table></div>
+<p>الدقائق على بطاقة الطاولة تصير حمراء بعد 45 دقيقة، أو حين يكون الطلب من يوم سابق.</p>
+
+<h3>مراحل التحضير (على الطاولة وفي نافذتها)</h3>
+<div class="table-wrap"><table>
+  <tr><th>المرحلة</th><th>معناها</th><th>ماذا تفعل</th><th>البار</th></tr>
+  <tr><td class="nw"><span class="st red">⚠ لم يُرسل</span></td><td>الجولة لم تصل إلى البار: لا ورقة، أو الشاشة لم تجب</td><td>أخبر البار بصوتك، أصلح الطابعة أو الإنترنت، ثم <b class="k">أرسل الآن</b></td><td>الحالتان</td></tr>
+  <tr><td class="nw"><span class="st amber">⏳ لم يبدأه البار بعد</span></td><td>على شاشة البار في «جديد»</td><td>انتظر. بعد 10 دقائق ينبّهك الكاشير</td><td>مشغّل</td></tr>
+  <tr><td class="nw"><span class="st amber">يحضّره كريم</span></td><td>مشغّل: البارمان بدأها. مطفأ: أنت، أو من كان داخلًا حين وصلت</td><td>مشغّل: انتظر «جاهز ✓» من البار. مطفأ: حضّر، ثم <b class="k green">الطلب جاهز للنادل</b></td><td>الحالتان</td></tr>
+  <tr><td class="nw"><span class="st amber">قيد التحضير</span></td><td>جولات يحضّرها أكثر من شخص، أو بلا اسم</td><td>كما فوقه</td><td>الحالتان</td></tr>
+  <tr><td class="nw"><span class="st amber">مشروبات البار جاهزة</span></td><td>المشروبات جاهزة، والأكل لم يجهز</td><td>حين يجهز الأكل: <b class="k green">الطلب جاهز للنادل</b></td><td>مشغّل</td></tr>
+  <tr><td class="nw"><span class="st green">✓ جاهز</span></td><td>أُعلن جاهزًا. هاتف النادل يرنّ كل 20 ثانية</td><td>لا شيء</td><td>الحالتان</td></tr>
+  <tr><td class="nw"><span class="st green">✓ سُلِّم</span></td><td>حمله النادل وضغط «استلمت»</td><td>لا شيء. اقبض حين يطلب الحساب</td><td>الحالتان</td></tr>
+</table></div>
+
+<h3>جولة النادل كما يراها على هاتفه</h3>
+<p>إن قال لك النادل ما يظهر على هاتفه:</p>
+<ul>
+  <li><span class="say">في الانتظار</span>: لا إنترنت في الهاتف بعد.</li>
+  <li><span class="say">في الطريق إلى الكاشير</span>: أُرسلت، ولم يأخذها الكاشير بعد.</li>
+  <li><span class="say">لم يصل إلى الكاشير</span> (بعد 45 ثانية): الكاشير الرئيسي مطفأ، أو بلا إنترنت، أو ورديته مغلقة. تحقّق منه.</li>
+  <li><span class="say">أُلغي</span>: بقيت أكثر من ساعتين دون أن تصل.</li>
+  <li><span class="say">لم يُرسل</span>: وصلت إلى الكاشير ولم تخرج ورقتها. انظر «⚠ لم يُرسل» فوقه.</li>
+</ul>
+
+<h3>في «السجل»</h3>
+<div class="table-wrap"><table>
+  <tr><th>العلامة</th><th>معناها</th></tr>
+  <tr><td class="nw">بلا علامة</td><td>مدفوع</td></tr>
+  <tr><td class="nw"><span class="st red">دَين</span></td><td>لم يدفعه الزبون بعد (فصل <a href="#c12">دَين</a>)</td></tr>
+  <tr><td class="nw"><span class="st blue">للعامل · الاسم</span></td><td>مشروب موظف، من أجره</td></tr>
+  <tr><td class="nw"><span class="st green">ضيافة</span></td><td>مجاني بموافقة المالك</td></tr>
+  <tr><td class="nw"><span class="st red">مُسترد</span>، والمجموع مشطوب</td><td>أُرجع ثمنه كله</td></tr>
+  <tr><td class="nw"><span class="st red">مُسترد جزئيًا</span></td><td>أُرجع جزء منه: يظهر سطران بالرقم نفسه، البيع وما أُرجع</td></tr>
+</table></div>
+<p>وبجانب كل طلب أيقونة الدفع: ورقة نقود (نقدًا)، بطاقة، دراجة صفراء (Glovo)، يد حمراء (دين ينتظره المقهى)، أو «نقدًا + بطاقة».</p>
+
+<h3>طلب الموقع</h3>
+<div class="table-wrap"><table>
+  <tr><th>الحالة</th><th>أين وكيف تظهر</th><th>الأزرار</th></tr>
+  <tr><td>جديد ينتظر جوابك</td><td>«جديدة»، إطار أحمر، يرنّ كل 30 ثانية</td><td><b class="k">رفض</b> / <b class="k green">قبول وإرسال للبار</b></td></tr>
+  <tr><td>ينتظر وصول الزبون</td><td>قسم هادئ «ينتظرون الوصول»: زبون جديد بلا بطاقة. لا يرنّ ولا يُحضَّر حتى يصل</td><td><b class="k">إلغاء الطلب</b> / <b class="k green">وصل، حضّره</b></td></tr>
+  <tr><td>مقبول لساعة لاحقة</td><td>«لساعة لاحقة»، <span class="say">لـ 11:45 · بعد 30 د</span></td><td><b class="k">ابدأ التحضير الآن</b></td></tr>
+  <tr><td>قيد التحضير</td><td>«قيد التحضير». بعد وقته: <span class="st red">متأخر 5 د</span></td><td><b class="k green">جاهز</b>، <b class="k red">ادفع W12</b>، <b class="k">إلغاء الطلب</b></td></tr>
+  <tr><td>جاهز من الكاشير، ينتظر البار</td><td>والبار مشغّل: <span class="say">جاهز من الكاشير · ينتظر البار</span></td><td>—</td></tr>
+  <tr><td>جاهز</td><td>«جاهزة»</td><td><b class="k red">ادفع W12</b>، <b class="k">إلغاء الطلب</b> أو <b class="k">لم يأتِ</b></td></tr>
+</table></div>
+<p>المدفوع والمرفوض والملغى يخرج من القائمة. والتفاصيل في فصل <a href="#c5">أنواع الطلب</a>.</p>
+</section>
+
+<!-- ===== c7 ===== -->
+<section class="chapter" id="c7" data-desc="إلى البار، شاشة البار، جاهز، تنبيه النادل">
+<h2>العمل والبار مشغّل</h2>
+<p class="intro">«البار مشغّل» يعني أن في البار شاشة: كل ما تسجّله يظهر عليها، والبارمان يحضّر منها ويضغط «جاهز ✓». يشغّلها المالك من لوحة التحكم، غالبًا في الصيف. وقد تُطبع ورقة البار أيضًا، إن اختار المالك ذلك.</p>
+<div class="box info when-off"><span class="title">البار مطفأ الآن</span><p>هذا الفصل للبار المشغّل. طريقة عملك اليوم في فصل <a href="#c8">العمل والبار مطفأ</a>. ولقراءة هذا الفصل اختر <b class="k">البار مشغّل</b> في الأعلى.</p></div>
+<div class="only-on">
+
+<h3>«إلى البار»: متى وكيف</h3>
+<p>الزر في أسفل الطلب: <b class="k">إلى البار</b>، أو <b class="k">إلى المطبخ</b>، أو <b class="k">إلى البار والمطبخ</b>، حسب الأصناف. الرقم الأحمر عليه هو عدد الأصناف التي لم تُرسل بعد.</p>
+<ol class="steps">
+  <li>اضغط <b class="k">إلى البار</b>. في طلب الكونتوار يسألك أولًا <span class="say">هنا أم سفري؟</span> إن لم تختر.</li>
+  <li>يذهب ما لم يُرسل فقط، وملاحظة الطلب مرة واحدة، ومعه اسم يُنادى به: اسم زبون النادل، أو الاسم الأول لزبون النادي.</li>
+  <li>تظهر <span class="say">أُرسل للتحضير</span>. وفي طلب طاولة: <span class="say">أُرسل للتحضير · الطلب على الطاولة S3، والشاشة جاهزة للطلب التالي</span>.</li>
+</ol>
+<p><strong>يُرسل وحده</strong>، دون أن تضغط «إلى البار»:</p>
+<ul>
+  <li>عند <b class="k red">دفع</b> طلب الكونتوار: يصل إلى شاشة البار مع الدفع.</li>
+  <li>عند <b class="k">تعليق</b> طلب طاولة.</li>
+  <li>جولات هاتف النادل: يأخذها الكاشير الرئيسي ويرسلها وحده.</li>
+</ul>
+<p>إذن تضغط <b class="k">إلى البار</b> حين يُحضَّر الطلب قبل الدفع: طاولة، أو زبون يدفع لاحقًا.</p>
+
+<h3>شاشة البار</h3>
+<figure class="shot"><img src="shots/c7-bar.webp" alt="" loading="lazy"><figcaption>شاشة البار: «جديد» ثم «قيد التحضير» ثم «جاهز». كل بطاقة طلب برقمه ومكانه ومدته، ومن يُخبَر حين يجهز.</figcaption></figure>
+<ul>
+  <li>ثلاثة أعمدة: <span class="st amber">جديد</span>، <span class="st red">قيد التحضير</span>، <span class="st green">جاهز</span>.</li>
+  <li>على البطاقة: الرقم، والمكان (<span class="say">طاولة S5</span>، <span class="say">الموقع</span>، <span class="say">الكونتوار</span>)، والدقائق: برتقالية بعد 5، حمراء بعد 10.</li>
+  <li>شريط <span class="say">أولوية · الزبون ينتظر</span> لمشروب بُدّل أو تغيّر: يأتي أولًا. وشريط <span class="say">سفري</span> أو <span class="say">Glovo</span>.</li>
+  <li>من يُخبَر حين يجهز: <span class="say">🔔 يرنّ هاتف النادل</span>، <span class="say">📱 يُخبَر الزبون على الهاتف</span>، <span class="say">🗣 يُنادى: #021 Karim</span>، أو <span class="say">🍽 مع أكل: الإعلان من الكاشير</span>.</li>
+  <li>الأزرار: <b class="k">أبدأها</b> ثم <b class="k green">جاهز ✓</b>، ثم <b class="k">سُلِّم</b> حين يُسلَّم. والبارمان يتراجع خلال دقيقة واحدة.</li>
+  <li>يخرج الطلب من «جاهز» وحده بعد 10 دقائق للكونتوار، و30 دقيقة للطاولات والموقع وGlovo.</li>
+</ul>
+
+<h3>حين يجهز الطلب</h3>
+<ul>
+  <li><strong>طلب الكونتوار</strong>: ينادي البار الزبون برقمه أو باسمه. ويظهر في الكاشير <span class="say">جاهز من البار: …</span> مع نغمة قصيرة.</li>
+  <li><strong>طلب طاولة</strong>: يرنّ هاتف النادل كل 20 ثانية حتى يضغط <b class="k">استلمت</b>. وتصير الطاولة <span class="st green">جاهز</span> ثم <span class="st green">سُلِّم</span>.</li>
+  <li><strong>طلب الموقع</strong>: يُخبَر الزبون على هاتفه.</li>
+  <li><strong>طلب فيه أكل</strong>: حين يجهز البار تظهر <span class="st amber">مشروبات البار جاهزة</span>، ولا يرنّ هاتف النادل بعد. حين يجهز الأكل اضغط أنت <b class="k green">الطلب جاهز للنادل</b> في نافذة الطاولة.</li>
+</ul>
+
+<h3>«الطلب جاهز للنادل» والبار لم ينتهِ</h3>
+<p>إن ضغطت <b class="k green">الطلب جاهز للنادل · البار لم يُنهِ بعد</b>، تسألك نافذة <span class="say">البار لم يُنهِ بعد</span>: <b class="k">انتظر البار</b> أو <b class="k">نعم، جاهز</b>. وعلى شاشة البار تظهر <span class="say">الكاشير قال جاهز: هل حضّرته؟</span>. مشروب البار وحده لا يُعلن جاهزًا إلا من البار.</p>
+
+<h3>تنبيهات</h3>
+<ul>
+  <li><span class="say">… في البار منذ 10 د، ولم يلمسها أحد على الشاشة</span> (أحمر، مع صوت): اذهب إلى البار وانظر.</li>
+  <li><span class="say">لم يصل الطلب إلى البار: شاشة البار لا تجيب (لا إنترنت؟). أعد الإرسال، أو أخبرهم بالطلب.</span>: أخبر البار بصوتك الآن، ثم أعد الإرسال حين يعود الاتصال.</li>
+</ul>
+
+<h3>إلغاء مشروب لم يُحضَّر</h3>
+<p>في نافذة <span class="say">هل حُضّر؟</span> ترى ما تقوله الشاشة: <span class="say">البار: لم يبدأه البار بعد</span>، أو <span class="say">البار: يحضّره كريم</span>، أو <span class="say">البار: جاهز</span>. حين تختار <b class="k">لم يُحضَّر بعد</b> يُشطب المشروب على شاشة البار، ويظهر عليها <span class="st red">أُلغي</span> مع صوت (فصل <a href="#c13">تغيير طلب وإرجاعه</a>).</p>
+</div>
+</section>
+
+<!-- ===== c8 ===== -->
+<section class="chapter" id="c8" data-desc="ورقة الطابعة، وخطوات يحضّره / جاهز / سُلِّم">
+<h2>العمل والبار مطفأ</h2>
+<p class="intro">«البار مطفأ» يعني أن لا شاشة في البار: الكاشير هو كل شيء. يطبع ورقة البار على الطابعة، فيحضّر منها من في البار (أو أنت). والكاشير نفسه يتابع مراحل الطاولات: يحضّره، جاهز، سُلِّم.</p>
+<div class="box info when-on"><span class="title">البار مشغّل الآن</span><p>هذا الفصل للبار المطفأ. طريقة عملك اليوم في فصل <a href="#c7">العمل والبار مشغّل</a>. ولقراءة هذا الفصل اختر <b class="k">البار مطفأ</b> في الأعلى.</p></div>
+<div class="only-off">
+
+<h3>ورقة البار</h3>
+<div class="shots-row">
+  <figure class="shot half"><img src="shots/print-ticket.webp" alt="" loading="lazy"><figcaption>طلب يُشرب هنا: «SUR PLACE · داخل المقهى».</figcaption></figure>
+  <figure class="shot half"><img src="shots/print-away.webp" alt="" loading="lazy"><figcaption>طلب سفري: «A EMPORTER · سفري» بخط أبيض على أسود.</figcaption></figure>
+</div>
+<p>على الورقة: <span class="say">BAR</span>، ورقم الطلب (<span class="say">#012</span>، أو <span class="say">W12</span> لطلب الموقع)، ونوعه:</p>
+<ul>
+  <li><span class="say">SUR PLACE</span> و«داخل المقهى»، أو <span class="say">A EMPORTER</span> و«سفري»، أو <span class="say">TABLE S5</span>، أو <span class="say">GLOVO</span> ورقمه.</li>
+  <li><span class="say">PAYEE</span> و«طاولة 5 · مدفوعة»: زبون دفع وجلس ينتظر.</li>
+  <li><span class="say">لـ Karim</span>: الاسم الذي يُنادى به.</li>
+  <li>كل صنف <span class="say">2 x Espresso</span>، وتحته الخيارات بعد <span class="say">&gt;</span>، وملاحظته بعد <span class="say">!</span>، وملاحظة الطلب <span class="say">NOTE : …</span>.</li>
+  <li><span class="say">ECHANGE</span>: مشروب مكان آخر (تبديل). <span class="say">MODIFIE</span>: تغيّرت ملاحظته، فالورقة السابقة لاغية. <span class="say">RENVOI</span> و«إعادة إرسال · لا يُحضَّر مرتين»: نسخة ثانية لما أُرسل.</li>
+</ul>
+<p>ورقة البار فيها أصناف البار وحدها. والأكل يخرج على ورقة المطبخ <span class="say">CUISINE</span>.</p>
+
+<h3>متى تُطبع</h3>
+<ul>
+  <li>حين تضغط <b class="k">إلى البار</b>.</li>
+  <li>عند <b class="k red">دفع</b> طلب الكونتوار.</li>
+  <li>عند <b class="k">تعليق</b> طلب طاولة.</li>
+  <li>حين تصل جولة من هاتف النادل: تُطبع وحدها.</li>
+  <li><b class="k">أرسل الآن</b> في نافذة الطاولة، و<b class="k">أعد الإرسال</b> بعد الدفع، و<b class="k">أعد الإرسال للبار والمطبخ</b> في «السجل».</li>
+</ul>
+
+<h3>الورقة لم تخرج</h3>
+<p>رسالة حمراء لعشر ثوانٍ: <span class="say">لم يصل الطلب إلى البار: … أعد الإرسال، أو أخبرهم بالطلب.</span> والسبب أحد هذه: <span class="say">لا توجد طابعة مضبوطة</span>، <span class="say">الطابعة مطفأة</span>، <span class="say">الطابعة لم تطبع (ورق؟)</span>، <span class="say">الطابعة لا تجيب</span>.</p>
+<ol class="steps">
+  <li>أخبر البار بالطلب بصوتك الآن.</li>
+  <li>أصلح الطابعة: شغّلها، أو ضع الورق، أو أغلق الغطاء.</li>
+  <li>أعد الإرسال: <b class="k">إلى البار</b>، أو <b class="k">أرسل الآن</b> في نافذة الطاولة. الورقة التي فشلت لا تخرج وحدها لاحقًا.</li>
+</ol>
+<div class="box warn"><span class="title">جولة «لم يُرسل»</span><p>جولة لم تُطبع ورقتها تبقى <span class="st red">⚠ لم يُرسل</span> على الطاولة، ولا تُعلن جاهزة، فلا يرنّ هاتف النادل لها. أصلح الطباعة أولًا، ثم <b class="k">أرسل الآن</b>.</p></div>
+
+<h3>طلب الكونتوار</h3>
+<p>تسجّل وتقبض، فتخرج الورقة في البار. يحضّر البار منها، ثم ينادي الزبون برقمه أو باسمه. لا مراحل لطلب الكونتوار في الكاشير: الورقة هي الطلب.</p>
+
+<h3>مراحل الطاولة: يحضّره، جاهز، سُلِّم</h3>
+<ol class="steps">
+  <li>تصل جولة من النادل، أو ترسل أنت أصنافًا لطاولة. تُطبع الورقة، وتظهر الجولة على الطاولة <span class="st amber">يحضّره اسمك</span>: اسم من كان داخلًا إلى الكاشير.</li>
+  <li>حضّر المشروبات من الورقة.</li>
+  <li>حين تجهز، افتح الطاولة واضغط <b class="k green">الطلب جاهز للنادل</b>. أو من زر <b class="k">قيد التحضير</b> في الطاولات: <b class="k green">جاهز ✓</b> بجانب الجولة.</li>
+  <li>تظهر لخمس ثوانٍ <span class="say">جاهز ✓ · طاولة S5</span> مع <b class="k">تراجع</b>، ثم <span class="say">أُعلم النادل: الطلب جاهز</span>. يرنّ هاتفه كل 20 ثانية حتى يضغط <b class="k">استلمت</b>.</li>
+  <li>حين يضغط النادل «استلمت» تصير الجولة <span class="st green">سُلِّم</span>. لا زر «سُلِّم» في الكاشير.</li>
+</ol>
+<ul>
+  <li><b class="k">قيد التحضير</b> في أعلى شاشة الطاولات: كل جولة لم تُعلن جاهزة، الأقدم أولًا. وهو المكان الوحيد لإعلان جاهزية طلب زبون النادل الذي لا طاولة له.</li>
+  <li>بلا إنترنت: <span class="say">لم يصل التنبيه للنادل (لا إنترنت). حاول مرة أخرى.</span> نادِه بصوتك.</li>
+</ul>
+
+<h3>إلغاء مشروب لم يُحضَّر</h3>
+<p>حين تختار <b class="k">لم يُحضَّر بعد</b> في نافذة <span class="say">هل حُضّر؟</span> تُطبع للبار ورقة <span class="say">ANNULÉ</span> و«أُلغي · لا يُحضَّر». إن لم تخرج: <span class="say">لم تُطبع ورقة الإلغاء للبار: أخبروا البار بالإلغاء.</span> أخبرهم بصوتك.</p>
+</div>
+</section>
+
+<!-- ===== c9 ===== -->
+<section class="chapter" id="c9" data-desc="فتح طاولة، الجولات، نقل أو ضمّ، الحساب">
+<h2>الطاولات</h2>
+<p class="intro">تبويب <b class="k">الطاولات</b> في أعلى الشاشة، والرقم الأحمر عليه عدد الطاولات المفتوحة. الترتيب: S1 إلى S8، ثم C1 وC2، ثم T1 إلى T7. وإن رسم المالك المقهى، تظهر الطاولات على <b class="k">رسم المقهى</b>، ويمكنك اختيار <b class="k">القائمة</b>.</p>
+
+<figure class="shot"><img src="shots/c9-tables.webp" alt="" loading="lazy"><figcaption>شاشة الطاولات (القائمة): العدد في كل حالة في الأعلى، و«قيد التحضير»، ولكل طاولة حالتها وأزرارها.</figcaption></figure>
+
+<h3>في أعلى الشاشة</h3>
+<ul>
+  <li>عدد الطاولات في كل حالة: <span class="st green">فارغة</span>، <span class="st red">مشغولة</span>، <span class="st red">تنتظر الحساب</span>، <span class="st blue">محجوزة</span>. وحالات كل طاولة في فصل <a href="#c6">حالات الطلب</a>.</li>
+  <li><b class="k">قيد التحضير</b>: كل جولة لم تُعلن جاهزة، الأقدم أولًا. يصير برتقاليًا حين يكون فيه شيء.</li>
+</ul>
+
+<h3>طلب طاولة جديد</h3>
+<ol class="steps">
+  <li>المس طاولة <span class="st green">فارغة</span>، فيُفتح طلب جديد لها على شاشة البيع، وفوقه <span class="say">طاولة S3 ▾</span>. أو في شاشة البيع اضغط <b class="k">طاولة</b> واختر من <span class="say">اختر طاولة</span>.</li>
+  <li>أضف الأصناف.</li>
+  <li>اضغط <b class="k">إلى البار</b>، أو <b class="k">تعليق</b> الذي يرسل أولًا. يعود الطلب إلى طاولته، وتفرغ الشاشة للطلب التالي.</li>
+</ol>
+<div class="box warn"><span class="title">طلب طاولة أُرسل</span><p>لا يتحوّل إلى «هنا» أو «سفري» أو «Glovo»: <span class="say">هذا طلب الطاولة S3 وقد أُرسل: يبقى للطاولة. للطلب التالي اضغط «تعليق».</span> ويمكن نقله إلى طاولة أخرى.</p></div>
+
+<h3>نافذة الطاولة</h3>
+<p>المس طاولة مشغولة، فتُفتح نافذتها: <span class="say">طاولة S5</span>، و<span class="say">مفتوحة منذ 12 د</span>، والمجموع، ثم الجولات، كل جولة بحالتها ومن أرسلها: <span class="say">الجولة 1</span> من هاتف النادل، أو <span class="say">أضافها الكاشير</span>.</p>
+<div class="table-wrap"><table>
+  <tr><th>الزر</th><th>ما يفعله</th></tr>
+  <tr><td class="nw"><b class="k red">الدفع الآن</b></td><td>يفتح الطلب ونافذة الدفع (بلا سؤال «هنا أم سفري؟»)</td></tr>
+  <tr><td class="nw"><b class="k">فتح الطلب / إضافة</b></td><td>يفتح الطلب على شاشة البيع لتضيف أصنافًا</td></tr>
+  <tr><td class="nw"><b class="k green">الطلب جاهز للنادل</b></td><td>يعلن الجولات جاهزة، فيرنّ هاتف النادل (فصل <a href="#c8">البار مطفأ</a>، وفصل <a href="#c7">البار مشغّل</a>)</td></tr>
+  <tr><td class="nw"><b class="k">اطبع الحساب</b></td><td>يطبع الحساب ليحمله النادل. ليس وصلًا، ولا يُسجَّل</td></tr>
+  <tr><td class="nw"><b class="k">نقل أو ضمّ</b></td><td>ينقل الطلب إلى طاولة أخرى، أو يضمّه إلى حسابها</td></tr>
+  <tr><td class="nw"><b class="k">طلب الحساب؟</b> / <b class="k red">ألغِ طلب الحساب</b></td><td>يجعل الطاولة «تنتظر الحساب»، أو يلغي ذلك</td></tr>
+  <tr><td class="nw"><b class="k">أرسل الآن</b></td><td>بجانب جولة «لم يُرسل»: يعيد إرسالها حين تعمل الطابعة أو الإنترنت</td></tr>
+  <tr><td class="nw"><b class="k">كتاب من الرف لهذه الطاولة</b></td><td>يسجّل كتابًا أُعطي للطاولة (أسفله)</td></tr>
+</table></div>
+
+<h3>جولات هاتف النادل</h3>
+<ul>
+  <li>يرسل النادل الجولة من هاتفه، فيأخذها <strong>الكاشير الرئيسي</strong> وحده، ولو كان مقفلًا. تنضم إلى طلب الطاولة، وتُطبع وتُرسل للبار وحدها.</li>
+  <li>رسالة خضراء مع صوت: <span class="say">📱 طاولة S5 · طلب من هاتف النادل · Ali</span>. لا شيء عليك.</li>
+  <li>رسالة زرقاء تنتهي بـ <span class="say">· أُرسلت 16:41</span>: جولة وصلت متأخرة. تأكد أنها ما زالت مطلوبة، وأنك لم تكتبها بيدك من قبل.</li>
+  <li><span class="say">صنف غير معروف في الكاشير لم يُضف</span>: صنف لا يعرفه الكاشير. أضفه بيدك، أو اطلب من النادل إعادة الإرسال بعد تحديث القائمة.</li>
+  <li>جولة لزبون بلا طاولة تفتح طلبًا <span class="say">لـ الاسم</span> في «المعلّقة».</li>
+</ul>
+<div class="box warn"><span class="title">ليبقى النادل يعمل</span><p>أبقِ الكاشير الرئيسي شغّالًا ووردِيته مفتوحة. إن انطفأ، يرى النادل على هاتفه أن الكاشير مطفأ، ولا تصل جولاته.</p></div>
+
+<h3>الحساب والدفع</h3>
+<ol class="steps">
+  <li>يضغط النادل «طلب الحساب»، فتصير الطاولة <span class="st red">تنتظر الحساب</span>: <span class="say">🧾 طاولة S5 · الزبون يطلب الحساب · Ali</span>.</li>
+  <li>اضغط <b class="k">اطبع الحساب</b> إن أراد الزبون رؤيته. يُطبع «IL CONTO · الحساب»، وعليه «هذا ليس وصل الأداء».</li>
+  <li>اضغط <b class="k red">الدفع الآن</b> واقبض (فصل <a href="#c10">الدفع</a>).</li>
+</ol>
+<p>بعد الدفع يتوقف رنين هاتف النادل للجولات الجاهزة، وتُحسب كأنها استُلمت. وإن وصلت جولة أثناء الدفع، توضع في طلب منفصل للطاولة نفسها.</p>
+<figure class="shot half"><img src="shots/print-bill.webp" alt="" loading="lazy"><figcaption>الحساب المطبوع لطاولة: ليس وصل أداء.</figcaption></figure>
+
+<h3>«نقل أو ضمّ»</h3>
+<ul>
+  <li><strong>إلى طاولة فارغة</strong>: ينتقل الطلب كله، ومعه جولاته وطلب الحساب.</li>
+  <li><strong>إلى طاولة مشغولة</strong>: يسأل <span class="say">ضمّ هذا الطلب إلى طلب طاولة S4؟ يصبحان حسابًا واحدًا وتتحرّر هذه الطاولة.</span> اضغط <b class="k">ضمّ في حساب واحد</b>.</li>
+</ul>
+
+<h3>الحجز</h3>
+<p>في <b class="k">القائمة</b>، زر <b class="k">حجز</b> على طاولة فارغة يجعلها <span class="st blue">محجوزة</span>. حين يصل أصحابها المس الطاولة وافتح طلبهم. و<b class="k">إلغاء الحجز</b> يعيدها فارغة.</p>
+
+<h3>زبون دفع وجلس: «مدفوعة»</h3>
+<ul>
+  <li>زبون دفع في الكونتوار واختار طاولة في <span class="say">أين يجلس؟</span>، أو طاولة دُفعت ومشروباتها لم تصل: تصير <span class="st amber">مدفوعة</span> و<span class="say">ينتظر طلبه · منذ 4 د</span>. تُطبع ورقة البار <span class="say">PAYEE</span> و«طاولة 5 · مدفوعة»، ويرنّ هاتف النادل حين يجهز الطلب.</li>
+  <li>حين يُقدَّم الطلب: <span class="st green">مدفوعة · سُلِّم</span>.</li>
+  <li>حين يغادر الزبون اضغط <b class="k">غادر</b>: <span class="say">الطاولة S5 فارغة الآن</span>، مع <b class="k">تراجع</b> لخمس ثوانٍ.</li>
+  <li>والبار مطفأ: حين تجهز مشروباته، اضغط <b class="k green">جاهز ✓</b> على بطاقة الطاولة.</li>
+</ul>
+<div class="box warn"><span class="title">انتبه في «القائمة»</span><p>لمسة على جسم بطاقة طاولة «مدفوعة» تفتح طلبًا <strong>جديدًا</strong> لها. استعمل أزرارها: <b class="k">جاهز ✓</b> و<b class="k">غادر</b>.</p></div>
+
+<h3>كتاب من الرف</h3>
+<ol class="steps">
+  <li>في نافذة الطاولة: <b class="k">كتاب من الرف لهذه الطاولة</b>، ثم المس الكتاب. تظهر <span class="say">📖 «…» على الطاولة S5</span>، ويخرج الكتاب من الرف في الموقع أيضًا.</li>
+  <li>عند الدفع ترى <span class="say">على هذه الطلبية كتاب من المكتبة…</span>. حين يعيده الزبون اضغط <b class="k">عاد إلى الرف</b>.</li>
+</ol>
+</section>
+
+<!-- ===== c10 ===== -->
+<section class="chapter" id="c10" data-desc="نقدًا أو بالبطاقة، تقسيم الحساب، الباقي، الوصل">
+<h2>الدفع</h2>
+<p class="intro">تفتح نافذة الدفع بالزر الأحمر <b class="k red">دفع</b> وعليه المجموع، أو <b class="k red">الدفع الآن</b> في نافذة طاولة، أو <b class="k red">ادفع W12</b> على طلب من الموقع. الدفع في الكاشير فقط، لا في هاتف النادل ولا في شاشة البار.</p>
+
+<figure class="shot"><img src="shots/c10-pay.webp" alt="" loading="lazy"><figcaption>نافذة الدفع: في اليسار المجموع والزبون و«أين يجلس؟» و«للعامل» و«ضيافة» وتقسيم الحساب؛ وفي اليمين طريقة الدفع والمبلغ المستلم و«إتمام الدفع».</figcaption></figure>
+
+<h3>الدفع نقدًا، خطوة بخطوة</h3>
+<ol class="steps">
+  <li>اضغط <b class="k red">دفع</b>. في طلب الكونتوار تُسأل أولًا <span class="say">هنا أم سفري؟</span> إن لم تختر.</li>
+  <li><b class="k">نقدًا</b> مختار. <span class="say">المبلغ المستلم</span> يبدأ بالمبلغ نفسه، و<b class="k">بالضبط</b> مضيء.</li>
+  <li>أعطاك الزبون ورقة أكبر؟ المس المبلغ الجاهز (مثل 50 أو 100)، أو اكتبه. المبالغ بالدرهم الكامل.</li>
+  <li>اقرأ <span class="say">الباقي</span> بالأخضر الكبير، وأعطه للزبون.</li>
+  <li>اضغط <b class="k green">إتمام الدفع</b>.</li>
+</ol>
+<ul>
+  <li><span class="say">المبلغ المستلم أقل من المجموع</span>: الزر لا يعمل حتى تصحّح المبلغ.</li>
+  <li><span class="say">المبلغ المستلم أكبر بكثير من الحساب: تأكد منه قبل الدفع</span>: أكثر من 200 درهم فوق الحساب. تأكد أنك لم تخطئ.</li>
+</ul>
+
+<h3>بالبطاقة، أو نقدًا وبالبطاقة</h3>
+<ul>
+  <li><b class="k">بطاقة</b>: الكاشير يسجّل فقط. اكتب المبلغ على جهاز البطاقة بنفسك، ولا تضغط «إتمام الدفع» قبل أن يقبل الجهاز البطاقة.</li>
+  <li><b class="k">نقدًا + بطاقة</b>: اكتب <span class="say">الجزء النقدي</span>، والباقي يصير <span class="say">الجزء بالبطاقة</span>.</li>
+</ul>
+
+<h3>في يسار النافذة</h3>
+<ul>
+  <li><b class="k">زبون / بطاقة الوفاء</b>: أضف الزبون هنا إن نسيته، وفيه زرّا المشروب المجاني وهدية عيد الميلاد (فصل <a href="#c11">بطاقة الوفاء</a>).</li>
+  <li><span class="say">أين يجلس؟</span>: في طلب «هنا» من الكونتوار. <b class="k">كونتوار</b> مختار. إن جلس الزبون إلى طاولة المسها: تصير الطاولة «مدفوعة»، ويحمل النادل الطلب إليها حين يجهز.</li>
+  <li><b class="k">للعامل</b> و<b class="k">ضيافة</b>: فصل <a href="#c12">الخصم، للعامل، ضيافة، دَين</a>.</li>
+  <li><b class="k">كل زبون يدفع ما أخذ</b>: لأصدقاء يدفع كل واحد ما شربه. اختر بـ − و+ ما يدفعه الأول، واقبض، ثم <b class="k">رجوع إلى الطلب</b> للثاني. <span class="say">متبقٍّ للآخرين</span> يقول كم بقي. و<b class="k">الحساب كله</b> يلغي التقسيم.</li>
+  <li><span class="say">نصيب كل شخص</span> 2 إلى 6: يعرض نصيب كل واحد فقط، ويُدفع الحساب كله مرة واحدة.</li>
+  <li>كتاب من المكتبة على الطلب: <span class="say">على هذه الطلبية كتاب من المكتبة…</span>. اضغط <b class="k">عاد إلى الرف</b> حين يعيده الزبون.</li>
+</ul>
+
+<h3>رسائل قبل إتمام الدفع</h3>
+<ul>
+  <li><span class="say">الخصم صار أكبر من الحد الذي وافق عليه المسؤول: أعد تطبيقه (زر الخصم) ليوافق عليه.</span>: حذفت أصنافًا بعد الخصم. أغلق النافذة، واضغط <b class="k">خصم</b> من جديد.</li>
+  <li><span class="say">بطاقة هذا الزبون لم تعد ممتلئة (استُعملت في مكان آخر): حُذف المشروب المجاني من الطلب.</span>: راجع المجموع الجديد مع الزبون.</li>
+</ul>
+
+<h3>بعد الدفع</h3>
+<p>تظهر <span class="say">تم الدفع</span>، ورقم الطلب، والمجموع، و<span class="say">الباقي</span> بالأخضر. وفيها:</p>
+<ul>
+  <li><b class="k green">أرسل على واتساب</b>: لزبون له بطاقة (فصل <a href="#c11">بطاقة الوفاء</a>).</li>
+  <li><b class="k">طباعة الإيصال</b>: إن لم يخرج الوصل وحده، أو أراد الزبون وصلًا.</li>
+  <li><b class="k">طلب جديد</b> (أو Enter). وتعود الشاشة وحدها إلى طلب جديد بعد 3 ثوانٍ (6 ثوانٍ مع باقٍ)، إلا وفيها رسالة أو زر واتساب.</li>
+  <li>مربع أحمر: <span class="say">لم يصل الطلب إلى البار: …</span> مع <b class="k">أعد الإرسال</b>. أصلح السبب واضغط، أو أخبر البار بصوتك.</li>
+  <li>مربع برتقالي: <span class="say">هذه الأصناف لم تذهب إلى البار بعد</span> مع <b class="k">إلى البار</b>: اضغطه ليصل الطلب.</li>
+</ul>
+
+<h3>ما يحدث مع الدفع</h3>
+<ul>
+  <li><strong>الدرج</strong> يُفتح وحده للدفع نقدًا ولـ«Glovo نقدًا»، في كاشير الحاسوب الموصول بالطابعة.</li>
+  <li><strong>ورقة البار والمطبخ</strong> تُطبع لما لم يُرسل بعد. والبار مشغّل: يصل الطلب إلى شاشته.</li>
+  <li><strong>وصل الزبون</strong> يُطبع وحده إن كانت الطباعة التلقائية مشغّلة في هذا الكاشير. إن لم يخرج: <b class="k">طباعة الإيصال</b>.</li>
+  <li>البيع يُحفظ في الكاشير أولًا، ثم يُرسل. وبلا إنترنت يبقى رقم المبيعات غير المرسلة على السحابة في أعلى الشاشة حتى يعود الاتصال.</li>
+</ul>
+<div class="table-wrap"><table>
+  <tr><th>طريقة الدفع</th><th>في الصندوق</th></tr>
+  <tr><td>نقدًا، Glovo نقدًا</td><td>يدخل المبلغ</td></tr>
+  <tr><td>بطاقة</td><td>لا شيء (يُحسب على جهاز البطاقة)</td></tr>
+  <tr><td>Glovo أونلاين</td><td>لا شيء</td></tr>
+  <tr><td>للعامل، ضيافة</td><td>لا شيء</td></tr>
+  <tr><td>دَين ينتظره المقهى</td><td>لا شيء</td></tr>
+  <tr><td>دَين يؤدّيه موظف «نقدًا الآن»</td><td>يدخل المبلغ</td></tr>
+</table></div>
+
+<h3>وصل الزبون: «وصل التيسيرا»</h3>
+<div class="shots-row">
+  <figure class="shot half"><img src="shots/print-receipt.webp" alt="" loading="lazy"><figcaption>وصل زبون له بطاقة: الأصناف، والمجموع وعليه ختم «PAGATO · مدفوع»، والمبلغ المستلم والباقي، و«TESSERA DEL CLUB» بالأختام.</figcaption></figure>
+</div>
+<ul>
+  <li>في أعلاه العنوان والهاتف، ثم <span class="say">SCONTRINO</span>، ورقم الطلب والكاشير، والنوع (SUR PLACE، A EMPORTER، TABLE، GLOVO)، والتاريخ، و<span class="say">Servi par</span> واسم من خدم.</li>
+  <li>المشروب المجاني: <span class="say">Boisson offerte (fidélité)</span>. الخصم: <span class="say">Remise</span>. مشروب العامل: <span class="say">Prix employé</span>. الضيافة: <span class="say">Offert par la direction</span>.</li>
+  <li>طريقة الدفع: <span class="say">Espèces</span> (نقدًا)، <span class="say">Carte bancaire</span>، <span class="say">Glovo espèces</span>، <span class="say">Glovo en ligne</span>، <span class="say">Dette (non payée)</span>، و<span class="say">Rendu</span> للباقي.</li>
+  <li>لزبون النادي: <span class="say">TESSERA DEL CLUB 4 / 10</span> بخانة لكل مشروب، و«بعد 6 مشروبات تحصل على هديتك».</li>
+  <li>في الأسفل رمز QR: لزبون النادي بطاقته وأختامه، ولغيره تقييم الخدمة باسم من خدمه. لا رمز في وصل الدين، وللعامل، والضيافة.</li>
+</ul>
+
+<h3>إعادة طباعة الوصل</h3>
+<ul>
+  <li>قائمتك ← <b class="k">إعادة طباعة آخر إيصال</b>: آخر طلب دُفع في هذا الكاشير، ثم <b class="k">طباعة الإيصال</b>.</li>
+  <li>أو <b class="k">السجل</b> ← الطلب ← <b class="k">طباعة الإيصال</b>.</li>
+  <li>النسخة مكتوب عليها <span class="say">*** DUPLICATA ***</span>، بلا رمز QR، وتُسجَّل في سجل المراقبة. لا تحتاج صلاحية.</li>
+</ul>
+</section>
+
+<!-- ===== c11 ===== -->
+<section class="chapter" id="c11" data-desc="الطوابع، المشروب المجاني، عيد الميلاد، واتساب">
+<h2>بطاقة الوفاء</h2>
+<p class="intro">نادي نابوليا: كل زبون يُعرف برقم هاتفه. يجمع ختمًا لكل مشروب، وبعد 10 أختام يأخذ مشروبًا مجانيًا. اسأل كل زبون عن رقمه في كل طلب: هكذا يجمع أختامه، ويعرفه الفريق في زيارته القادمة.</p>
+
+<h3>إضافة الزبون إلى الطلب</h3>
+<ol class="steps">
+  <li>اضغط <b class="k">زبون / بطاقة الوفاء</b> (فوق أصناف الطلب، أو في نافذة الدفع).</li>
+  <li>في <span class="say">رقم هاتف الزبون</span> الرقم يبدأ بـ 06. غيّره بـ <b class="k">07…</b> أو <b class="k">05…</b>، أو <b class="k">أجنبي 00…</b> لرقم من خارج المغرب. الرقم المغربي 10 أرقام.</li>
+  <li>يظهر <span class="say">جاري البحث…</span>، ثم أحد هذه:
+    <ul>
+      <li>الاسم، و<span class="say">12 زيارة</span>، والأختام <span class="say">7/10</span>، و<span class="say">باقي 3 للمشروب المجاني</span> أو <span class="say">مشروب مجاني متاح</span>؛</li>
+      <li><span class="say">زبون جديد: سيُنشأ ملفه مع هذا الطلب</span>؛</li>
+      <li><span class="say">بدون اتصال: تُحسب النقاط عند عودة الاتصال</span>.</li>
+    </ul>
+  </li>
+  <li>اكتب <span class="say">الاسم (اختياري)</span> إن لم يكن له اسم، وعيد ميلاده إن أراد (أسفله).</li>
+  <li>اضغط <b class="k green">ربط بالطلب</b> (أو Enter). و<b class="k">إزالة الزبون</b> يزيله من الطلب.</li>
+</ol>
+<div class="box info"><span class="title">بالرقم فقط</span><p>الكاشير لا يمسح بطاقة الزبون ولا رمزها: اسأله عن رقم هاتفه. وطلب الموقع يأتي برقمه وحده.</p></div>
+
+<h3>ما يظهر بعد الإضافة</h3>
+<ul>
+  <li>سطر الزبون: الاسم، والمستوى <span class="st gold">🥇 ذهبي</span> أو <span class="st grey">🥈 فضي</span>، و<span class="say">الزيارة 12</span>، والأختام.</li>
+  <li>لحظات تقولها للزبون: <span class="say">عيد ميلاده اليوم 🎂 هنّئه!</span>، <span class="say">أول زيارة بالبطاقة ✨ عرّفه بها</span>، <span class="say">هذه الزيارة 25 🎉 هنّئه!</span>، <span class="say">لم يأتِ منذ 40 يومًا 👋 رحّب به</span>.</li>
+  <li>زرّا الهدية بالأخضر حين تكون متاحة: <b class="k green">استعمال المشروب المجاني</b> و<b class="k green">هدية عيد الميلاد: مشروب مجاني</b>.</li>
+  <li>على الشاشة القصيرة كل هذا في سطر واحد. المسه لتفتح التفاصيل.</li>
+</ul>
+
+<h3>«ذوق الزبون»</h3>
+<p>من آخر 20 زيارة للزبون، يعرض الكاشير ما يحبه:</p>
+<ul>
+  <li><span class="say">ملاحظة عن الزبون</span> بالبرتقالي: كتبها المالك، مثل حساسية. اقرأها دائمًا.</li>
+  <li><span class="say">مشروبه المفضل</span> باختياراته، وكم مرة أخذه، مع <b class="k">أضف</b>.</li>
+  <li><span class="say">ومعه عادةً</span>: ما يأخذه معه، بلمسة واحدة لكل صنف.</li>
+  <li><span class="say">ذوقه</span>: سكره، وإضافاته، وملاحظاته المتكررة. و<b class="k">طبّقه على الطلب</b> يضع سكره على المشروبات التي أضفتها قبل البطاقة.</li>
+  <li><span class="say">آخر طلب</span> مع <b class="k">كرّر</b>.</li>
+  <li>وحين تضيف مشروبًا جديدًا يختار الكاشير سكره المعتاد وحده.</li>
+</ul>
+<p>اسأله مع ذلك: «كالعادة؟». الذوق يساعدك، والزبون يقرر.</p>
+
+<h3>الأختام</h3>
+<ul>
+  <li>ختم لكل صنف في الطلب (كل كوب ختم). إلا البن بالوزن، والأقسام التي استثناها المالك (المشروبات الغازية والماء والبن).</li>
+  <li>ختم إضافي مرة في الأسبوع حين يقيّم الزبون زيارته من بطاقته.</li>
+  <li>لا أختام على المشروب المجاني نفسه، ولا على الدَّين، ولا على «للعامل» و«ضيافة»، ولا على بطاقة موقوفة.</li>
+  <li>في «كل زبون يدفع ما أخذ» تُحسب الأختام مع آخر دفعة.</li>
+</ul>
+
+<h3>المشروب المجاني</h3>
+<ol class="steps">
+  <li>بطاقة الزبون ممتلئة (10 أختام)؟ يظهر <b class="k green">استعمال المشروب المجاني</b>. اضغطه إن أراده الزبون الآن.</li>
+  <li>يظهر في الطلب <span class="say">مشروب مجاني (الوفاء)</span> بالأخضر، والمبلغ المطروح.</li>
+  <li>اقبض الباقي كالعادة.</li>
+</ol>
+<div class="box tip"><span class="title">كم يساوي المشروب المجاني؟</span><p>يُطرح أغلى صنف في الطلب، باختياراته، <strong>حتى 20 درهمًا</strong>. وما فوق ذلك يدفعه الزبون. مثال: ميلك شيك بـ 32 درهمًا مع المشروب المجاني ← يدفع الزبون 12 درهمًا.</p></div>
+<ul>
+  <li>مشروب مجاني واحد في الطلب. ويُطرح قبل أي خصم.</li>
+  <li>بعده تنقص البطاقة 10 أختام، والأختام الزائدة تبقى.</li>
+  <li>في الوصل: <span class="say">Boisson offerte (fidélité)</span>.</li>
+  <li>لا مع «دَين»، ولا مع «كل زبون يدفع ما أخذ».</li>
+</ul>
+
+<h3>هدية عيد الميلاد</h3>
+<ul>
+  <li>مشروب مجاني، بالحد نفسه (20 درهمًا)، من يوم عيد ميلاده إلى 7 أيام بعده، مرة في السنة. لا تنقص بها الأختام.</li>
+  <li>لا هدية إن حُفظ عيد الميلاد منذ أقل من 30 يومًا: <span class="say">عيد ميلاد حُفظ منذ أقل من 30 يومًا: لا هدية هذه المرة</span>.</li>
+  <li><strong>كتابة عيد الميلاد</strong>: في نافذة الزبون، <span class="say">عيد الميلاد (اختياري)</span>: اليوم والشهر، بلا سنة. مرة واحدة فقط، ولا يُغيَّر بعدها إلا من لوحة التحكم. يُحفظ مع الطلب المدفوع.</li>
+</ul>
+
+<h3>بطاقات خاصة</h3>
+<ul>
+  <li><span class="say">بطاقة الوفاء موقوفة لهذا الزبون</span>: أوقفها المالك. لا أختام ولا هدية.</li>
+  <li><span class="st red">الدفع قبل التقديم</span> و<span class="say">البطاقة متوقفة حتى يُسدَّد الدين</span>: على الزبون دين بسوء نية. <strong>خذ المبلغ قبل أن يُقدَّم له الطلب.</strong> تعود البطاقة حين يسدّد دينه.</li>
+  <li>شريط أحمر <span class="say">على الزبون دين: …</span> مع <b class="k">تسديد الآن</b>: دين بحسن نية. البطاقة تعمل. اقترح عليه التسديد (فصل <a href="#c14">الصندوق</a>).</li>
+</ul>
+
+<h3>«أرسل على واتساب»</h3>
+<p>بعد الدفع، وفي «السجل»، يظهر لزبون له بطاقة <b class="k green">أرسل على واتساب</b>: يفتح واتساب على رقمه برسالة جاهزة فيها أختامه ورابط بطاقته. اضغط أنت «إرسال» في واتساب. لا يُرسل شيء وحده.</p>
+</section>
+
+<!-- ===== c12 ===== -->
+<section class="chapter" id="c12" data-desc="الخصم، مشروب العامل، ضيافة المالك، الدَّين">
+<h2>الخصم، للعامل، ضيافة، دَين</h2>
+<p class="intro">أربع طرق لطلب لا يُدفع كاملًا. كلها تُسجَّل باسمك وسببها، ويراها المالك.</p>
+
+<h3>الخصم، خطوة بخطوة</h3>
+<ol class="steps">
+  <li>اضغط <b class="k">خصم</b>. تُفتح <span class="say">تطبيق خصم</span>.</li>
+  <li>اختر <b class="k">نسبة %</b> أو <b class="k">مبلغ DH</b>، واكتب الرقم، أو المس نسبة جاهزة (5، 10، 15، 20، 50). النقطة البرتقالية على نسبة تعني أنها تحتاج موافقة.</li>
+  <li>اختر <span class="say">سبب الخصم</span>: <b class="k">زبون دائم</b>، <b class="k">تعويض عن تأخير أو خطأ</b>، <b class="k">عائلة أو صديق</b>، أو <b class="k">سبب آخر</b> واكتبه. السبب إجباري.</li>
+  <li>اضغط <b class="k">تأكيد</b>. وإن احتاج موافقة، تفتح نافذة الموافقة.</li>
+</ol>
+<ul>
+  <li>من له صلاحية الخصم يخصم حتى النسبة التي حددها المالك. فوقها يلزم رمز المالك أو المدير: <span class="say">هذا الخصم يحتاج موافقة المدير</span>.</li>
+  <li><b class="k">إزالة الخصم</b> يحذفه.</li>
+  <li>حذفت أصنافًا بعد خصم بمبلغ؟ قد يصير الخصم نسبة أكبر مما وُوفق عليه، فيطلب الكاشير إعادته: اضغط <b class="k">خصم</b> من جديد.</li>
+  <li>في الوصل: <span class="say">Remise</span>، بلا سبب.</li>
+</ul>
+
+<h3>«للعامل»: مشروبك أنت</h3>
+<p>مشروبك تأخذه بثمن العامل، ويُخصم من أجرك، لا من الصندوق.</p>
+<ol class="steps">
+  <li>أضف مشروبك، ثم <b class="k red">دفع</b> ← <b class="k">للعامل</b>.</li>
+  <li><span class="say">العامل يكتب رمزه</span>: الذي يشرب يكتب رمزه هو.</li>
+  <li>تظهر <span class="say">ثمن الزبون</span> مشطوبًا، و<span class="say">مجاني</span>، و<span class="say">ثمن العامل</span>، و<span class="say">يُخصم من أجر … لا من الصندوق.</span>، و<span class="say">المجاني الباقي له في هذه الوردية</span>.</li>
+  <li>اضغط <b class="k">تأكيد</b>: <span class="say">مشروب …: … من أجره</span>.</li>
+</ol>
+<ul>
+  <li>ثمن العامل نصف ثمن الزبون، إلا إن حدد المالك غيره. وبعض المشروبات مجانية كل يوم (يحددها المالك).</li>
+  <li>لا نقود، ولا أختام. ويظهر في «محفظتي»: <span class="say">مشروباتك بثمن العامل</span>.</li>
+  <li>المالك لا يشتري بثمن العامل.</li>
+</ul>
+
+<h3>«ضيافة»: ضيف المالك</h3>
+<ol class="steps">
+  <li>أضف ما يشربه الضيف، ثم <b class="k red">دفع</b> ← <b class="k">ضيافة</b>.</li>
+  <li><span class="say">مشروب مجاني لضيف، بموافقة المالك وحده.</span>: يكتب المالك رمزه، أو اضغط <b class="k">اطلب موافقة المالك</b> فيصله الطلب على هاتفه.</li>
+  <li>انتظر <span class="say">ينتظر جواب المالك…</span> ولا تُغلق النافذة. أمامه 10 دقائق.</li>
+  <li>وافق؟ <span class="say">ضيافة بموافقة …</span>. أو <span class="say">رفض المالك الضيافة.</span>، أو <span class="say">لم يُجب المالك خلال 10 دقائق: لا ضيافة.</span></li>
+</ol>
+<p>المدير لا يوافق على الضيافة. وبلا إنترنت لا ضيافة.</p>
+
+<h3>«دَين»: الزبون لم يدفع</h3>
+<ol class="steps">
+  <li><b class="k red">دفع</b> ← <b class="k">دَين</b> (بجانب «إتمام الدفع»). تُفتح <span class="say">دَين: الزبون لم يدفع</span>.</li>
+  <li><span class="say">نوع الدين</span>: <b class="k">حسن نية</b> (نسي، أو وعد أن يدفع) أو <b class="k">سوء نية</b> (هرب، أو رفض أن يدفع).</li>
+  <li><span class="say">رقم هاتف الزبون</span>: إجباري في «حسن نية». يتحقق الكاشير من ديونه: إن كان عليه دين لم يُسدَّد، لا يُقبل دين ثانٍ.</li>
+  <li><span class="say">من يتحمّله الآن؟</span>:
+    <ul>
+      <li><b class="k">يؤدّيه موظف</b>: الكاشير أو النادل، برمزه هو، فيصير الدين له. يدفع <b class="k">نقدًا الآن</b> أو <b class="k">سلفة على الأجر</b>.</li>
+      <li><b class="k">المقهى ينتظر</b>: لا مال يدخل الصندوق. يحتاج رمز المالك أو المدير، أو موافقة المالك على هاتفه.</li>
+    </ul>
+  </li>
+  <li>اضغط <b class="k red">سجّل الدين</b>. تظهر <span class="say">سُجّل دَينًا</span>. يصل الطلب إلى البار كالعادة.</li>
+</ol>
+<ul>
+  <li>لا دين مع المشروب المجاني: ألغِه أولًا.</li>
+  <li>بلا إنترنت يُسجَّل «دين بانتظار التحقق»، برقم الزبون وموافقة المدير.</li>
+  <li>دين بسوء نية يوقف بطاقة الزبون حتى يسدّده.</li>
+  <li>التسديد لاحقًا: <b class="k">الصندوق</b> ← <b class="k">الديون</b> ← <b class="k green">تسديد</b> (فصل <a href="#c14">الصندوق والمصاريف</a>).</li>
+</ul>
+</section>
+
+<!-- ===== c13 ===== -->
+<section class="chapter" id="c13" data-desc="هل حُضّر؟، تبديل، المرمي، الإرجاع، السجل">
+<h2>تغيير طلب وإرجاعه</h2>
+<p class="intro">ما لم يصل إلى البار يُعدَّل بحرية. وما وصل لا يُحذف بصمت: يسألك الكاشير أولًا «هل حُضّر؟»، فيُشطب في البار إن لم يُحضَّر، أو يُسجَّل خسارة إن حُضّر.</p>
+
+<h3>نافذة «هل حُضّر؟»</h3>
+<p>تسأل: <span class="say">هل حضّر البار «لاتيه»؟</span></p>
+<ul>
+  <li><b class="k">لم يُحضَّر بعد</b>: يُلغى في البار. والبار مشغّل: <span class="say">يُشطب على شاشة البار.</span> والبار مطفأ: <span class="say">تُطبع ورقة «أُلغي» للبار.</span></li>
+  <li><b class="k">حُضّر، ورُمي</b>: <span class="say">يُسجَّل خسارة: يُخصم من المخزون والبن.</span> ثم <span class="say">لماذا رُمي؟</span>: <b class="k">لم يعجب الزبون</b>، <b class="k">خطأ في التحضير</b>، <b class="k">سقط أو انسكب</b>، أو <b class="k">سبب آخر</b> واكتبه.</li>
+  <li>إغلاق النافذة يلغي ما كنت تفعله.</li>
+</ul>
+<p>أجب بصدق: هكذا يُشطب في البار ما لم يُحضَّر، ويُحسب المرمي كما هو.</p>
+<p><strong>متى تظهر؟</strong> حين تُنقص أو تحذف صنفًا وصل إلى البار، أو تضغط <b class="k">تبديل</b>، أو تغيّر اختياراته، أو <b class="k">مسح</b> طلبًا أُرسل منه شيء، أو تلغي طلب موقع أخذه البار، أو تستردّ أو تبدّل بعد الدفع. ولا تظهر لصنف لم يُرسل.</p>
+
+<h3>الصلاحية</h3>
+<ul>
+  <li>حذف أو إنقاص صنف أُرسل، ومسح طلب أُرسل منه شيء: صلاحية «حذف صنف أُرسل للبار أو المطبخ».</li>
+  <li>تبديل أو تغيير اختيار: الصلاحية فقط إن نقص الحساب.</li>
+  <li>تغيير الملاحظة أو «سفري»: لا صلاحية.</li>
+  <li>إن لم تكن لك الصلاحية: نافذة الموافقة (فصل <a href="#c2">الدخول والحضور</a>). وإن رُفضت يبقى الطلب كما كان.</li>
+</ul>
+
+<h3>«تبديل» قبل الدفع</h3>
+<p>الزبون يريد مشروبًا آخر مكان مشروب أُرسل:</p>
+<ol class="steps">
+  <li>اضغط <b class="k">تبديل</b> بجانب المشروب.</li>
+  <li>أجب «هل حُضّر؟».</li>
+  <li>يظهر الشريط الأزرق <span class="say">اختر المشروب الجديد مكان «لاتيه»</span>. المس المشروب الجديد. (و<b class="k">إلغاء التبديل</b> يلغي.)</li>
+  <li>يظهر الجديد وتحته <span class="say">بدل لاتيه</span>. اضغط <b class="k">إلى البار</b> أو ادفع.</li>
+</ol>
+<p>في البار يأتي أولًا: <span class="say">أولوية · الزبون ينتظر</span>، و<span class="say">تبديل · كان: لاتيه</span>. وإن لم يعجبه البديل أيضًا، يبقى البديل الأول في الحساب.</p>
+<p>تغيير الاختيارات (الحجم، الحليب…) في صنف أُرسل يصير تبديلًا أيضًا. وتغيير الملاحظة أو «سفري» فقط يُرسل الصنف من جديد بعلامة <span class="say">MODIFIE</span>، و«تغيّر» على شاشة البار.</p>
+
+<h3>«السجل»</h3>
+<p>تبويب <b class="k">السجل</b>: طلبات هذا الكاشير، <b class="k">اليوم</b> أو <b class="k">أمس</b> (اليوم يبدأ الساعة 05:00).</p>
+<figure class="shot"><img src="shots/c13-history.webp" alt="" loading="lazy"><figcaption>«السجل»: الطلبات في اليمين، والوصل وأزرار الطلب المختار في اليسار.</figcaption></figure>
+<ul>
+  <li>في الأعلى عدد الطلبات والمبلغ المقبوض، و<span class="say">منها مسترد</span> بالأحمر إن كان.</li>
+  <li><span class="say">ابحث برقم الطلب أو اسم الزبون أو الطاولة</span>، أو برقم الهاتف أو رقم Glovo. و12 و012 و#12 كلها تجد الطلب نفسه.</li>
+  <li>اختر طلبًا، فترى وصله، والأزرار: <b class="k green">أرسل على واتساب</b>، <b class="k">تبديل</b>، <b class="k">أعد الإرسال للبار والمطبخ</b>، <b class="k">طباعة الإيصال</b>، <b class="k red">استرداد</b>.</li>
+  <li>علامات الطلبات في فصل <a href="#c6">حالات الطلب</a>.</li>
+</ul>
+
+<h3>«استرداد»: إرجاع ثمن بعد الدفع</h3>
+<ol class="steps">
+  <li><b class="k">السجل</b> ← اختر الطلب ← <b class="k red">استرداد</b>.</li>
+  <li>لإرجاع جزء: <span class="say">ما يُرجعه الزبون (اضغط − لما يبقى له)</span>، بـ − و+ لكل صنف.</li>
+  <li>اضغط <b class="k">تأكيد</b>، ثم أجب «هل حُضّر؟».</li>
+  <li>لم يُحضَّر: اختر <span class="say">لماذا يُعاد المبلغ؟</span>: <b class="k">غيّر الزبون رأيه</b>، <b class="k">انتظر طويلًا</b>، <b class="k">خطأ في الطلب</b>، أو <b class="k">سبب آخر</b>. حُضّر: اختر لماذا رُمي.</li>
+  <li>صلاحية الاسترداد، أو نافذة الموافقة.</li>
+  <li>تظهر <span class="say">مُسترد · …</span>. يُطبع وصل <span class="say">REMBOURSEMENT</span> ويوقّع عليه الزبون، ويُفتح الدرج إن أُرجع نقدًا.</li>
+</ol>
+<ul>
+  <li>يخرج المال من صندوق الوردية الحالية، ولو كان البيع أمس.</li>
+  <li>تُنزع أختام ذلك البيع من بطاقة الزبون. وإن كان فيه مشروب مجاني، يعود إلى بطاقته.</li>
+  <li>طلب فيه مشروب مجاني، وطلب Glovo: يُسترد كاملًا فقط. والدين لا يُسترد: <span class="say">هذا الطلب دَين: لا يُسترجع.</span></li>
+</ul>
+
+<h3>«تبديل» بعد الدفع</h3>
+<ol class="steps">
+  <li><b class="k">السجل</b> ← الطلب ← <b class="k">تبديل</b> ← <span class="say">أي مشروب يُبدَّل؟</span>: اختر المشروب.</li>
+  <li>أجب «هل حُضّر؟».</li>
+  <li>الطلب الذي على الشاشة يُعلَّق، ويظهر <span class="say">اختر المشروب الجديد مكان «…» (#12)</span>. المس الجديد.</li>
+  <li>يُدفع الفرق فقط. لا فرق: <span class="say">لا شيء للدفع في هذا التبديل</span> و<b class="k">أكّد التبديل</b>.</li>
+  <li>البديل أرخص، والأول لم يُحضَّر أو حُضّر خطأ أو سقط: <span class="say">أرجِع للزبون … نقدًا؟</span>. <b class="k">أرجِع نقدًا</b> يحتاج صلاحية المصاريف، أو <b class="k">لا</b>.</li>
+</ol>
+
+<h3>«أعد الإرسال للبار والمطبخ»</h3>
+<p>ورقة ضاعت أو لم يرها البار؟ في «السجل» ← الطلب ← <b class="k">أعد الإرسال للبار والمطبخ</b>. تخرج الورقة وعليها <span class="say">RENVOI</span> و«إعادة إرسال · لا يُحضَّر مرتين».</p>
+
+<h3>المرمي</h3>
+<p>كل مشروب رُمي يُسجَّل من «هل حُضّر؟» ← <b class="k">حُضّر، ورُمي</b> وسببه. لا مال يتحرك. يظهر في «ملخص الصندوق» وفي الإغلاق: <span class="say">مشروبات رُميت</span>، ويراه المالك.</p>
+</section>
+
+<!-- ===== c14 ===== -->
+<section class="chapter" id="c14" data-desc="كل حركة نقود: مصروف، مشتريات، تسبيق، إدخال، سحب">
+<h2>الصندوق والمصاريف</h2>
+<p class="intro">زر <b class="k">الصندوق</b> في أعلى الشاشة يجمع كل ما يخص النقود في الوردية. القاعدة: لا يدخل درهم ولا يخرج من الصندوق إلا مسجّلًا.</p>
+
+<figure class="shot half"><img src="shots/c14-cashmenu.webp" alt="" loading="lazy"><figcaption>قائمة «الصندوق».</figcaption></figure>
+<p>في القائمة، بالترتيب:</p>
+<ol>
+  <li><b class="k">حركات الصندوق</b>: كل نقود تدخل أو تخرج دون بيع.</li>
+  <li><b class="k">افتح الصندوق</b>: فتح الدرج دون بيع.</li>
+  <li><b class="k">ملخص الصندوق</b>: ما يجب أن يكون في الصندوق الآن.</li>
+  <li><b class="k">الديون</b>: ديون الزبناء المفتوحة وتسديدها.</li>
+  <li><b class="k">كيس بن إلى البار</b> و<b class="k">ضبط الطاحونة</b>: تظهر فقط حين يضيف المالك المطاحن (فصل <a href="#c17">البن والمطاحن</a>).</li>
+  <li><b class="k red">إغلاق الوردية</b>: في الأسفل، بالأحمر (فصل <a href="#c15">إغلاق الوردية</a>).</li>
+</ol>
+
+<h3>«حركات الصندوق»: الأنواع الخمسة</h3>
+<div class="table-wrap"><table>
+  <tr><th>النوع</th><th>متى تستعمله</th><th>أسباب جاهزة</th><th>موافقة؟</th></tr>
+  <tr><td class="nw"><span class="st red">مصروف</span></td><td>مصاريف المقهى المدفوعة من الصندوق</td><td>غاز، كهرباء، ماء، نظافة، إصلاح، نقل</td><td>نعم</td></tr>
+  <tr><td class="nw"><span class="st amber">مشتريات</span></td><td>سلعة تدخل المخزون: حليب، خبز، فواكه… (نافذة خاصة، أسفله)</td><td>—</td><td>نعم</td></tr>
+  <tr><td class="nw"><span class="st blue">تسبيق</span></td><td>مبلغ يُعطى لموظف من أجره</td><td>اختر الموظف</td><td>نعم</td></tr>
+  <tr><td class="nw"><span class="st green">إدخال نقود</span></td><td>نقود تضعها في الصندوق</td><td>فكة (صرف)، إضافة من المالك</td><td>لا</td></tr>
+  <tr><td class="nw"><span class="st grey">سحب نقود</span></td><td>نقود تخرج لغير مصروف</td><td>إيداع في البنك، تسليم للمالك</td><td>نعم</td></tr>
+</table></div>
+<p>«موافقة؟ نعم» تعني صلاحية «المصاريف وإخراج المال من الصندوق». إن لم تكن لك، تفتح نافذة الموافقة (فصل <a href="#c2">الدخول والحضور</a>).</p>
+
+<h3>تسجيل حركة، خطوة بخطوة</h3>
+<ol class="steps">
+  <li><b class="k">الصندوق</b> ← <b class="k">حركات الصندوق</b>.</li>
+  <li>اختر النوع: <b class="k">مصروف</b> أو <b class="k">تسبيق</b> أو <b class="k">إدخال نقود</b> أو <b class="k">سحب نقود</b>. (<b class="k">مشتريات</b> تفتح نافذتها الخاصة.)</li>
+  <li>اكتب السبب في <span class="say">السبب / البيان</span>، أو المس سببًا جاهزًا. السبب إجباري. وفي <b class="k">تسبيق</b> اختر الموظف من <span class="say">الموظف المستفيد</span>.</li>
+  <li>اكتب <span class="say">المبلغ</span> بالدرهم. المبلغ بالدرهم الكامل، بلا سنتيمات.</li>
+  <li>ضع علامة على <b class="k">طباعة وصل للتوقيع</b> إن أردت وصلًا يوقّع عليه من أخذ المال. في <b class="k">تسبيق</b> يُطبع الوصل دائمًا ويوقّعه الموظف.</li>
+  <li>اضغط <b class="k">تسجيل · مصروف</b> (يتغيّر الاسم حسب النوع). إن احتاجت موافقة، يُضاف اسم الموافق بعد السبب، هكذا: <span class="say">(✓ الاسم)</span>.</li>
+  <li>تظهر <span class="say">تم تسجيل الحركة</span>. ويُفتح الدرج وحده في الكاشير الموصول بالطابعة، لكل نوع حتى «إدخال نقود».</li>
+</ol>
+<figure class="shot"><img src="shots/c14-moves.webp" alt="" loading="lazy"><figcaption>نافذة «حركات الصندوق»: الأنواع والأسباب الجاهزة والمبلغ، و«حركات هذه الوردية» تحتها.</figcaption></figure>
+<p>تحت النافذة <span class="say">حركات هذه الوردية</span>: كل حركة بوقتها وسببها ومبلغها، والصافي في الأعلى. وتظهر فيها أيضًا حركات سُجّلت من أماكن أخرى:</p>
+<ul>
+  <li><span class="say">فرق تبديل #012</span>: نقود أُرجعت لزبون بعد تبديل بمشروب أرخص.</li>
+  <li><span class="say">شراء: …</span> و<span class="say">إصلاح: …</span>: من المهام، حين دُفعت من الصندوق.</li>
+  <li><span class="say">تسديد دين</span>: زبون سدّد دينه.</li>
+  <li><span class="say">دين زبون · طلب #012</span>: دين حمله موظف على أجره.</li>
+</ul>
+<div class="box stop"><span class="title">أخطأت في حركة؟</span><p>لا يُحذف شيء ولا يُعدَّل من الكاشير، ولا يُعاد طبع الوصل. أخبر المالك أو المدير فورًا: يصحّحها من لوحة التحكم، فيصل التصحيح إلى الكاشير عند الإغلاق.</p></div>
+
+<h3>«مشتريات من الصندوق»</h3>
+<p>لكل سلعة تشتريها بنقود الصندوق وتدخل المخزون. السلعة تُضاف إلى المخزون، والمبلغ يُخصم من الصندوق.</p>
+<h4>مع فاتورة</h4>
+<ol class="steps">
+  <li><b class="k">الصندوق</b> ← <b class="k">حركات الصندوق</b> ← <b class="k">مشتريات</b>.</li>
+  <li>اضغط <b class="k">📷 صوّر الفاتورة</b>. على حاسوب المقهى تُفتح نافذة لاختيار ملف: اختر صورة الفاتورة.</li>
+  <li>انتظر <span class="say">نقرأ الفاتورة… نصف دقيقة تقريبًا.</span> ثم تظهر الأصناف والمورّد ورقم الفاتورة.</li>
+  <li>راجع الكميات (كغ، لتر، قطعة). السطر البرتقالي المكتوب عليه <span class="say">تحقّق</span> لم يتأكد منه القارئ: أكمل كميته، أو اضغط <b class="k">ليس في المخزون</b> إن لم تكن سلعة مخزون.</li>
+  <li>راجع <span class="say">المبلغ المدفوع من الصندوق (DH)</span>، وهو مملوء بمجموع الفاتورة.</li>
+  <li>اضغط <b class="k">سجّل وادفع من الصندوق</b>.</li>
+</ol>
+<h4>بلا فاتورة</h4>
+<ol class="steps">
+  <li>في <span class="say">ماذا اشتريت؟</span> المس السلعة، ثم اكتب <span class="say">كم وصل؟</span> بوحدتها. الفاصلة مقبولة، مثل 1,5.</li>
+  <li>أو اضغط <b class="k">شيء خارج المخزون</b> واكتب ما هو (أكياس، مواد تنظيف…).</li>
+  <li>اكتب المبلغ، ثم <span class="say">ملاحظة (اختياري)</span>، ثم <b class="k">سجّل وادفع من الصندوق</b>.</li>
+</ol>
+<ul>
+  <li>يحتاج صلاحية المصاريف، والإنترنت. بلا إنترنت تظهر <span class="say">تعذّر الاتصال. حاول مرة أخرى.</span> ولا يُسجَّل شيء.</li>
+  <li>بعدها تظهر <span class="say">سُجّل الشراء ودُفع من الصندوق</span>.</li>
+  <li>الشراء لا يطبع وصلًا ولا يفتح الدرج وحده.</li>
+</ul>
+<div class="box warn"><span class="title">رسائل قراءة الفاتورة</span><p><span class="say">لم تنجح القراءة. صوّر الفاتورة من جديد، أقرب وفي ضوء أفضل.</span> أو <span class="say">لا تظهر فاتورة في هذه الصورة.</span> أعد التصوير. وإن ظهرت <span class="say">قراءة الفواتير متوقفة الآن</span> أو <span class="say">وصلنا إلى 30 فاتورة اليوم</span>، سجّل المشتريات باليد (بلا فاتورة).</p></div>
+
+<h3>«توصيلة تنتظر الدفع»</h3>
+<p>حين يستلم النادل بضاعة على هاتفه ويختار <span class="say">من صندوق الكاشير</span>، يظهر في أعلى الكاشير شريط برتقالي: <span class="say">توصيلة تنتظر الدفع: المورّد · المبلغ</span>، مع صوت قصير.</p>
+<ol class="steps">
+  <li>اضغط <b class="k">ادفع للمورّد</b>. ترى المورّد، و<span class="say">استلمها</span> مع اسم من استلم، وأصناف الفاتورة.</li>
+  <li>راجع <span class="say">المبلغ من الصندوق (DH)</span>، وعدّله إن دفعت غيره.</li>
+  <li>اضغط <b class="k">ادفع من الصندوق</b> (يحتاج صلاحية المصاريف). تظهر <span class="say">دُفعت من الصندوق وسُجّلت.</span> وتدخل السلع المخزون.</li>
+</ol>
+<p>لم تدفعها؟ اضغط <b class="k">لم يُدفع من الصندوق</b>، واكتب السبب في <span class="say">لماذا؟ يراه النادل.</span>، ثم <b class="k">أرسل</b>. تعود التوصيلة إلى النادل، ولا يتحرك أي مال.</p>
+
+<h3>«تسبيق» لموظف</h3>
+<p>بعد التسجيل يوقّع الموظف وصل <span class="say">AVANCE SUR SALAIRE</span>. ويظهر المبلغ في «محفظتي» عنده: <span class="say">تسبيق من الصندوق</span>، ويُخصم من أجره في آخر الشهر.</p>
+
+<h3>«افتح الصندوق»</h3>
+<p>لفتح الدرج دون بيع، مثلًا لصرف فكة لزبون. يعمل فقط في كاشير المقهى على الحاسوب الموصول بالطابعة، ويحتاج صلاحية «فتح الصندوق يدويًا». كل فتح يُسجَّل في سجل المراقبة باسمك، وقد يصل تنبيه إلى المالك.</p>
+<ul>
+  <li><span class="say">الصندوق يُفتح من تطبيق الكاشير على الحاسوب، المربوط بالطابعة.</span>: أنت في كاشير المتصفح، أو لا طابعة مضبوطة.</li>
+  <li><span class="say">الطابعة مطفأة: الصندوق يُفتح عن طريقها. شغّلها ثم افتحه من جديد.</span></li>
+</ul>
+
+<h3>«ملخص الصندوق»</h3>
+<p>يحتاج صلاحية «ملخص الصندوق قبل الإغلاق». يعرض الوردية حتى الآن، دون إغلاقها:</p>
+<ul>
+  <li><span class="say">المداخيل حسب القناة</span>: هنا، سفري، طاولات النادل، الموقع، Glovo، نقدًا وبالبطاقة.</li>
+  <li><span class="say">خرج من الصندوق</span>: مصروف، مشتريات، تسبيق، سحب نقود، الاستردادات نقدًا.</li>
+  <li><span class="say">دخل الصندوق</span>: مبلغ بداية الصندوق، إدخال نقود، تسديد ديون.</li>
+  <li><span class="say">للعلم</span>: الخصم، المشروبات المجانية، الاستردادات، الطلبات المفتوحة.</li>
+  <li>وفي الأسفل: <span class="say">المفروض في الصندوق الآن نقدًا</span> و<span class="say">المفروض في جهاز البطاقة</span>.</li>
+</ul>
+<p>يتجدد كل 15 ثانية. و<b class="k">طباعة الملخص</b> يطبعه.</p>
+
+<h3>«الديون»: تسديد دين زبون</h3>
+<p><b class="k">الصندوق</b> ← <b class="k">الديون</b>. تحتاج الإنترنت. لكل دين: اسم الزبون أو <span class="say">زبون لا نعرف رقمه</span>، و<span class="st amber">حسن نية</span> أو <span class="st red">سوء نية</span>، ورقم الطلب، والمبلغ، ومن يحمله: <span class="say">لـ اسم الموظف</span> أو <span class="say">المقهى ينتظره</span>.</p>
+<ol class="steps">
+  <li>جاء الزبون يدفع؟ اضغط <b class="k green">تسديد</b>.</li>
+  <li>تسألك النافذة <span class="say">يدفع الزبون … نقدًا الآن؟</span>. الدين يُسدَّد كاملًا، لا جزءًا منه.</li>
+  <li>أكّد. يدخل المبلغ صندوق هذه الوردية، ويُفتح الدرج، ويُطبع للزبون وصل <span class="say">REGLEMENT DE DETTE</span>. تظهر <span class="say">سُدِّد الدين</span>.</li>
+</ol>
+<p>دين يحمله موظف ودفعه الزبون له مباشرة: اضغط <b class="k">سُدِّد لي</b>، فيكتب صاحب الدين رمزه. يُغلق الدين ولا يدخل الصندوق شيء.</p>
+<p>كيف يُسجَّل الدين أصلًا؟ انظر «دَين» في فصل <a href="#c12">الخصم، للعامل، ضيافة، دَين</a>.</p>
+</section>
+
+<!-- ===== c15 ===== -->
+<section class="chapter" id="c15" data-desc="عدّ النقود، وما يحدث بعده، وتسليم الصندوق">
+<h2>إغلاق الوردية</h2>
+<p class="intro">في آخر الوردية تعدّ النقود بنفسك أولًا، ثم يعرض الكاشير المبلغ المتوقع والفرق. يُطبع تقرير الإغلاق (Z) ويصل ملخصه إلى المالك. يحتاج صلاحية «إغلاق الوردية»، ويغلقها أي موظف له هذه الصلاحية، لا من فتحها فقط.</p>
+
+<h3>قبل أن تبدأ</h3>
+<ul>
+  <li>اقبض ثمن كل الطلبات: الكاشير لا يُغلق وفيه طلب مفتوح. «مفتوح» يعني: الطلب الذي على الشاشة، وكل طلب في «المعلّقة»، وكل طاولة لم تُدفع، وطلبات الموقع المقبولة ولو كانت لوقت لاحق.</li>
+  <li>طلبات الموقع التي لم تُقبل بعد، وتذاكر البار، لا تمنع الإغلاق. والطلبات المدفوعة التي لم تُقدَّم بعد لا تمنعه أيضًا.</li>
+</ul>
+
+<h3>الإغلاق، خطوة بخطوة</h3>
+<ol class="steps">
+  <li><b class="k">الصندوق</b> ← <b class="k red">إغلاق الوردية</b>. تُفتح نافذة <span class="say">إغلاق الوردية · تقرير الإغلاق (Z)</span>. مع الإنترنت يرسل الكاشير أولًا ما لم يُرسل، ويأخذ تصحيحات المالك.</li>
+  <li><strong>عُدّ النقود.</strong> في <span class="say">عدّ النقود حسب الأوراق والقطع</span> المس كل ورقة (200، 100، 50، 20) وكل قطعة (10، 5، 2، 1، 0,50)، واكتب عددها. أو اكتب المجموع مباشرة في <span class="say">أو اكتب مجموع النقود مباشرة</span>، بفاصلة للسنتيمات مثل 111,60. الطريقتان تمحو إحداهما الأخرى. و<b class="k">مسح العدّ</b> يبدأ من جديد. صندوق فارغ؟ اكتب 0.</li>
+  <li>إن كان في المقهى جهاز بطاقة، اكتب مجموعه في <span class="say">مجموع جهاز البطاقة (TPE)</span>.</li>
+  <li>حين تكون مطاحن مضبوطة، زِن البن في <span class="say">جرد البن</span> (فصل <a href="#c17">البن والمطاحن</a>).</li>
+  <li>اضغط <b class="k red">تأكيد العدّ</b>. قبل هذا لا يظهر المبلغ المتوقع: <span class="say">عُدّ أولًا</span>.</li>
+  <li>يظهر الحساب: <span class="say">النقود المتوقعة</span>، و<span class="say">النقود المعدودة في الصندوق</span>، و<span class="say">الفرق</span>: <span class="st green">أخضر</span> صفر، <span class="st blue">أزرق</span> زيادة، <span class="st red">أحمر</span> نقص.</li>
+  <li>فرق درهم واحد أو أكثر (نقدًا أو بالبطاقة)؟ اكتب <span class="say">سبب الفرق</span>، ثلاثة أحرف على الأقل. بغير سبب لا يقبل الإغلاق.</li>
+  <li>أخطأت في العدّ؟ <b class="k">عدّ من جديد</b>. يبقى العدّ الأول مكتوبًا في التقرير: <span class="say">العدّ الأول …</span>.</li>
+  <li>راجع <span class="say">يُترك في الصندوق للوردية القادمة</span> و<span class="say">المبلغ المسلَّم</span>.</li>
+  <li>اضغط <b class="k red">طباعة التقرير وإغلاق الوردية</b>.</li>
+</ol>
+
+<h3>بعد الإغلاق</h3>
+<ul>
+  <li>يُطبع تقرير Z بالفرنسية. لا يُعاد طبعه من الكاشير: احفظه وسلّمه مع النقود.</li>
+  <li>يخرج كل من في الكاشير، ويعود إلى شاشة الرمز السري.</li>
+  <li>تظهر <span class="say">تم إغلاق الوردية</span>: <span class="say">سلّم للمسؤول</span> والمبلغ، و<span class="say">يبقى في الصندوق</span>، والفرق إن وُجد.</li>
+  <li>إن أغلقت من القائمة وأنت في عملك، تختار <b class="k">ما زلت أعمل</b> أو <b class="k">نهاية العمل</b>.</li>
+  <li>يصل ملخص الوردية إلى المالك: المبيعات، وما خرج، والديون، والمتوقع والمعدود والفرق وسببه.</li>
+  <li>المبلغ الذي سلّمته يبقى في «محفظتي» عندك (<span class="say">في عهدتي</span>) حتى يسجّل المالك أنه استلمه، ثم تؤكد أنت في <b class="k">تأكيد تسليم العهدة</b>.</li>
+</ul>
+<div class="box stop"><span class="title">الكاشير لا يُغلق؟</span><p>رسالة حمراء: <span class="say">لا يُغلق الصندوق قبل قبض ثمن كل الطلبات. ما زال مفتوحًا: طلبان.</span> تحتها قائمة <span class="say">الطلبات المفتوحة</span>، وبجانب كل طلب <b class="k">افتح</b> و<b class="k">ادفع</b>. اقبض ثمنها ثم عد إلى الإغلاق. والطلب المكتوب بالأحمر <span class="say">من يوم سابق</span> نُسي من يوم آخر.</p></div>
+
+<h3>تنصرف وأنت من فتح الوردية</h3>
+<p>تضغط <b class="k">نهاية العمل</b> (من قائمتك، أو من <b class="k">الحضور والانصراف</b> في شاشة الرمز)، فيسألك الكاشير أولًا عن مهامك غير المنجزة: مرّر كل مهمة لزميل، أو اكتب لماذا لم تُنجزها. ثم يظهر <span class="say">ورديتك ما زالت مفتوحة</span>:</p>
+<ul>
+  <li><b class="k red">إغلاق الوردية ثم الانصراف</b>: تغلق كما في الخطوات أعلاه، ثم تُسجَّل نهاية عملك وحدها.</li>
+  <li><b class="k">انصراف دون إغلاق (رمز المالك أو المدير)</b>: لزميل يكمل الوردية نفسها. يحتاج رمز المالك أو المدير، أو موافقة المالك على هاتفه. يُسجَّل في سجل المراقبة، ويغلق الزميل الوردية لاحقًا، فيُحسب الإغلاق والتسليم عليه.</li>
+</ul>
+
+<h3>حالات خاصة</h3>
+<ul>
+  <li><strong>وردية من يوم سابق ما زالت مفتوحة</strong>: انظر فصل <a href="#c3">فتح الوردية</a>.</li>
+  <li><strong><span class="say">لم يعد هذا الجهاز الكاشير الرئيسي</span></strong>: اختار المالك جهازًا آخر. اضغط <b class="k">سلّم الطلبات للكاشير الرئيسي</b>، ثم <b class="k">إغلاق الوردية</b> لتسجيل مبلغ الصندوق.</li>
+  <li><strong><span class="say">أُغلقت الوردية من لوحة التحكم</span></strong>: أغلقها المالك من بعيد. تُعرض المبالغ التي سجّلها.</li>
+</ul>
+</section>
+
+<!-- ===== c16 ===== -->
+<section class="chapter" id="c16" data-desc="المهام والقوائم، بلّغ عن عطل، أرقام مهمة، محفظتي">
+<h2>المهام والأدوات</h2>
+<p class="intro">زر <b class="k">المهام</b> في أعلى الشاشة: مهامك وقوائم اليوم. الرقم عليه ما ينتظرك، ويصير الزر أحمر حين تتأخر قائمة أو مهمة عاجلة.</p>
+
+<h3>«مهامي»</h3>
+<ul>
+  <li>على كل مهمة: <span class="st red">عاجلة</span> أو <span class="st red">متأخرة</span>، ومن أرسلها، ولمن (<span class="say">لأول كاشير يتكفّل بها</span>، أو <span class="say">لكل من في الوردية</span>)، و<span class="say">قبل 11:00</span>.</li>
+  <li><b class="k">أتكفّل بها</b>: تصير لك. إن سبقك زميل: <span class="say">تكفّل بها غيرك قبلك.</span></li>
+  <li><b class="k green">تمت</b>، مع <span class="say">ملاحظة (اختياري)</span>، ثم <b class="k">أرسل</b>. وإن طلب المالك صورة: <b class="k">📷 صوّر</b> أولًا.</li>
+  <li><b class="k">مرّرها</b> لزميل مع السبب: تبقى عندك حتى يقبلها. و<b class="k">تعذّرت</b> مع السبب: تعود إلى المالك.</li>
+  <li>مهمة مرّرها لك زميل: <b class="k">أقبلها</b> أو <b class="k">لا أستطيع</b>.</li>
+  <li><strong>شراء</strong>: <b class="k">طلبتُ</b> ثم <b class="k">وصل</b>. <strong>إصلاح</strong>: <b class="k">اتصلتُ</b> ثم <b class="k">جاء المصلّح</b> ثم <b class="k">أُصلح</b>. وفيها <b class="k">اتصال</b> و<b class="k">واتساب</b>.</li>
+  <li>عند <b class="k">وصل</b> أو <b class="k">أُصلح</b>: إن دُفع من الصندوق، اختر <b class="k">من الصندوق</b> (يحتاج صلاحية المصاريف). يُسجَّل في حركات الصندوق.</li>
+</ul>
+
+<h3>«القوائم»</h3>
+<p>قوائم الافتتاح والإغلاق واليوم، لكل واحدة وقتها ولمن هي. افتح القائمة، وضع علامة على كل بند تنجزه. البنود التي فيها رقم (حرارة الثلاجة مثلًا) تُكتب بالأرقام، وتصير حمراء <span class="say">خارج الحد</span> إن خرجت عن حدّها. ثم <b class="k green">تم، سجّل القائمة</b>. تعمل بلا إنترنت.</p>
+
+<h3>«+ مهمة» و«بلّغ عن عطل»</h3>
+<ul>
+  <li><b class="k">+ مهمة</b>: <b class="k">إصلاح</b> أو <b class="k">شراء</b> أو <b class="k">أخرى</b>، ثم التفاصيل، ثم <b class="k">أضف المهمة</b>. ضع <b class="k">عاجلة</b> لما لا ينتظر.</li>
+  <li><strong>عطل؟</strong> قائمتك ← <b class="k">بلّغ عن عطل</b>: <span class="say">ما الذي تعطّل؟</span> (مكينة القهوة، الماء، الكهرباء، التبريد، الغاز، الويفي والكاميرات، الحاسوب والطابعة، الأبواب والأثاث، شيء آخر)، ثم <span class="say">ما المشكلة؟</span>، ثم <span class="say">من يصلحها؟</span>. تبقى المهمة عندك لتتصل به، أو تصل إلى المالك إن اخترت «لا أعرف، المالك يتصرّف».</li>
+  <li>المهام تحتاج الإنترنت: <span class="say">المهام تحتاج الإنترنت وكاشيرًا مربوطًا بقاعدة البيانات.</span></li>
+</ul>
+
+<h3>«أرقام مهمة»</h3>
+<p>قائمتك ← <b class="k">أرقام مهمة</b>: المصلّحون والموردون، مع أيام الطلب والتوصيل، و<b class="k">اتصال</b> و<b class="k">واتساب</b> برسالة جاهزة. وفي الحاسوب يظهر الرقم ورمز QR لتتصل من هاتفك. تعمل بلا إنترنت (آخر نسخة محفوظة).</p>
+
+<h3>«محفظتي»</h3>
+<p>قائمتك ← <b class="k">محفظتي</b> (تحتاج الإنترنت):</p>
+<ul>
+  <li><span class="say">مستحقاتي</span>: ما لك عند المقهى. أو <span class="say">عليك للمقهى</span>.</li>
+  <li><span class="say">في عهدتي</span>: نقود سلّمتها عند الإغلاق ولم يسجّل المالك استلامها بعد.</li>
+  <li>التفاصيل: العمولات، الراتب، المكافآت، الخصومات، التسبيقات، مشروباتك بثمن العامل، ما دُفع لك، و<span class="say">الصافي</span>.</li>
+  <li><span class="say">⭐ رأي الزبناء فيك (30 يومًا)</span>، و<span class="say">ديون أدّيتها عن زبناء</span>، و<span class="say">مهامك (30 يومًا)</span>، و<span class="say">آخر الحركات</span>.</li>
+  <li><b class="k">تأكيد تسليم العهدة</b>: <span class="say">سجّل المالك أنه استلم منك … هل هذا صحيح؟</span> ← <b class="k green">نعم، صحيح</b> أو <b class="k">لا، غير صحيح</b>.</li>
+</ul>
+
+<h3>«معلّم القهوة» 🐝</h3>
+<p>زر 🐝 في أعلى الشاشة: مساعد يجيب عن طريقة تحضير أي مشروب من وصفات المقهى. اكتب سؤالك، مثل «كيفاش نوجد سبانيش لاتيه؟». يحتاج الإنترنت، وينسى المحادثة حين تغلقه.</p>
+</section>
+
+<!-- ===== c17 ===== -->
+<section class="chapter" id="c17" data-desc="كيس بن إلى البار، ضبط الطاحونة">
+<h2>البن والمطاحن</h2>
+<p class="intro">يظهر كل ما في هذا الفصل فقط حين يضيف المالك المطاحن في لوحة التحكم. إن لم ترَ <b class="k">كيس بن إلى البار</b> في قائمة <b class="k">الصندوق</b>، فلا شيء عليك هنا. لا شيء منه يحتاج صلاحية.</p>
+
+<h3>جرد البن عند بداية الوردية</h3>
+<p>بعد <b class="k">ابدأ البيع</b> تُفتح نافذة <span class="say">جرد البن عند بداية الوردية</span>، ولا تُغلق قبل الجواب. ترى ما وزنه من أغلق الوردية السابقة: <span class="say">وزنه … في …</span>، ولكل طاحونة الغرامات في الخزّان وعدد الأكياس المغلقة.</p>
+<ul>
+  <li>الأرقام صحيحة؟ <b class="k green">صحيح</b>.</li>
+  <li>غير صحيحة؟ <b class="k">أزن من جديد</b>: اكتب ما يظهر على الميزان والخزّان عليه، وعدد الأكياس المغلقة، ثم <b class="k">حفظ الجرد</b>.</li>
+</ul>
+<div class="box warn"><span class="title">انتبه</span><p>ما تقبله يصير من مسؤوليتك. لا تضغط «صحيح» دون أن تنظر.</p></div>
+
+<h3>«كيس بن إلى البار»</h3>
+<p>كلما أخذت كيس بن مغلقًا من المخزن إلى البار: <b class="k">الصندوق</b> ← <b class="k">كيس بن إلى البار</b>، ثم المس البن. تظهر <span class="say">سُجّل كيس … إلى البار</span>. لمسة واحدة لكل كيس، ولا تراجع فيها.</p>
+
+<h3>«ضبط الطاحونة»</h3>
+<p>بن استُعمل لضبط الطاحونة، أو قهوة رُميت: <b class="k">الصندوق</b> ← <b class="k">ضبط الطاحونة</b>. اختر <b class="k">ضبط الطاحونة</b> أو <b class="k">قهوة رُميت</b>، ثم الطاحونة، ثم الغرامات، ثم <b class="k">سجّل</b>. يُخصم من المخزون.</p>
+
+<h3>عند الإغلاق</h3>
+<p>في نافذة الإغلاق يُطلب <span class="say">جرد البن</span>: لكل طاحونة الوزن بالغرام كما يظهر على الميزان، وعدد الأكياس المغلقة. لا يُغلق الصندوق قبل الوزن: <span class="say">زِن البن أولًا</span>.</p>
+</section>
+
+<!-- ===== c18 ===== -->
+<section class="chapter" id="c18" data-desc="الإنترنت، التحديثات، الطابعة، الأصوات">
+<h2>بدون إنترنت، التحديثات، الطابعة، الأصوات</h2>
+
+<h3>انقطع الإنترنت</h3>
+<p>في أعلى الشاشة <span class="st green">متصل</span> أو <span class="st amber">غير متصل</span>. وهذه العلامة تتبع شبكة الحاسوب، فقد تبقى «متصل» والإنترنت مقطوع. وإن ظهرت سحابة برقم: مبيعات لم تُرسل بعد.</p>
+<div class="twin">
+  <div class="box tip"><span class="title">يعمل بلا إنترنت</span>
+    <ul>
+      <li>البيع والدفع والطباعة</li>
+      <li>المعلّقة والطاولات المفتوحة</li>
+      <li>الحضور والانصراف، والقوائم</li>
+      <li>دليل المشروبات، وأرقام مهمة</li>
+      <li>دخول من دخل من قبل على هذا الجهاز</li>
+    </ul>
+  </div>
+  <div class="box stop"><span class="title">لا يعمل بلا إنترنت</span>
+    <ul>
+      <li>طلبات الموقع، وجولات هاتف النادل، وشاشة البار</li>
+      <li>موافقة المالك على هاتفه، ورمز المالك أو المدير</li>
+      <li>بطاقة الوفاء (تُحسب الأختام حين يعود الاتصال)</li>
+      <li>المهام، ومحفظتي، والديون، والمشتريات</li>
+    </ul>
+  </div>
+</div>
+<p>كل شيء يُحفظ في الكاشير أولًا، ويُرسل وحده حين يعود الاتصال. لا تُغلق الكاشير ولا تُطفئ الحاسوب حتى تختفي السحابة.</p>
+<div class="box warn"><span class="title">شريط أحمر تحت أعلى الشاشة</span><p><span class="say">تعذّر إرسال المبيعات إلى قاعدة البيانات: محفوظة هنا وسيُعاد إرسالها…</span>: المبيعات محفوظة. إن بقي الشريط، اتصل بالمالك.</p></div>
+
+<h3>التحديثات</h3>
+<ul>
+  <li>كاشير الحاسوب يبحث عن تحديث وحده، وينزّله في الخلفية، ويثبّته حين لا يكون أحد داخلًا: <span class="say">جارٍ تحديث البرنامج…</span>، ثم يعيد التشغيل.</li>
+  <li>وأنت داخل يظهر شريط أزرق <span class="say">تحديث جديد جاهز (0.9.x)</span> مع <b class="k">حدّث الآن</b>. إن كان في الطلب أصناف: <span class="say">أكمل الطلب الحالي أو علّقه أولًا، ثم حدّث.</span></li>
+  <li><b class="k">قفل</b> يثبّت التحديث فورًا.</li>
+  <li>رقم النسخة في أسفل قائمتك، وفي شاشة الرمز.</li>
+</ul>
+
+<h3>الطابعة</h3>
+<div class="table-wrap"><table>
+  <tr><th>الرسالة</th><th>ماذا تفعل</th></tr>
+  <tr><td><span class="say">الطابعة مطفأة: لم يُطبع شيء، ولن يخرج وحده لاحقًا. شغّلها ثم اطبع من جديد.</span></td><td>شغّل الطابعة، ثم اطبع من جديد (<b class="k">طباعة الإيصال</b> أو <b class="k">أعد الإرسال</b>)</td></tr>
+  <tr><td><span class="say">الطابعة لم تطبع (ورق؟ غطاء مفتوح؟): أُلغيت الورقة. أصلحها ثم اطبع من جديد.</span></td><td>ضع الورق، أغلق الغطاء، ثم اطبع من جديد</td></tr>
+  <tr><td><span class="say">لا توجد طابعة مضبوطة، الإيصال معروض على الشاشة فقط</span></td><td>أخبر المالك: الطابعة غير مضبوطة في هذا الكاشير</td></tr>
+  <tr><td><span class="say">طابعة البار لا تجيب: خرجت ورقة البار على طابعة الكاشير.</span></td><td>خذ الورقة إلى البار</td></tr>
+  <tr><td><span class="say">لم يصل الطلب إلى البار: …</span></td><td>أخبر البار بصوتك، وأعد الإرسال حين تعمل الطابعة</td></tr>
+</table></div>
+<p>الورقة التي لم تُطبع لا تخرج وحدها لاحقًا أبدًا: أعد طباعتها بنفسك.</p>
+
+<h3>الأصوات</h3>
+<div class="table-wrap"><table>
+  <tr><th>الصوت</th><th>متى</th></tr>
+  <tr><td>جرس الباب، مرتين</td><td>طلب جديد من الموقع. يتكرر كل 30 ثانية حتى تجيبه</td></tr>
+  <tr><td>ثلاث نغمات صاعدة</td><td>جولة أو طلب حساب من هاتف النادل</td></tr>
+  <tr><td>نغمتان هادئتان</td><td>والبار مشغّل: «جاهز من البار». وتوصيلة تنتظر الدفع</td></tr>
+  <tr><td>سؤال ينتظر جوابًا</td><td>والبار مشغّل: طلب لم يلمسه البار منذ 10 دقائق</td></tr>
+  <tr><td>نغمة هابطة</td><td>ألغى زبون طلبه من الموقع</td></tr>
+</table></div>
+<p>قائمتك ← <b class="k">جرّب الأصوات</b>: اسمع كل صوت واضبط صوت الحاسوب. وبعد تشغيل الكاشير المس الشاشة مرة لتعمل الأصوات.</p>
+
+<h3>الشاشة الكاملة ونافذة واحدة</h3>
+<ul>
+  <li>كاشير الحاسوب يملأ الشاشة كلها، والساعة في أعلاه. الخروج منه للمالك من قائمته.</li>
+  <li><span class="say">الكاشير مفتوح في نافذة أخرى على هذا الجهاز</span> (في المتصفح): اعمل في نافذة واحدة، واضغط <b class="k">استعمل هذه النافذة</b> في التي تريدها.</li>
+  <li>شاشة <span class="say">حدث خطأ في الشاشة. الطلبات محفوظة، اضغط لإعادة التشغيل.</span>: اضغط <b class="k">إعادة التشغيل · Relancer</b>. الطلب يبقى.</li>
+</ul>
+</section>
+
+<!-- ===== c19 ===== -->
+<section class="chapter" id="c19" data-desc="أجوبة قصيرة لحالات الزحمة والأخطاء">
+<h2>ماذا أفعل إذا…؟</h2>
+<p class="intro">أجوبة قصيرة. والتفاصيل في الفصل المذكور.</p>
+
+<h3>الدخول والوردية</h3>
+<div class="qa"><p class="q">الكاشير لا يقبل رمزي؟</p><p class="a">«رمز غير صحيح»: أعد ببطء. «انتظر»: بعد أخطاء كثيرة. بلا إنترنت يدخل فقط من دخل من قبل على هذا الجهاز. و«ليست لديك صلاحية البيع»: دورك لا يبيع. (فصل 2)</p></div>
+<div class="qa"><p class="q">الكاشير يقول «وردية من يوم سابق ما زالت مفتوحة»؟</p><p class="a">اقبض ما يُدفع، ثم «أغلق الوردية وانقل الطلبات المفتوحة»، ثم افتح وردية اليوم. (فصل 3)</p></div>
+<div class="qa"><p class="q">«هذا الجهاز ليس الكاشير الرئيسي»؟</p><p class="a">اعمل على الكاشير الرئيسي. وإن قال «لم يعد هذا الجهاز الكاشير الرئيسي»: «سلّم الطلبات للكاشير الرئيسي» ثم «إغلاق الوردية». (فصلا 3 و15)</p></div>
+<div class="qa"><p class="q">سأنصرف وزميلي سيكمل الوردية؟</p><p class="a">«نهاية العمل» ← «انصراف دون إغلاق (رمز المالك أو المدير)». يغلق زميلك الوردية لاحقًا. (فصل 15)</p></div>
+
+<h3>البيع</h3>
+<div class="qa"><p class="q">صنف نفد؟</p><p class="a">ضغطة طويلة على بطاقته ← «نفد». والضغطة نفسها تعيده. (فصل 4)</p></div>
+<div class="qa"><p class="q">أخطأت في صنف قبل إرساله؟</p><p class="a">− أو سلة الحذف. بلا صلاحية ولا تسجيل. (فصل 4)</p></div>
+<div class="qa"><p class="q">الزبون لا يعطي رقمه؟</p><p class="a">بِع بلا بطاقة. لكن اشرح له بكلمة أن الرقم يجمع أختامه. (فصل 11)</p></div>
+<div class="qa"><p class="q">زحمة شديدة، وطلبات الموقع لا تتوقف؟</p><p class="a">«الموقع» ← «أوقف طلبات الموقع» 15 أو 30 أو 60 دقيقة. طلبات الطاولات تستمر. (فصل 5)</p></div>
+<div class="qa"><p class="q">طلب موقع لزبون جديد لا يرنّ، ومكتوب «ينتظر وصول الزبون»؟</p><p class="a">طبيعي: لا يُحضَّر حتى يصل ويقول رقم طلبه. حينها «وصل، حضّره». (فصل 5)</p></div>
+
+<h3>البار</h3>
+<div class="qa"><p class="q">ورقة البار لم تخرج؟</p><p class="a">أخبر البار بصوتك الآن. أصلح الطابعة (تشغيل، ورق، غطاء)، ثم «إلى البار» أو «أرسل الآن». (فصل 8)</p></div>
+<div class="qa"><p class="q">«شاشة البار لا تجيب (لا إنترنت؟)»؟</p><p class="a">أخبر البار بصوتك، وأعد الإرسال حين يعود الاتصال. (فصل 7)</p></div>
+<div class="qa"><p class="q">النادل يقول إن جولته «لم يصل إلى الكاشير»؟</p><p class="a">تأكد أن الكاشير الرئيسي شغّال، ووردِيته مفتوحة، وفيه إنترنت. (فصل 9)</p></div>
+<div class="qa"><p class="q">جولة على طاولة «⚠ لم يُرسل»؟</p><p class="a">ورقتها لم تخرج. أصلح الطباعة، ثم «أرسل الآن» في نافذة الطاولة. وأخبر البار بصوتك. (فصل 8)</p></div>
+
+<h3>التغيير والإرجاع</h3>
+<div class="qa"><p class="q">الزبون غيّر رأيه بعد إرسال مشروبه؟</p><p class="a">«تبديل» ← «هل حُضّر؟» ← المس المشروب الجديد. (فصل 13)</p></div>
+<div class="qa"><p class="q">سقط مشروب أو انسكب ويجب تحضيره من جديد؟</p><p class="a">«تبديل» بالمشروب نفسه ← «حُضّر، ورُمي» ← «سقط أو انسكب». يُحضَّر من جديد، ويُسجَّل المرمي، ولا يتغيّر الحساب. وبعد الدفع: «السجل» ← «تبديل». (فصل 13)</p></div>
+<div class="qa"><p class="q">الزبون يريد إرجاع ثمن مشروب دفعه؟</p><p class="a">«السجل» ← الطلب ← «استرداد». يحتاج صلاحية أو موافقة. (فصل 13)</p></div>
+<div class="qa"><p class="q">الزبون يريد وصلًا؟</p><p class="a">«طباعة الإيصال» بعد الدفع، أو قائمتك ← «إعادة طباعة آخر إيصال»، أو «السجل». (فصل 10)</p></div>
+
+<h3>البطاقة والهدايا</h3>
+<div class="qa"><p class="q">زر المشروب المجاني لا يظهر؟</p><p class="a">البطاقة لم تمتلئ، أو موقوفة، أو الدفع مقسّم «كل زبون يدفع ما أخذ»، أو الطلب دَين. (فصل 11)</p></div>
+<div class="qa"><p class="q">المشروب المجاني أغلى من 20 درهمًا؟</p><p class="a">يُطرح 20 درهمًا فقط، والزبون يدفع الباقي. ميلك شيك بـ 32 درهمًا: يدفع 12. (فصل 11)</p></div>
+<div class="qa"><p class="q">«الدفع قبل التقديم» على بطاقة الزبون؟</p><p class="a">عليه دين بسوء نية. خذ المبلغ قبل أن يُقدَّم له الطلب، واقترح عليه تسديد دينه. (فصل 11)</p></div>
+<div class="qa"><p class="q">زبون أكل وشرب وذهب دون أن يدفع؟</p><p class="a">«دفع» ← «دَين» ← «سوء نية»، ورقمه إن عرفته. (فصل 12)</p></div>
+
+<h3>الصندوق</h3>
+<div class="qa"><p class="q">أحتاج فكة؟</p><p class="a">«الصندوق» ← «حركات الصندوق» ← «إدخال نقود» ← «فكة (صرف)». ولفتح الدرج دون بيع: «افتح الصندوق». (فصل 14)</p></div>
+<div class="qa"><p class="q">اشتريت حليبًا أو خبزًا بنقود الصندوق؟</p><p class="a">«الصندوق» ← «حركات الصندوق» ← «مشتريات» ← «سجّل وادفع من الصندوق». (فصل 14)</p></div>
+<div class="qa"><p class="q">جاء مورّد واستلم النادل البضاعة؟</p><p class="a">شريط «توصيلة تنتظر الدفع» في الأعلى ← «ادفع للمورّد» ← «ادفع من الصندوق». (فصل 14)</p></div>
+<div class="qa"><p class="q">أخطأت في حركة صندوق؟</p><p class="a">لا تُحذف من الكاشير. أخبر المالك أو المدير ليصحّحها. (فصل 14)</p></div>
+<div class="qa"><p class="q">الكاشير لا يُغلق؟</p><p class="a">ما زالت طلبات مفتوحة. اقبضها من قائمة «الطلبات المفتوحة» في نافذة الإغلاق. (فصل 15)</p></div>
+<div class="qa"><p class="q">فرق في الصندوق عند الإغلاق؟</p><p class="a">«عدّ من جديد» بهدوء. وإن بقي الفرق، اكتب سببه بصدق: السبب إجباري. (فصل 15)</p></div>
+
+<h3>الأجهزة</h3>
+<div class="qa"><p class="q">انقطع الإنترنت؟</p><p class="a">واصل البيع: كل شيء يُحفظ ويُرسل حين يعود. طلبات الموقع وهاتف النادل تتوقف. (فصل 18)</p></div>
+<div class="qa"><p class="q">شاشة «حدث خطأ في الشاشة»؟</p><p class="a">«إعادة التشغيل · Relancer». الطلبات محفوظة. (فصل 18)</p></div>
+<div class="qa"><p class="q">لا أسمع رنين طلبات الموقع؟</p><p class="a">المس الشاشة مرة بعد تشغيل الكاشير، ثم قائمتك ← «جرّب الأصوات»، وارفع صوت الحاسوب. (فصل 18)</p></div>
+</section>
+
+<!-- ===== c20 ===== -->
+<section class="chapter quick-card" id="c20" data-desc="صفحة واحدة تُعلَّق قرب الكاشير">
+<h2>البطاقة السريعة</h2>
+<p class="intro">صفحة واحدة تُطبع وتُعلَّق قرب الكاشير.</p>
+<div class="quick">
+  <div class="box"><h4>البداية والنهاية</h4><ul>
+    <li>الحضور والانصراف ← رمزك ← بداية العمل</li>
+    <li>عُدّ الصندوق ← ابدأ البيع</li>
+    <li>تبتعد؟ قائمتك ← قفل</li>
+    <li>الصندوق ← إغلاق الوردية: عُدّ ← تأكيد العدّ ← طباعة التقرير وإغلاق الوردية</li>
+    <li>نهاية العمل</li>
+  </ul></div>
+  <div class="box"><h4>طلب الكونتوار</h4><ul>
+    <li>زبون / بطاقة الوفاء ← رقمه ← ربط بالطلب</li>
+    <li>المس الأصناف، والسكر تحت آخر صنف</li>
+    <li>هنا أو سفري</li>
+    <li>دفع ← المبلغ المستلم ← الباقي ← إتمام الدفع</li>
+  </ul></div>
+  <div class="box"><h4>الطاولات</h4><ul>
+    <li>طاولة فارغة ← الأصناف ← إلى البار</li>
+    <li>جولات النادل تصل وحدها</li>
+    <li>تنتظر الحساب ← اطبع الحساب ← الدفع الآن</li>
+    <li>دفع وجلس ← أين يجلس؟ ← الطاولة</li>
+  </ul></div>
+  <div class="box"><h4>البار مطفأ</h4><ul>
+    <li>الورقة تخرج مع إلى البار أو الدفع</li>
+    <li>لم تخرج؟ أخبر البار بصوتك، أصلح، أعد الإرسال</li>
+    <li>جهزت جولة الطاولة؟ الطلب جاهز للنادل</li>
+    <li>سُلِّم حين يضغط النادل استلمت</li>
+  </ul></div>
+  <div class="box"><h4>البار مشغّل</h4><ul>
+    <li>الطلب يصل إلى شاشة البار مع الدفع أو إلى البار</li>
+    <li>البار: أبدأها ← جاهز ✓ ← سُلِّم</li>
+    <li>«جاهز من البار» في الكاشير</li>
+    <li>فيه أكل؟ الطلب جاهز للنادل حين يجهز الأكل</li>
+  </ul></div>
+  <div class="box"><h4>طلبات الموقع</h4><ul>
+    <li>يرنّ ← الموقع ← قبول وإرسال للبار، أو رفض بسبب</li>
+    <li>جاهز ← يُخبَر الزبون</li>
+    <li>ادفع W12</li>
+    <li>زحمة؟ أوقف طلبات الموقع</li>
+  </ul></div>
+  <div class="box"><h4>تغيير بعد الإرسال</h4><ul>
+    <li>تبديل ← هل حُضّر؟ ← المشروب الجديد</li>
+    <li>لم يُحضَّر بعد: يُلغى في البار</li>
+    <li>حُضّر، ورُمي: مع السبب</li>
+    <li>بعد الدفع: السجل ← تبديل أو استرداد</li>
+  </ul></div>
+  <div class="box"><h4>الصندوق</h4><ul>
+    <li>كل مال يدخل أو يخرج: الصندوق ← حركات الصندوق</li>
+    <li>مصروف، تسبيق، إدخال نقود، سحب نقود: السبب ← المبلغ ← تسجيل</li>
+    <li>مشتريات ← سجّل وادفع من الصندوق</li>
+    <li>دين زبون: دفع ← دَين. تسديده: الصندوق ← الديون ← تسديد</li>
+  </ul></div>
+  <div class="box"><h4>الهدايا</h4><ul>
+    <li>10 أختام = مشروب مجاني حتى 20 درهمًا</li>
+    <li>استعمال المشروب المجاني ← يدفع الزبون ما فوق 20</li>
+    <li>عيد الميلاد: من يومه إلى 7 أيام بعده</li>
+    <li>مشروبك: دفع ← للعامل. ضيف المالك: ضيافة</li>
+  </ul></div>
+  <div class="box"><h4>رسالة حمراء</h4><ul>
+    <li>اقرأها: تقول ما حدث وماذا تفعل</li>
+    <li>لا تحذف ما وصل إلى البار بصمت</li>
+    <li>لا تعطِ رمزك لأحد</li>
+    <li>سؤال؟ دليل الكاشير في قائمتك</li>
+  </ul></div>
+</div>
+</section>
+
+<p class="end">دليل الكاشير · Bella Napolia</p>
+</main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var q = new URLSearchParams(location.search);
+  var embed = q.get('embed') === '1';
+  var printing = q.get('print') === '1';
+  var main = document.getElementById('guide');
+  var body = document.body;
+
+  /* ---- Chapters: numbers, the contents list and the side index ---- */
+  var chapters = [].slice.call(main.querySelectorAll('section.chapter'));
+  var pages = (q.get('pages') || '').split(',');
+  var list = document.getElementById('chapters');
+  var toc = document.getElementById('toc');
+  var tocList = document.createElement('ol');
+  chapters.forEach(function (sec, i) {
+    var n = i + 1;
+    var h2 = sec.querySelector('h2');
+    var title = h2.textContent.trim();
+    var num = document.createElement('span');
+    num.className = 'num';
+    num.textContent = n;
+    h2.insertBefore(num, h2.firstChild);
+    // Contents (screen: cards; print: lines with their page).
+    var li = document.createElement('li');
+    li.innerHTML = '<a href="#' + sec.id + '"><span class="n"></span><span><span class="t"></span><span class="d"></span></span><span class="pg"></span></a>';
+    li.querySelector('.n').textContent = n;
+    li.querySelector('.t').textContent = title;
+    li.querySelector('.d').textContent = sec.getAttribute('data-desc') || '';
+    li.querySelector('.pg').textContent = pages[i] || '';
+    list.appendChild(li);
+    // Side index: the chapter and its sections.
+    var tli = document.createElement('li');
+    var a = document.createElement('a');
+    a.href = '#' + sec.id;
+    a.innerHTML = '<span class="n"></span><span class="t"></span>';
+    a.querySelector('.n').textContent = n;
+    a.querySelector('.t').textContent = title;
+    tli.appendChild(a);
+    var subs = [].slice.call(sec.querySelectorAll('h3'));
+    if (subs.length) {
+      var sol = document.createElement('ol');
+      subs.forEach(function (h3, j) {
+        if (!h3.id) h3.id = sec.id + '-' + (j + 1);
+        var sli = document.createElement('li');
+        var sa = document.createElement('a');
+        sa.href = '#' + h3.id;
+        sa.textContent = h3.textContent.trim();
+        sli.appendChild(sa);
+        sol.appendChild(sli);
+      });
+      tli.appendChild(sol);
+    }
+    tocList.appendChild(tli);
+  });
+  toc.appendChild(tocList);
+
+  /* ---- Latin words and numbers keep their own direction inside Arabic ---- */
+  var L = 'A-Za-zÀ-ÖØ-öø-ÿ';
+  var W = '[' + L + '0-9#@](?:[' + L + "0-9#@'’\\-_/]|[.:](?=[" + L + '0-9]))*';
+  var LATIN = '(?<![&\\w\\u0600-\\u06FF])[' + L + '#@](?:[' + L + "0-9#@'’\\-_/]|[.:](?=[" + L + '0-9]))*(?:[ ]' + W + ')*';
+  var NUM = '[+\\-−]?\\d(?:\\d|[.,:](?=\\d))*(?:[ ]\\d{2,3})*(?:[ ]?(?:%|DH))?(?![\\w])';
+  var TOKEN = new RegExp(LATIN + '|' + NUM, 'g');
+  function isolate(root) {
+    var nodes = [];
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        for (var p = n.parentNode; p && p !== root; p = p.parentNode) {
+          var t = p.nodeName;
+          if (t === 'BDI' || t === 'CODE' || t === 'SCRIPT' || t === 'STYLE' || t === 'svg' || t === 'SVG' || (p.classList && p.classList.contains('ltr'))) return NodeFilter.FILTER_REJECT;
+        }
+        return /[A-Za-z0-9]/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+      },
+    });
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(function (n) {
+      var s = n.nodeValue, last = 0, m, frag = null;
+      TOKEN.lastIndex = 0;
+      while ((m = TOKEN.exec(s))) {
+        if (!m[0].length) { TOKEN.lastIndex++; continue; }
+        if (!frag) frag = document.createDocumentFragment();
+        if (m.index > last) frag.appendChild(document.createTextNode(s.slice(last, m.index)));
+        var b = document.createElement('bdi');
+        b.setAttribute('dir', 'ltr');
+        b.textContent = m[0];
+        frag.appendChild(b);
+        last = m.index + m[0].length;
+      }
+      if (frag) {
+        if (last < s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+        n.parentNode.replaceChild(frag, n);
+      }
+    });
+  }
+  // A button name or a message wholly in French (a receipt's «Boisson offerte (fidélité)», «NOTE : …») reads left to right as one piece.
+  [].forEach.call(main.querySelectorAll('.say, .k'), function (el) {
+    if (!/[؀-ۿ]/.test(el.textContent) && /[A-Za-z]/.test(el.textContent)) {
+      el.setAttribute('dir', 'ltr');
+      el.style.unicodeBidi = 'isolate';
+    }
+  });
+  isolate(main);
+  isolate(toc);
+
+  /* ---- Bar ON / OFF ---- */
+  function setBar(v, keep) {
+    if (v !== 'on' && v !== 'off') v = 'both';
+    body.setAttribute('data-bar', v);
+    [].forEach.call(document.querySelectorAll('[data-bar-set]'), function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-bar-set') === v ? 'true' : 'false');
+    });
+    if (keep) { try { localStorage.setItem('guide-bar', v); } catch (e) {} }
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('guide-bar'); } catch (e) {}
+  setBar(printing ? 'both' : q.get('bar') || saved || 'both', false);
+  [].forEach.call(document.querySelectorAll('[data-bar-set]'), function (b) {
+    b.addEventListener('click', function () { setBar(b.getAttribute('data-bar-set'), true); });
+  });
+
+  /* ---- The top bar's real height: what a jump to a heading leaves room for ---- */
+  var header = document.querySelector('header.top');
+  function headHeight() { document.documentElement.style.setProperty('--head', header.offsetHeight + 'px'); }
+  headHeight();
+  window.addEventListener('resize', headHeight);
+
+  /* ---- The index drawer on narrow screens ---- */
+  [].forEach.call(document.querySelectorAll('[data-toc-toggle]'), function (b) {
+    b.addEventListener('click', function () { body.classList.toggle('toc-open'); });
+  });
+  toc.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a');
+    if (a) body.classList.remove('toc-open');
+  });
+
+  /* ---- The index follows the reading ---- */
+  var links = {};
+  [].forEach.call(toc.querySelectorAll('a[href^="#"]'), function (a) { links[a.getAttribute('href').slice(1)] = a; });
+  var heads = [].slice.call(main.querySelectorAll('section.chapter, section.chapter h3'));
+  function mark() {
+    var y = window.scrollY + (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--head'), 10) || 64) + 30;
+    var cur = null, curSub = null;
+    for (var i = 0; i < heads.length; i++) {
+      var el = heads[i];
+      if (el.getBoundingClientRect().top + window.scrollY <= y) {
+        if (el.tagName === 'SECTION') { cur = el; curSub = null; } else curSub = el;
+      } else break;
+    }
+    [].forEach.call(toc.querySelectorAll('a.active'), function (a) { a.classList.remove('active'); });
+    [].forEach.call(toc.querySelectorAll('li.open'), function (li) { li.classList.remove('open'); });
+    if (cur && links[cur.id]) {
+      links[cur.id].classList.add('active');
+      links[cur.id].parentNode.classList.add('open');
+      if (curSub && links[curSub.id]) links[curSub.id].classList.add('active');
+    }
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { ticking = false; mark(); });
+  }, { passive: true });
+  mark();
+
+  /* ---- Search, the Arabic way: no vowel marks, one alef, ة = ه, ى = ي ---- */
+  function fold(ch) {
+    if (/[ً-ٰٟـ«»"“”'’()\[\]]/.test(ch)) return '';
+    if (/[إأآٱ]/.test(ch)) return 'ا';
+    if (ch === 'ة') return 'ه';
+    if (ch === 'ى' || ch === 'ئ') return 'ي';
+    if (ch === 'ؤ') return 'و';
+    if (/\s/.test(ch)) return ' ';
+    return ch.toLowerCase();
+  }
+  function folded(s) {
+    var out = '', map = [];
+    for (var i = 0; i < s.length; i++) {
+      var f = fold(s[i]);
+      for (var j = 0; j < f.length; j++) { out += f[j]; map.push(i); }
+    }
+    return { text: out, map: map };
+  }
+  var blocks = [];
+  [].forEach.call(main.querySelectorAll('section.chapter h2, section.chapter h3, section.chapter h4, section.chapter p, section.chapter li, section.chapter td, section.chapter figcaption, section.chapter .bar-tag'), function (el) {
+    if (el.tagName === 'LI' && el.querySelector('p, li')) return;
+    var raw = el.textContent.replace(/\s+/g, ' ').trim();
+    if (!raw) return;
+    var sec = el.closest('section.chapter');
+    var h3 = null;
+    // The section heading this block belongs to.
+    var all = [].slice.call(sec.querySelectorAll('h3'));
+    for (var i = 0; i < all.length; i++) {
+      if (all[i] === el || (all[i].compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING)) h3 = all[i];
+    }
+    if (el.closest('.when-on, .when-off')) return;
+    var barBox = el.closest('.bar-on, .bar-off, .only-on, .only-off');
+    var onSide = barBox && (barBox.classList.contains('bar-on') || barBox.classList.contains('only-on'));
+    blocks.push({ el: el, raw: raw, f: folded(raw), sec: sec, h3: h3, bar: barBox ? (onSide ? 'on' : 'off') : null });
+  });
+  var input = document.getElementById('q');
+  var results = document.getElementById('results');
+  function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function search(text) {
+    var words = folded(text).text.split(' ').filter(function (w) { return w.length > 1 || /\d/.test(w); });
+    results.innerHTML = '';
+    if (!words.length) { results.classList.remove('open'); return; }
+    var hits = [];
+    blocks.forEach(function (b) {
+      for (var i = 0; i < words.length; i++) if (b.f.text.indexOf(words[i]) < 0) return;
+      hits.push(b);
+    });
+    var count = document.createElement('div');
+    count.className = 'count';
+    count.textContent = hits.length ? hits.length + ' نتيجة' : 'لا نتيجة. جرّب كلمة أخرى أو كلمة أقصر.';
+    results.appendChild(count);
+    hits.slice(0, 60).forEach(function (b) {
+      var at = b.f.text.indexOf(words[0]);
+      var s = b.f.map[at], e = b.f.map[at + words[0].length - 1] + 1;
+      var from = Math.max(0, s - 60), to = Math.min(b.raw.length, e + 90);
+      var snip = (from > 0 ? '… ' : '') + esc(b.raw.slice(from, s)) + '<mark>' + esc(b.raw.slice(s, e)) + '</mark>' + esc(b.raw.slice(e, to)) + (to < b.raw.length ? ' …' : '');
+      var n = chapters.indexOf(b.sec) + 1;
+      var where = n + ' · ' + b.sec.querySelector('h2').textContent.replace(/^\d+/, '').trim() + (b.h3 ? ' › ' + b.h3.textContent.trim() : '');
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.innerHTML = '<span class="where"></span><span class="snip">' + snip + '</span>';
+      btn.querySelector('.where').textContent = where;
+      if (b.bar) {
+        var tag = document.createElement('span');
+        tag.className = 'tag';
+        tag.textContent = b.bar === 'on' ? 'البار مشغّل' : 'البار مطفأ';
+        btn.querySelector('.where').appendChild(tag);
+      }
+      btn.addEventListener('click', function () { go(b); });
+      results.appendChild(btn);
+    });
+    results.classList.add('open');
+  }
+  function go(b) {
+    var mode = body.getAttribute('data-bar');
+    if (b.bar && mode !== 'both' && mode !== b.bar) setBar(b.bar, true);
+    results.classList.remove('open');
+    b.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    b.el.classList.remove('flash');
+    void b.el.offsetWidth;
+    b.el.classList.add('flash');
+  }
+  var timer = 0;
+  input.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(function () { search(input.value); }, 140); });
+  input.addEventListener('focus', function () { if (input.value.trim()) search(input.value); });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { input.value = ''; results.classList.remove('open'); }
+    if (e.key === 'Enter') { var first = results.querySelector('button'); if (first) first.click(); }
+  });
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest || !e.target.closest('.search')) results.classList.remove('open');
+  });
+
+  /* ---- The PDF is printed with every picture loaded ---- */
+  if (printing) [].forEach.call(document.querySelectorAll('img[loading="lazy"]'), function (img) { img.loading = 'eager'; });
+  if (embed) {
+    var pdf = document.querySelector('.pdf-link');
+    if (pdf) pdf.remove();
+  }
+})();
+</script>
+</body>
+</html>
